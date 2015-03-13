@@ -34,3 +34,21 @@
 [submodule "bundle/vim-surround"]
 	path = bundle/vim-surround
 	url = https://github.com/tpope/vim-surround.git
+[submodule "bundle/tslime.vim"]
+	path = bundle/tslime.vim
+	url = https://github.com/jgdavey/tslime.vim.git
+[submodule "bundle/vim-slime"]
+	path = bundle/vim-slime
+	url = https://github.com/jpalardy/vim-slime.git
+[submodule "opt/tmuxifier"]
+	path = opt/tmuxifier
+	url = https://github.com/jimeh/tmuxifier.git
+[submodule "bundle/vimtux/plugin"]
+	path = bundle/vimtux/plugin
+	url = https://github.com/brauner/vimtux.git
+[submodule "bundle/vimux"]
+	path = bundle/vimux
+	url = https://github.com/benmills/vimux.git
+[submodule "bundle/vimux-golang"]
+	path = bundle/vimux-golang
+	url = https://github.com/benmills/vimux-golang.git

@@ -4,12 +4,16 @@ if exists("g:did_load_filetypes")
 endif
 set runtimepath+=/usr/lib/golang/misc/vim " replace $GOROOT with the output of: go env GOROOT
 
+" set leader to ,
+let mapleader='\'
+" let g:mapleader=","
+
 set expandtab
 set shiftwidth=4
 set softtabstop=4
 set laststatus=2
-set list
-set listchars=trail:⋅,nbsp:⋅,tab:▷⋅
+" set list
+" set listchars=trail:⋅,nbsp:⋅,tab:▷⋅
 " set cursorline
 " highlight CursorLine cterm=none ctermbg=4
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
@@ -22,8 +26,11 @@ syntax on
 map <silent> <F8> <Esc> :setlocal spell spelllang=en_us<CR>
 map <silent> <F9> <Esc> :setlocal nospell<CR>
 nmap <silent> <F1>      :NERDTreeToggle<CR>
-nmap <silent> <F5>      :make<CR>:copen 3<CR>
-nmap <silent> <F8>      :TagbarToggle<CR>
+" nmap <silent> <F5>      :make<CR>:copen 3<CR>
+autocmd FileType go map <leader>t :call VimuxRunCommand("go test " . bufname("%"))<CR>
+autocmd FileType go map <leader>r :call VimuxRunCommand("go run " . bufname("%"))<CR>
+autocmd FileType go map <leader>i :call VimuxRunCommand("go install")<CR>
+autocmd FileType go map <leader>b :call VimuxRunCommand("go build")<CR>
 nnoremap th             :tabfirst<CR>
 nnoremap tj             :tabnext<CR>
 nnoremap tk             :tabprev<CR>
@@ -50,6 +57,7 @@ autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd FileType go autocmd BufWritePre <buffer> Fmt
 autocmd Filetype go set makeprg=go\ build 
 autocmd! BufWritePost .vimrc source %
+
 
 " let g:airline_powerline_fonts = 1
 highlight   clear
