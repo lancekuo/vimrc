@@ -20,5 +20,6 @@ git submodule update --init
 
 cd ~
 ln -s .vim/vimrc .vimrc
+ln -s .vim/tmux.conf .tmux.conf
 
 echo "Your VIM configuration has been installed."
