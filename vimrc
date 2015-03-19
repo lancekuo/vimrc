@@ -1,8 +1,16 @@
+set nocompatible
+call pathogen#infect()
+syntax on
+filetype plugin indent on
+
 if exists("g:did_load_filetypes")
     filetype off
     filetype plugin indent off
 endif
-set runtimepath+=/usr/lib/golang/misc/vim " replace $GOROOT with the output of: go env GOROOT
+" For CentOS
+" set runtimepath+=/usr/lib/golang/misc/vim " replace $GOROOT with the output of: go env GOROOT
+" For uBuntu
+set runtimepath+=/usr/local/go/misc/vim " replace $GOROOT with the output of: go env GOROOT  "
 
 " set leader to ,
 let mapleader='\'
@@ -12,16 +20,14 @@ set expandtab
 set shiftwidth=4
 set softtabstop=4
 set laststatus=2
-" set list
+set nonumber
+set nolist
 " set listchars=trail:⋅,nbsp:⋅,tab:▷⋅
-" set cursorline
+set listchars=trail:⋅,nbsp:⋅,tab:▸\ 
+set nocursorline
 " highlight CursorLine cterm=none ctermbg=4
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 " match OverLength /\%81v.\+/
-
-
-filetype plugin indent on
-syntax on
 
 map <silent> <F8> <Esc> :setlocal spell spelllang=en_us<CR>
 map <silent> <F9> <Esc> :setlocal nospell<CR>
@@ -55,7 +61,7 @@ autocmd BufEnter * call MyLastWindow()
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 " autocmd VimEnter * NERDTreeToggle
 autocmd FileType go autocmd BufWritePre <buffer> Fmt
-autocmd Filetype go set makeprg=go\ build 
+autocmd Filetype go set makeprg=go\ build
 autocmd! BufWritePost .vimrc source %
 
 
@@ -110,3 +116,4 @@ let g:tagbar_type_go = {
 autocmd BufNewFile,BufRead Gemfile set filetype=ruby
 autocmd BufNewFile,BufRead Vagrantfile set filetype=ruby
 autocmd BufNewFile,BufRead Berksfile set filetype=ruby
+autocmd BufNewFile,BufRead .vimrc set filetype=vim
