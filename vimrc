@@ -1,3 +1,6 @@
+scriptencoding utf-8
+set encoding=utf-8
+
 set nocompatible
 call pathogen#infect()
 syntax on
@@ -72,7 +75,7 @@ highlight   PmenuSel      ctermfg=0 ctermbg=7
 highlight   PmenuSbar     ctermfg=7 ctermbg=0
 highlight   PmenuThumb    ctermfg=0 ctermbg=7
 highlight   Search cterm=NONE ctermfg=yellow ctermbg=red
-highlight   Comment term=standout cterm=bold ctermfg=0
+highlight   Comment term=standout cterm=bold ctermfg=blue
 " highlight   Normal ctermbg=black ctermfg=white
 highlight   Folded ctermbg=black ctermfg=darkcyan
 highlight   Cursor ctermbg=Gray ctermfg=Blue
