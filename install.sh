@@ -10,12 +10,8 @@ die() {
     exit 1
 }
 
-[ -e "$VIMHOME/vimrc" ] && die "$VIMHOME/vimrc already exists."
-[ -e "~/.vim" ] && die "~/.vim already exists."
 [ -e "~/.vimrc" ] && die "~/.vimrc already exists."
 
-git clone ssh://git@gitlab.trendnet.org:222/environment/vim.git "$VIMHOME"
-cd "$VIMHOME"
 git submodule update --init
 
 cd ~
