@@ -32,9 +32,10 @@ set nocursorline
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 " match OverLength /\%81v.\+/
 
+nmap <silent> <F1>      :NERDTreeToggle<CR>
+map <silent> <F5> <Esc> :TagbarToggle<CR>
 map <silent> <F8> <Esc> :setlocal spell spelllang=en_us<CR>
 map <silent> <F9> <Esc> :setlocal nospell<CR>
-nmap <silent> <F1>      :NERDTreeToggle<CR>
 " nmap <silent> <F5>      :make<CR>:copen 3<CR>
 autocmd FileType go map <leader>t :call VimuxRunCommand("go test " . bufname("%"))<CR>
 autocmd FileType go map <leader>r :call VimuxRunCommand("go run " . bufname("%"))<CR>
