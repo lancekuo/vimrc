@@ -121,3 +121,4 @@ autocmd BufNewFile,BufRead Gemfile set filetype=ruby
 autocmd BufNewFile,BufRead Vagrantfile set filetype=ruby
 autocmd BufNewFile,BufRead Berksfile set filetype=ruby
 autocmd BufNewFile,BufRead .vimrc set filetype=vim
+autocmd BufNewFile,BufRead *.t set filetype=perl
