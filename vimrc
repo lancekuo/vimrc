@@ -41,6 +41,7 @@ autocmd FileType go map <leader>t :call VimuxRunCommand("go test " . bufname("%"
 autocmd FileType go map <leader>r :call VimuxRunCommand("go run " . bufname("%"))<CR>
 autocmd FileType go map <leader>i :call VimuxRunCommand("go install")<CR>
 autocmd FileType go map <leader>b :call VimuxRunCommand("go build")<CR>
+autocmd FileType go call SetGoOptions()
 nnoremap th             :tabfirst<CR>
 nnoremap tj             :tabnext<CR>
 nnoremap tk             :tabprev<CR>
@@ -59,6 +60,11 @@ function! MyLastWindow()
     endif
   endif
   if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+endfunction
+
+function! SetGoOptions()
+"    setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab makeprg=php-xdebug\ %
+     :call tagbar#autoopen(0)
 endfunction
 
 autocmd BufEnter * call MyLastWindow()
@@ -122,3 +128,4 @@ autocmd BufNewFile,BufRead Vagrantfile set filetype=ruby
 autocmd BufNewFile,BufRead Berksfile set filetype=ruby
 autocmd BufNewFile,BufRead .vimrc set filetype=vim
 autocmd BufNewFile,BufRead *.t set filetype=perl
+autocmd BufNewFile,BufRead,BufEnter *.go call SetGoOptions()
