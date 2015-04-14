@@ -52,3 +52,6 @@
 [submodule "bundle/vimux-golang"]
 	path = bundle/vimux-golang
 	url = https://github.com/benmills/vimux-golang.git
+[submodule "bundle/vim-godef"]
+	path = bundle/vim-godef
+	url = https://github.com/dgryski/vim-godef
