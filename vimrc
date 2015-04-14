@@ -48,8 +48,8 @@ nnoremap tk             :tabprev<CR>
 nnoremap tl             :tablast<CR>
 nnoremap tt             :tabedit<Space>
 nnoremap tm             :tabm<Space>
-nnoremap tc             :tabclose<CR>
-nnoremap tn             :tabnew<CR>
+nnoremap tx             :tabclose<CR>
+nnoremap tc             :tabnew<CR>
 
 function! MyLastWindow()
 " if the window is quickfix go on
@@ -125,7 +125,6 @@ let g:tagbar_type_go = {
 " Specific filetype by file name
 autocmd BufNewFile,BufRead Gemfile set filetype=ruby
 autocmd BufNewFile,BufRead Vagrantfile set filetype=ruby
-autocmd BufNewFile,BufRead Berksfile set filetype=ruby
 autocmd BufNewFile,BufRead .vimrc set filetype=vim
 autocmd BufNewFile,BufRead *.t set filetype=perl
 autocmd BufNewFile,BufRead,BufEnter *.go call SetGoOptions()
