@@ -19,18 +19,16 @@ set runtimepath+=/usr/local/go/misc/vim " replace $GOROOT with the output of: go
 let mapleader='\'
 " let g:mapleader=","
 
+set nowrap
+set textwidth=0
 set expandtab
 set shiftwidth=4
 set softtabstop=4
 set laststatus=2
-set nonumber
+set number
 set nolist
-" set listchars=trail:⋅,nbsp:⋅,tab:▷⋅
 set listchars=trail:⋅,nbsp:⋅,tab:▸\ 
 set nocursorline
-" highlight CursorLine cterm=none ctermbg=4
-" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-" match OverLength /\%81v.\+/
 
 nmap <silent> <F1>      :NERDTreeToggle<CR>
 map <silent> <F5> <Esc> :TagbarToggle<CR>
@@ -75,22 +73,33 @@ autocmd Filetype go set makeprg=go\ build
 autocmd! BufWritePost .vimrc source %
 
 
-" let g:airline_powerline_fonts = 1
 highlight   clear
+highlight   Comment term=standout cterm=bold ctermfg=blue
+" highlight   Cursor  term=standout cterm=none ctermbg=159
+" highlight   CursorLine   term=none cterm=bold
+" highlight   CursorLine   term=none cterm=none ctermbg=8
+" highlight   CursorLineNr term=bold ctermfg=8 gui=bold guifg=Yellow
+highlight   LineNr   term=bold ctermfg=8
+" highlight   Normal ctermbg=black ctermfg=white
+highlight   Folded ctermbg=black ctermfg=darkcyan
+highlight   clear SpellBad
+highlight   OverLength ctermbg=red ctermfg=white guibg=#592929
+match       OverLength /\%81v.\+/
 highlight   Pmenu         ctermfg=0 ctermbg=2
 highlight   PmenuSel      ctermfg=0 ctermbg=7
 highlight   PmenuSbar     ctermfg=7 ctermbg=0
 highlight   PmenuThumb    ctermfg=0 ctermbg=7
-highlight   Search cterm=NONE ctermfg=yellow ctermbg=red
-highlight   Comment term=standout cterm=bold ctermfg=blue
-" highlight   Normal ctermbg=black ctermfg=white
-highlight   Folded ctermbg=black ctermfg=darkcyan
-highlight   Cursor ctermbg=Gray ctermfg=Blue
-highlight   clear SpellBad
 highlight   SpellBad term=underline cterm=underline ctermfg=red
+highlight   Search cterm=NONE ctermfg=yellow ctermbg=red
 highlight   TabLine ctermbg=blue
 highlight   TabLineFill ctermbg=green
 highlight   TabLineSel ctermbg=red
+" Default Colors for CursorLine
+" Change Color when entering Insert Mode
+" autocmd InsertEnter * highlight  CursorLine term=bold ctermbg=17 ctermfg=None
+
+" Revert Color to default when leaving Insert Mode
+" autocmd InsertLeave * highlight  CursorLine term=none ctermbg=8 cterm=None
 
 let g:bufferline_echo = 0
 let g:SuperTabDefaultCompletionType = "context"
@@ -127,4 +136,32 @@ autocmd BufNewFile,BufRead Gemfile set filetype=ruby
 autocmd BufNewFile,BufRead Vagrantfile set filetype=ruby
 autocmd BufNewFile,BufRead .vimrc set filetype=vim
 autocmd BufNewFile,BufRead *.t set filetype=perl
+autocmd BufNewFile,BufRead *.py set filetype=python
 autocmd BufNewFile,BufRead,BufEnter *.go call SetGoOptions()
+
+" // Setting different cursorline color in different mode
+" augroup CursorLine
+"     au!
+"     au VimEnter,WinEnter,BufWinEnter * setlocal nocursorline
+"     au WinLeave * setlocal nocursorline
+" augroup END
+
+" if !exists('g:airline_symbols')
+"     let g:airline_symbols = {}
+" endif
+
+" let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+" unicode symbols
+" let g:airline_left_sep = '»'
+" let g:airline_left_sep = '▶'
+" let g:airline_right_sep = '«'
+" let g:airline_right_sep = '◀'
+" let g:airline_symbols.linenr = '␊'
+" let g:airline_symbols.linenr = '␤'
+" let g:airline_symbols.linenr = '¶'
+" let g:airline_symbols.branch = '⎇'
+" let g:airline_symbols.paste = 'ρ'
+" let g:airline_symbols.paste = 'Þ'
+" let g:airline_symbols.paste = '∥'
+" let g:airline_symbols.whitespace = 'Ξ'
