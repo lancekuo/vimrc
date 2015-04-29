@@ -19,7 +19,7 @@ set runtimepath+=/usr/local/go/misc/vim " replace $GOROOT with the output of: go
 let mapleader='\'
 " let g:mapleader=","
 
-set nowrap
+" set nowrap
 set textwidth=0
 set expandtab
 set shiftwidth=4
@@ -36,6 +36,7 @@ map <silent> <F8> <Esc> :setlocal spell spelllang=en_us<CR>
 map <silent> <F9> <Esc> :setlocal nospell<CR>
 " nmap <silent> <F5>      :make<CR>:copen 3<CR>
 autocmd FileType go map <leader>t :call VimuxRunCommand("go test " . bufname("%"))<CR>
+autocmd FileType python map <leader>t :call VimuxRunCommand("restart tellus-portal")<CR>
 autocmd FileType go map <leader>r :call VimuxRunCommand("go run " . bufname("%"))<CR>
 autocmd FileType go map <leader>i :call VimuxRunCommand("go install")<CR>
 autocmd FileType go map <leader>b :call VimuxRunCommand("go build")<CR>
@@ -66,7 +67,6 @@ function! SetGoOptions()
 endfunction
 
 autocmd BufEnter * call MyLastWindow()
-autocmd BufRead,BufNewFile *.md set filetype=markdown
 " autocmd VimEnter * NERDTreeToggle
 autocmd FileType go autocmd BufWritePre <buffer> Fmt
 autocmd Filetype go set makeprg=go\ build
@@ -75,7 +75,7 @@ autocmd! BufWritePost .vimrc source %
 
 highlight   clear
 highlight   Comment term=standout cterm=bold ctermfg=blue
-" highlight   Cursor  term=standout cterm=none ctermbg=159
+" highlight   Cursor  cterm=bold ctermbg=2
 " highlight   CursorLine   term=none cterm=bold
 " highlight   CursorLine   term=none cterm=none ctermbg=8
 " highlight   CursorLineNr term=bold ctermfg=8 gui=bold guifg=Yellow
@@ -83,8 +83,8 @@ highlight   LineNr   term=bold ctermfg=8
 " highlight   Normal ctermbg=black ctermfg=white
 highlight   Folded ctermbg=black ctermfg=darkcyan
 highlight   clear SpellBad
-highlight   OverLength ctermbg=red ctermfg=white guibg=#592929
-match       OverLength /\%81v.\+/
+" highlight   OverLength ctermbg=red ctermfg=white guibg=#592929
+" match       OverLength /\%81v.\+/
 highlight   Pmenu         ctermfg=0 ctermbg=2
 highlight   PmenuSel      ctermfg=0 ctermbg=7
 highlight   PmenuSbar     ctermfg=7 ctermbg=0
@@ -135,6 +135,7 @@ let g:tagbar_type_go = {
 autocmd BufNewFile,BufRead Gemfile set filetype=ruby
 autocmd BufNewFile,BufRead Vagrantfile set filetype=ruby
 autocmd BufNewFile,BufRead .vimrc set filetype=vim
+autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufNewFile,BufRead *.t set filetype=perl
 autocmd BufNewFile,BufRead *.py set filetype=python
 autocmd BufNewFile,BufRead,BufEnter *.go call SetGoOptions()
@@ -152,6 +153,18 @@ autocmd BufNewFile,BufRead,BufEnter *.go call SetGoOptions()
 
 " let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
+
+let g:syntastic_error_symbol='>>'
+let g:syntastic_warning_symbol='>'
+let g:syntastic_check_on_open=1
+let g:syntastic_enable_highlighting = 0
+let g:syntastic_go_checkers=['gofmt']
+" let g:syntastic_python_checker="flake8,pyflakes,pep8,pylint""
+let g:syntastic_python_checkers=['pyflakes']
+let g:syntastic_javascript_checkers = ['jsl', 'jshint']
+let g:syntastic_html_checkers=['tidy', 'jshint']
+highlight SyntasticErrorSign guifg=white guibg=black
+
 " unicode symbols
 " let g:airline_left_sep = '»'
 " let g:airline_left_sep = '▶'
