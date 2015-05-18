@@ -138,6 +138,7 @@ autocmd BufNewFile,BufRead .vimrc set filetype=vim
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufNewFile,BufRead *.t set filetype=perl
 autocmd BufNewFile,BufRead *.py set filetype=python
+autocmd BufNewFile,BufRead *.js set filetype=javascript
 autocmd BufNewFile,BufRead,BufEnter *.go call SetGoOptions()
 
 " // Setting different cursorline color in different mode
