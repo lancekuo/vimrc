@@ -10,6 +10,14 @@ if exists("g:did_load_filetypes")
     filetype off
     filetype plugin indent off
 endif
+colorscheme molokai
+let &colorcolumn="80,".join(range(120,999),",")
+
+" Prevent flash close windows
+set completeopt-=preview
+
+" colorscheme solarized
+
 " For CentOS
 " set runtimepath+=/usr/lib/golang/misc/vim " replace $GOROOT with the output of: go env GOROOT
 " For uBuntu
@@ -73,24 +81,24 @@ autocmd Filetype go set makeprg=go\ build
 autocmd! BufWritePost .vimrc source %
 
 
-highlight   clear
-highlight   Comment term=standout cterm=bold ctermfg=blue
+" highlight   clear
+" highlight   Comment term=standout cterm=bold ctermfg=blue
 " highlight   Cursor  cterm=bold ctermbg=2
 " highlight   CursorLine   term=none cterm=bold
 " highlight   CursorLine   term=none cterm=none ctermbg=8
 " highlight   CursorLineNr term=bold ctermfg=8 gui=bold guifg=Yellow
-highlight   LineNr   term=bold ctermfg=8
+" highlight   LineNr   term=bold ctermfg=8
 " highlight   Normal ctermbg=black ctermfg=white
-highlight   Folded ctermbg=black ctermfg=darkcyan
-highlight   clear SpellBad
+" highlight   Folded ctermbg=black ctermfg=darkcyan
+" highlight   clear SpellBad
 " highlight   OverLength ctermbg=red ctermfg=white guibg=#592929
 " match       OverLength /\%81v.\+/
-highlight   Pmenu         ctermfg=0 ctermbg=2
-highlight   PmenuSel      ctermfg=0 ctermbg=7
-highlight   PmenuSbar     ctermfg=7 ctermbg=0
-highlight   PmenuThumb    ctermfg=0 ctermbg=7
+" highlight   Pmenu         ctermfg=0 ctermbg=2
+" highlight   PmenuSel      ctermfg=0 ctermbg=7
+" highlight   PmenuSbar     ctermfg=7 ctermbg=0
+" highlight   PmenuThumb    ctermfg=0 ctermbg=7
 highlight   SpellBad term=underline cterm=underline ctermfg=red
-highlight   Search cterm=NONE ctermfg=yellow ctermbg=red
+" highlight   Search cterm=NONE ctermfg=yellow ctermbg=red
 highlight   TabLine ctermbg=blue
 highlight   TabLineFill ctermbg=green
 highlight   TabLineSel ctermbg=red
