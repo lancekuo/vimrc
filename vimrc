@@ -39,10 +39,15 @@ set listchars=trail:⋅,nbsp:⋅,tab:▸\
 set nocursorline
 
 nmap <silent> <F1>      :NERDTreeToggle<CR>
-map <silent> <F5> <Esc> :TagbarToggle<CR>
+" F2 for list, nolist
+" F3 for setting number
+" F4 for paste, nopates
+nmap <F5>      :AlignCtrl I= =
+map <silent> <F6>       :Align<CR>
+map <silent> <F7> <Esc> :TagbarToggle<CR>
 map <silent> <F8> <Esc> :setlocal spell spelllang=en_us<CR>
 map <silent> <F9> <Esc> :setlocal nospell<CR>
-" nmap <silent> <F5>      :make<CR>:copen 3<CR>
+" F10 empty
 autocmd FileType go map <leader>t :call VimuxRunCommand("go test " . bufname("%"))<CR>
 autocmd FileType python map <leader>t :call VimuxRunCommand("restart tellus-portal")<CR>
 autocmd FileType go map <leader>r :call VimuxRunCommand("go run " . bufname("%"))<CR>
@@ -88,7 +93,7 @@ autocmd! BufWritePost .vimrc source %
 " highlight   CursorLine   term=none cterm=none ctermbg=8
 " highlight   CursorLineNr term=bold ctermfg=8 gui=bold guifg=Yellow
 " highlight   LineNr   term=bold ctermfg=8
-" highlight   Normal ctermbg=black ctermfg=white
+highlight   Normal ctermbg=black ctermfg=white
 " highlight   Folded ctermbg=black ctermfg=darkcyan
 " highlight   clear SpellBad
 " highlight   OverLength ctermbg=red ctermfg=white guibg=#592929
@@ -99,9 +104,9 @@ autocmd! BufWritePost .vimrc source %
 " highlight   PmenuThumb    ctermfg=0 ctermbg=7
 highlight   SpellBad term=underline cterm=underline ctermfg=red
 " highlight   Search cterm=NONE ctermfg=yellow ctermbg=red
-highlight   TabLine ctermbg=blue
-highlight   TabLineFill ctermbg=green
-highlight   TabLineSel ctermbg=red
+" highlight   TabLine ctermbg=blue
+" highlight   TabLineFill ctermbg=green
+" highlight   TabLineSel ctermbg=red
 " Default Colors for CursorLine
 " Change Color when entering Insert Mode
 " autocmd InsertEnter * highlight  CursorLine term=bold ctermbg=17 ctermfg=None
