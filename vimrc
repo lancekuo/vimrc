@@ -13,6 +13,16 @@ endif
 colorscheme molokai
 let &colorcolumn="80,".join(range(120,999),",")
 
+" let g:ctrlp_working_path_mode = 'ca'
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+    \ 'file': '\v\.(exe|so|dll)$',
+    \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+    \ }
+
+autocmd FileType python,shell,coffee set commentstring=#\ %s
+
 " Prevent flash close windows
 set completeopt-=preview
 
@@ -54,6 +64,7 @@ autocmd FileType go map <leader>r :call VimuxRunCommand("go run " . bufname("%")
 autocmd FileType go map <leader>i :call VimuxRunCommand("go install")<CR>
 autocmd FileType go map <leader>b :call VimuxRunCommand("go build")<CR>
 autocmd FileType go call SetGoOptions()
+autocmd FileType python call SetGoOptions()
 nnoremap th             :tabfirst<CR>
 nnoremap tj             :tabnext<CR>
 nnoremap tk             :tabprev<CR>
@@ -151,8 +162,10 @@ autocmd BufNewFile,BufRead .vimrc set filetype=vim
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufNewFile,BufRead *.t set filetype=perl
 autocmd BufNewFile,BufRead *.py set filetype=python
+autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd BufNewFile,BufRead *.js set filetype=javascript
 autocmd BufNewFile,BufRead,BufEnter *.go call SetGoOptions()
+autocmd BufNewFile,BufRead,BufEnter *.py call SetGoOptions()
 
 " // Setting different cursorline color in different mode
 " augroup CursorLine
