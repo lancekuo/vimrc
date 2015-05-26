@@ -65,6 +65,7 @@ autocmd FileType go map <leader>i :call VimuxRunCommand("go install")<CR>
 autocmd FileType go map <leader>b :call VimuxRunCommand("go build")<CR>
 autocmd FileType go call SetGoOptions()
 autocmd FileType python call SetGoOptions()
+autocmd FileType javascript call SetGoOptions()
 nnoremap th             :tabfirst<CR>
 nnoremap tj             :tabnext<CR>
 nnoremap tk             :tabprev<CR>
@@ -166,6 +167,7 @@ autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd BufNewFile,BufRead *.js set filetype=javascript
 autocmd BufNewFile,BufRead,BufEnter *.go call SetGoOptions()
 autocmd BufNewFile,BufRead,BufEnter *.py call SetGoOptions()
+autocmd BufNewFile,BufRead,BufEnter *.js call SetGoOptions()
 
 " // Setting different cursorline color in different mode
 " augroup CursorLine
