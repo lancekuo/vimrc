@@ -10,6 +10,20 @@ if exists("g:did_load_filetypes")
     filetype off
     filetype plugin indent off
 endif
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+  " bind \ (backward slash) to grep shortcut
+  command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+endif
+
 colorscheme molokai
 let &colorcolumn="80,".join(range(120,999),",")
 
@@ -57,7 +71,7 @@ map <silent> <F6>       :Align<CR>
 map <silent> <F7> <Esc> :TagbarToggle<CR>
 map <silent> <F8> <Esc> :setlocal spell spelllang=en_us<CR>
 map <silent> <F9> <Esc> :setlocal nospell<CR>
-" F10 empty
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:botright cw<CR>
 autocmd FileType go map <leader>t :call VimuxRunCommand("go test " . bufname("%"))<CR>
 autocmd FileType python map <leader>t :call VimuxRunCommand("restart tellus-portal")<CR>
 autocmd FileType go map <leader>r :call VimuxRunCommand("go run " . bufname("%"))<CR>
