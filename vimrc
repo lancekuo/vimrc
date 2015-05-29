@@ -62,32 +62,33 @@ set nolist
 set listchars=trail:⋅,nbsp:⋅,tab:▸\ 
 set nocursorline
 
-nmap <silent> <F1>      :NERDTreeToggle<CR>
-" F2 for list, nolist
-" F3 for setting number
-" F4 for paste, nopates
-nmap <F5>      :AlignCtrl I= =
-map <silent> <F6>       :Align<CR>
-map <silent> <F7> <Esc> :TagbarToggle<CR>
-map <silent> <F8> <Esc> :setlocal spell spelllang=en_us<CR>
-map <silent> <F9> <Esc> :setlocal nospell<CR>
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:botright cw<CR>
-autocmd FileType go map <leader>t :call VimuxRunCommand("go test " . bufname("%"))<CR>
-autocmd FileType python map <leader>t :call VimuxRunCommand("restart tellus-portal")<CR>
-autocmd FileType go map <leader>r :call VimuxRunCommand("go run " . bufname("%"))<CR>
-autocmd FileType go map <leader>i :call VimuxRunCommand("go install")<CR>
-autocmd FileType go map <leader>b :call VimuxRunCommand("go build")<CR>
-autocmd FileType go call SetGoOptions()
-autocmd FileType python call SetGoOptions()
+nmap <silent> <F1>       :NERDTreeToggle<CR>
+nmap <silent> <F2>       :set paste!<CR>:set paste?<CR>
+nmap <silent> <F3>       :set number!<CR>:set number?<CR>
+nmap <silent> <F4>       :set invlist!<CR>:set invlist?<CR>
+nmap <F5>                :AlignCtrl I= =
+map  <silent> <F6>       :Align<CR>
+map  <silent> <F7> <Esc> :TagbarToggle<CR>
+map  <silent> <F8> <Esc> :setlocal spell spelllang=en_us<CR>
+map  <silent> <F9> <Esc> :setlocal nospell<CR>
+nnoremap K               :grep! "\b<C-R><C-W>\b"<CR>:botright cw<CR>
+nnoremap th              :tabfirst<CR>
+nnoremap tj              :tabnext<CR>
+nnoremap tk              :tabprev<CR>
+nnoremap tl              :tablast<CR>
+nnoremap tt              :tabedit<Space>
+nnoremap tm              :tabm<Space>
+nnoremap tx              :tabclose<CR>
+nnoremap tc              :tabnew<CR>
+
+autocmd FileType go         map <leader>t :call VimuxRunCommand("go test " . bufname("%"))<CR>
+autocmd FileType python     map <leader>t :call VimuxRunCommand("restart tellus-portal")<CR>
+autocmd FileType go         map <leader>r :call VimuxRunCommand("go run " . bufname("%"))<CR>
+autocmd FileType go         map <leader>i :call VimuxRunCommand("go install")<CR>
+autocmd FileType go         map <leader>b :call VimuxRunCommand("go build")<CR>
+autocmd FileType go         call SetGoOptions()
+autocmd FileType python     call SetGoOptions()
 autocmd FileType javascript call SetGoOptions()
-nnoremap th             :tabfirst<CR>
-nnoremap tj             :tabnext<CR>
-nnoremap tk             :tabprev<CR>
-nnoremap tl             :tablast<CR>
-nnoremap tt             :tabedit<Space>
-nnoremap tm             :tabm<Space>
-nnoremap tx             :tabclose<CR>
-nnoremap tc             :tabnew<CR>
 
 function! MyLastWindow()
 " if the window is quickfix go on
