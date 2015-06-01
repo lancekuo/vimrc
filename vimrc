@@ -23,6 +23,7 @@ if executable('ag')
   " bind \ (backward slash) to grep shortcut
   command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 endif
+set switchbuf+=usetab,newtab
 
 colorscheme molokai
 let &colorcolumn="80,".join(range(120,999),",")
