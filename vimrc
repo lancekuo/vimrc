@@ -26,7 +26,8 @@ endif
 set switchbuf+=usetab,newtab
 
 colorscheme molokai
-let &colorcolumn="80,".join(range(120,999),",")
+" let &colorcolumn="80,".join(range(120,999),",")
+let &colorcolumn="80"
 
 " let g:ctrlp_working_path_mode = 'ca'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
@@ -180,10 +181,10 @@ autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufNewFile,BufRead *.t set filetype=perl
 autocmd BufNewFile,BufRead *.py set filetype=python
 autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd BufNewFile,BufRead *.js set filetype=javascript
+autocmd BufNewFile,BufRead *.js,*.jsx set filetype=javascript
 autocmd BufNewFile,BufRead,BufEnter *.go call SetGoOptions()
 autocmd BufNewFile,BufRead,BufEnter *.py call SetGoOptions()
-autocmd BufNewFile,BufRead,BufEnter *.js call SetGoOptions()
+autocmd BufNewFile,BufRead,BufEnter *.js,*.jsx call SetGoOptions()
 
 " // Setting different cursorline color in different mode
 " augroup CursorLine
