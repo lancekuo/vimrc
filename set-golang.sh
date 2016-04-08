@@ -24,7 +24,10 @@ go get -u github.com/jstemmer/gotags
 go get -u github.com/nsf/gocode
 go get -u github.com/rogpeppe/godef
 if [ `go env GOOS` == "darwin" ]; then
+# https://github.com/leoliu/ggtags/wiki/Install-Global-with-support-for-exuberant-ctags
     brew install -y ctags
+    brew link ctags
+    brew install global --with-exuberant-ctags
     brew install -y the_silver_searcher
 else
     apt-get install -y ctags
