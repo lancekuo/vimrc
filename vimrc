@@ -63,6 +63,7 @@ set number
 set nolist
 set listchars=trail:⋅,nbsp:⋅,tab:▸\ 
 set nocursorline
+set hlsearch
 
 nmap <silent> <F1>       :NERDTreeToggle<CR>
 nmap <silent> <F2>       :set paste!<CR>:set paste?<CR>
@@ -180,6 +181,7 @@ autocmd BufNewFile,BufRead .vimrc set filetype=vim
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufNewFile,BufRead *.t set filetype=perl
 autocmd BufNewFile,BufRead *.py set filetype=python
+autocmd BufNewFile,BufRead *.rb set filetype=ruby
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd BufNewFile,BufRead *.js,*.jsx set filetype=javascript
 autocmd BufNewFile,BufRead,BufEnter *.go call SetGoOptions()
