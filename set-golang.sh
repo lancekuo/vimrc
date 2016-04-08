@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ `go env GOOS` == "darwin" ]; then
+if [ `uname -a|awk '{ print $1}'` == "Darwin" ] ; then
     defaultgopath="$HOME/Projects"
 else
     defaultgopath="/vagrant"
@@ -12,8 +12,6 @@ fi;
 
 if [ `go env GOOS` == "darwin" ]; then
     echo -e "export GOPATH=$gopath\nexport PATH=$PATH:\$GOPATH/bin" >> ~/.bash_profile
-# Ref: http://blog.lyhdev.com/2015/03/mac-os-x-command-hacks-markdown-rtf.html
-    echo -e "alias md2rtf='pbpaste | pandoc -f markdown -t html | textutil -stdin -format html -convert rtf -stdout -inputencoding UTF-8 -encoding UTF-8 | pbcopy'" >> ~/.bash_profile
     source ~/.bash_profile
 else
     echo -e "export GOPATH=$gopath\nexport PATH=$PATH:\$GOPATH/bin" > /etc/profile.d/golang.sh
