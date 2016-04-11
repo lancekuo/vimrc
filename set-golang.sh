@@ -10,7 +10,7 @@ if [ "$gopath" == "" ]; then
     gopath=$defaultgopath;
 fi;
 
-if [ `go env GOOS` == "darwin" ]; then
+if [ `uname -a|awk '{ print $1}'` == "Darwin" ] ; then
     echo -e "export GOPATH=$gopath\nexport PATH=$PATH:\$GOPATH/bin" >> ~/.bash_profile
     source ~/.bash_profile
 else

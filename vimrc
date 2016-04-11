@@ -177,11 +177,12 @@ let g:tagbar_type_go = {
 " Specific filetype by file name
 autocmd BufNewFile,BufRead Gemfile set filetype=ruby
 autocmd BufNewFile,BufRead Vagrantfile set filetype=ruby
+autocmd BufNewFile,BufRead *.rb set filetype=ruby
+autocmd BufNewFile,BufRead *.sh set filetype=sh
 autocmd BufNewFile,BufRead .vimrc set filetype=vim
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufNewFile,BufRead *.t set filetype=perl
 autocmd BufNewFile,BufRead *.py set filetype=python
-autocmd BufNewFile,BufRead *.rb set filetype=ruby
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd BufNewFile,BufRead *.js,*.jsx set filetype=javascript
 autocmd BufNewFile,BufRead,BufEnter *.go call SetGoOptions()
