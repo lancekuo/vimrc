@@ -1,6 +1,6 @@
 #!/bin/bash
 if [ `uname -a|awk '{ print $1}'` == "Darwin" ] ; then
-    defaultgopath="$HOME/Projects"
+    defaultgopath="$HOME/Projects/_go"
 else
     defaultgopath="/vagrant"
 fi;
