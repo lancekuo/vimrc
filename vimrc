@@ -144,6 +144,7 @@ highlight   SpellBad term=underline cterm=underline ctermfg=red
 " Revert Color to default when leaving Insert Mode
 " autocmd InsertLeave * highlight  CursorLine term=none ctermbg=8 cterm=None
 
+let g:airline_powerline_fonts = 1
 let g:bufferline_echo = 0
 let g:SuperTabDefaultCompletionType = "context"
 let g:tagbar_type_go = {
