@@ -21,6 +21,8 @@ PS1="$CYAN\$(__docker_machine_ps1)$WHITE[\u] \w$GREEN \$(parse_git_branch)$RETUR
 
 alias ll='ls -a -l -G'
 alias ls='ls -G'
+alias _go='cd ~/Projects/_go'
+alias _projects='cd ~/Projects'
 
 if [ `uname -a|awk '{ print $1}'` == 'Darwin' ] ; then
 # Ref: http://blog.lyhdev.com/2015/03/mac-os-x-command-hacks-markdown-rtf.html
@@ -28,4 +30,3 @@ if [ `uname -a|awk '{ print $1}'` == 'Darwin' ] ; then
 fi;
 
 export HOMEBREW_GITHUB_API_TOKEN=a6176d3671d684c2508e766fe11028d3776037f3
-
