@@ -27,7 +27,7 @@ set switchbuf+=usetab,newtab
 
 colorscheme molokai
 " let &colorcolumn="80,".join(range(120,999),",")
-let &colorcolumn="80"
+let &colorcolumn="160"
 
 " let g:ctrlp_working_path_mode = 'ca'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
