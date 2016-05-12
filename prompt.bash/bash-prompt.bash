@@ -14,16 +14,25 @@ REV="\e[m"
 
 
 function parse_git_branch {
-    ref=$(git symbolic-ref HEAD 2> /dev/null) || return;
-    echo "("${ref#refs/heads/}") "
+    ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+    printf " (${ref#refs/heads/}) "
 }
-PS1="$CYAN\$(__docker_machine_ps1)$WHITE[\u] \w$GREEN \$(parse_git_branch)$RETURN\\$ ";
 
+function parse_git_dirty {
+    git status 2 > /dev/null 2>&1 || return;
+    if git status |grep -q "nothing to commit"
+    then
+        printf $GREEN
+    else
+        printf $RED
+    fi
+}
+PS1="$CYAN\$(__docker_machine_ps1)$WHITE[\u] \w\$(parse_git_dirty)\$(parse_git_branch)$RETURN\\$ ";
 
 if [ `uname -a|awk '{ print $1}'` == 'Darwin' ] ; then
 # Ref: http://blog.lyhdev.com/2015/03/mac-os-x-command-hacks-markdown-rtf.html
     alias md2rtf='pbpaste | pandoc -f markdown -t html | textutil -stdin -format html -convert rtf -stdout -inputencoding UTF-8 -encoding UTF-8 | pbcopy'
-fi;
+fi
 
 export HOMEBREW_GITHUB_API_TOKEN=a6176d3671d684c2508e766fe11028d3776037f3
 
