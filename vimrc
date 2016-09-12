@@ -42,6 +42,8 @@ autocmd FileType python,shell,coffee set commentstring=#\ %s
 " Prevent flash close windows
 set completeopt-=preview
 
+" Open new tab for Godef
+let g:godef_split = 2
 " colorscheme solarized
 
 " For CentOS
@@ -85,7 +87,7 @@ nnoremap tx              :tabclose<CR>
 nnoremap tc              :tabnew<CR>
 
 autocmd FileType go         map <leader>t :call VimuxRunCommand("go test " . bufname("%"))<CR>
-autocmd FileType python     map <leader>t :call VimuxRunCommand("restart tellus-portal")<CR>
+" autocmd FileType python     map <leader>t :call VimuxRunCommand("restart tellus-portal")<CR>
 autocmd FileType go         map <leader>r :call VimuxRunCommand("go run " . bufname("%"))<CR>
 autocmd FileType go         map <leader>i :call VimuxRunCommand("go install")<CR>
 autocmd FileType go         map <leader>b :call VimuxRunCommand("go build")<CR>
@@ -201,7 +203,7 @@ autocmd BufNewFile,BufRead,BufEnter *.js,*.jsx call SetGoOptions()
 "     let g:airline_symbols = {}
 " endif
 
-" let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
 let g:syntastic_error_symbol='>>'
