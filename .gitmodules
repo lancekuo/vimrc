@@ -1,66 +1,48 @@
-[submodule "bundle/vim-sensible"]
-	path = bundle/vim-sensible
-	url = https://github.com/tpope/vim-sensible.git
-[submodule "bundle/vim-scriptease"]
-	path = bundle/vim-scriptease
-	url = https://github.com/tpope/vim-scriptease.git
-[submodule "bundle/vim-tagbar"]
-	path = bundle/vim-tagbar
-	url = https://github.com/majutsushi/tagbar.git
+[submodule "bundle/ctrlp.vim"]
+	path = bundle/ctrlp.vim
+	url = https://github.com/kien/ctrlp.vim.git
+[submodule "bundle/molokaiTheme"]
+	path = bundle/molokaiTheme
+	url = https://github.com/fatih/molokai
 [submodule "bundle/nerdtree"]
 	path = bundle/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git
-[submodule "bundle/vim-gocode"]
-	path = bundle/vim-gocode
-	url = https://github.com/Blackrush/vim-gocode.git
 [submodule "bundle/supertab"]
 	path = bundle/supertab
 	url = https://github.com/ervandew/supertab.git
-[submodule "bundle/vim-autoclose"]
-	path = bundle/vim-autoclose
-	url = https://github.com/Townk/vim-autoclose.git
-[submodule "bundle/vim-fugitive"]
-	path = bundle/vim-fugitive
-	url = https://github.com/tpope/vim-fugitive.git
-[submodule "bundle/vim-airline"]
-	path = bundle/vim-airline
-	url = https://github.com/bling/vim-airline.git
 [submodule "bundle/syntastic"]
 	path = bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
+[submodule "bundle/vim-airline"]
+	path = bundle/vim-airline
+	url = https://github.com/bling/vim-airline.git
 [submodule "bundle/vim-align"]
 	path = bundle/vim-align
 	url = https://github.com/tsaleh/vim-align.git
+[submodule "bundle/vim-autoclose"]
+	path = bundle/vim-autoclose
+	url = https://github.com/Townk/vim-autoclose.git
+[submodule "bundle/vim-commentary"]
+	path = bundle/vim-commentary
+	url = https://github.com/tpope/vim-commentary.git
+[submodule "bundle/vim-go"]
+	path = bundle/vim-go
+	url = https://github.com/fatih/vim-go.git
+[submodule "bundle/vim-scriptease"]
+	path = bundle/vim-scriptease
+	url = https://github.com/tpope/vim-scriptease.git
 [submodule "bundle/vim-surround"]
 	path = bundle/vim-surround
 	url = https://github.com/tpope/vim-surround.git
-[submodule "bundle/tslime.vim"]
-	path = bundle/tslime.vim
-	url = https://github.com/jgdavey/tslime.vim.git
-[submodule "bundle/vim-slime"]
-	path = bundle/vim-slime
-	url = https://github.com/jpalardy/vim-slime.git
-[submodule "opt/tmuxifier"]
-	path = opt/tmuxifier
-	url = https://github.com/jimeh/tmuxifier.git
-[submodule "bundle/vimtux/plugin"]
-	path = bundle/vimtux/plugin
-	url = https://github.com/brauner/vimtux.git
+[submodule "bundle/vim-tagbar"]
+	path = bundle/vim-tagbar
+	url = https://github.com/majutsushi/tagbar.git
 [submodule "bundle/vimux"]
 	path = bundle/vimux
 	url = https://github.com/benmills/vimux.git
 [submodule "bundle/vimux-golang"]
 	path = bundle/vimux-golang
 	url = https://github.com/benmills/vimux-golang.git
-[submodule "bundle/vim-godef"]
-	path = bundle/vim-godef
-	url = https://github.com/dgryski/vim-godef
-[submodule "bundle/molokaiTheme"]
-	path = bundle/molokaiTheme
-	url = https://github.com/fatih/molokai
-[submodule "bundle/ctrlp.vim"]
-	path = bundle/ctrlp.vim
-	url = https://github.com/kien/ctrlp.vim.git
-[submodule "bundle/vim-commentary"]
-	path = bundle/vim-commentary
-	url = https://github.com/tpope/vim-commentary.git
+[submodule "opt/tmuxifier"]
+	path = opt/tmuxifier
+	url = https://github.com/jimeh/tmuxifier.git

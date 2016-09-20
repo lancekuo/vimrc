@@ -6,10 +6,10 @@ call pathogen#infect()
 syntax on
 filetype plugin indent on
 
-if exists("g:did_load_filetypes")
-    filetype off
-    filetype plugin indent off
-endif
+"if exists("g:did_load_filetypes")
+"    filetype off
+"    filetype plugin indent off
+"endif
 " The Silver Searcher
 if executable('ag')
   " Use ag over grep
@@ -23,11 +23,9 @@ if executable('ag')
   " bind \ (backward slash) to grep shortcut
   command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 endif
-set switchbuf+=usetab,newtab
-
 colorscheme molokai
 " let &colorcolumn="80,".join(range(120,999),",")
-let &colorcolumn="160"
+" let &colorcolumn="160"
 
 " let g:ctrlp_working_path_mode = 'ca'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
@@ -42,8 +40,6 @@ autocmd FileType python,shell,coffee set commentstring=#\ %s
 " Prevent flash close windows
 set completeopt-=preview
 
-" Open new tab for Godef
-let g:godef_split = 2
 " colorscheme solarized
 
 " For CentOS
@@ -66,6 +62,62 @@ set list
 set listchars=trail:⋅,nbsp:⋅,tab:▸\ 
 set nocursorline
 set hlsearch
+set incsearch
+set laststatus=2
+set ruler
+set showcmd
+set wildmenu
+set scrolloff=1
+set display+=lastline
+set switchbuf+=usetab,newtab
+set backspace=indent,eol,start
+
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+
+let g:syntastic_error_symbol='>>'
+let g:syntastic_warning_symbol='>'
+let g:syntastic_check_on_open=1
+let g:syntastic_enable_highlighting = 0
+" let g:syntastic_go_checkers=['gofmt']
+" let g:syntastic_python_checker="flake8,pyflakes,pep8,pylint""
+let g:syntastic_python_checkers=['pyflakes']
+let g:syntastic_javascript_checkers = ['jsl', 'jshint']
+let g:syntastic_html_checkers=['tidy', 'jshint']
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+let g:go_list_type = "quickfix"
+highlight SyntasticErrorSign guifg=white guibg=black
+
+" unicode symbols
+" let g:airline_left_sep = '»'
+" let g:airline_left_sep = '▶'
+" let g:airline_right_sep = '«'
+" let g:airline_right_sep = '◀'
+" let g:airline_symbols.linenr = '␊'
+" let g:airline_symbols.linenr = '␤'
+" let g:airline_symbols.linenr = '¶'
+" let g:airline_symbols.branch = '⎇'
+" let g:airline_symbols.paste = 'ρ'
+" let g:airline_symbols.paste = 'Þ'
+" let g:airline_symbols.paste = '∥'
+" let g:airline_symbols.whitespace = 'Ξ'
+"
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_interfaces = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_fmt_command = "goimports"
+let g:go_fmt_fail_silently = 1
+let g:go_fmt_autosave = 1
+let g:go_play_open_browser = 0
+let g:go_auto_sameids = 1
+let g:go_def_mode = "godef"
+" let g:go_def_mapping_enabled = 0
 
 nmap <silent> <F1>       :NERDTreeToggle<CR>
 nmap <silent> <F2>       :set paste!<CR>:set paste?<CR>
@@ -85,12 +137,13 @@ nnoremap tt              :tabedit<Space>
 nnoremap tm              :tabm<Space>
 nnoremap tx              :tabclose<CR>
 nnoremap tc              :tabnew<CR>
+nnoremap gt              :call go#def#Jump("tab")<CR>
 
-autocmd FileType go         map <leader>t :call VimuxRunCommand("go test " . bufname("%"))<CR>
 " autocmd FileType python     map <leader>t :call VimuxRunCommand("restart tellus-portal")<CR>
-autocmd FileType go         map <leader>r :call VimuxRunCommand("go run " . bufname("%"))<CR>
-autocmd FileType go         map <leader>i :call VimuxRunCommand("go install")<CR>
-autocmd FileType go         map <leader>b :call VimuxRunCommand("go build")<CR>
+autocmd FileType go         nmap <leader>t <Plug>(go-test)
+autocmd FileType go         nmap <leader>r <Plug>(go-run)
+autocmd FileType go         nmap <leader>i <Plug>(go-info)
+autocmd FileType go         nmap <leader>b <Plug>(go-build)
 autocmd FileType go         call SetGoOptions()
 autocmd FileType python     call SetGoOptions()
 autocmd FileType javascript call SetGoOptions()
@@ -107,14 +160,13 @@ function! MyLastWindow()
 endfunction
 
 function! SetGoOptions()
-"    setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab makeprg=php-xdebug\ %
      :call tagbar#autoopen(0)
 endfunction
 
 autocmd BufEnter * call MyLastWindow()
 " autocmd VimEnter * NERDTreeToggle
-autocmd FileType go autocmd BufWritePre <buffer> Fmt
-autocmd Filetype go set makeprg=go\ build
+" autocmd FileType go autocmd BufWritePre <buffer> Fmt
+" autocmd Filetype go set makeprg=go\ build
 autocmd! BufWritePost .vimrc source %
 
 
@@ -203,30 +255,3 @@ autocmd BufNewFile,BufRead,BufEnter *.js,*.jsx call SetGoOptions()
 "     let g:airline_symbols = {}
 " endif
 
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-
-let g:syntastic_error_symbol='>>'
-let g:syntastic_warning_symbol='>'
-let g:syntastic_check_on_open=1
-let g:syntastic_enable_highlighting = 0
-let g:syntastic_go_checkers=['gofmt']
-" let g:syntastic_python_checker="flake8,pyflakes,pep8,pylint""
-let g:syntastic_python_checkers=['pyflakes']
-let g:syntastic_javascript_checkers = ['jsl', 'jshint']
-let g:syntastic_html_checkers=['tidy', 'jshint']
-highlight SyntasticErrorSign guifg=white guibg=black
-
-" unicode symbols
-" let g:airline_left_sep = '»'
-" let g:airline_left_sep = '▶'
-" let g:airline_right_sep = '«'
-" let g:airline_right_sep = '◀'
-" let g:airline_symbols.linenr = '␊'
-" let g:airline_symbols.linenr = '␤'
-" let g:airline_symbols.linenr = '¶'
-" let g:airline_symbols.branch = '⎇'
-" let g:airline_symbols.paste = 'ρ'
-" let g:airline_symbols.paste = 'Þ'
-" let g:airline_symbols.paste = '∥'
-" let g:airline_symbols.whitespace = 'Ξ'
