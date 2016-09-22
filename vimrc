@@ -72,6 +72,8 @@ set display+=lastline
 set switchbuf+=usetab,newtab
 set backspace=indent,eol,start
 
+let g:tagbar_width = 50
+
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
@@ -115,7 +117,7 @@ let g:go_fmt_command = "goimports"
 let g:go_fmt_fail_silently = 1
 let g:go_fmt_autosave = 1
 let g:go_play_open_browser = 0
-let g:go_auto_sameids = 1
+let g:go_auto_sameids = 0
 let g:go_def_mode = "godef"
 " let g:go_def_mapping_enabled = 0
 
@@ -205,7 +207,7 @@ let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
     \ 'kinds'     : [
         \ 'p:package',
-        \ 'i:imports:1',
+        \ 'i:imports',
         \ 'c:constants',
         \ 'v:variables',
         \ 't:types',
@@ -244,6 +246,8 @@ autocmd BufNewFile,BufRead,BufEnter *.go call SetGoOptions()
 autocmd BufNewFile,BufRead,BufEnter *.py call SetGoOptions()
 autocmd BufNewFile,BufRead,BufEnter *.js,*.jsx call SetGoOptions()
 
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " // Setting different cursorline color in different mode
 " augroup CursorLine
 "     au!
