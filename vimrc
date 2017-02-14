@@ -233,6 +233,7 @@ let g:tagbar_type_go = {
 
 " Specific filetype by file name
 autocmd BufNewFile,BufRead Gemfile,Vagrantfile,*.rb set filetype=ruby
+autocmd BufNewFile,BufRead Jenkinsfile set filetype=groovy
 autocmd BufNewFile,BufRead *.sh set filetype=sh
 autocmd BufNewFile,BufRead *.sql set filetype=sql
 autocmd BufNewFile,BufRead .vimrc set filetype=vim

@@ -21,6 +21,7 @@ fi;
 go get -u github.com/jstemmer/gotags
 go get -u github.com/nsf/gocode
 go get -u github.com/rogpeppe/godef
+go get -u github.com/fatih/gomodifytags
 if [ `go env GOOS` == "darwin" ]; then
 # https://github.com/leoliu/ggtags/wiki/Install-Global-with-support-for-exuberant-ctags
     brew install -y ctags
