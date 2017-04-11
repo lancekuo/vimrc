@@ -46,3 +46,6 @@
 [submodule "opt/tmuxifier"]
 	path = opt/tmuxifier
 	url = https://github.com/jimeh/tmuxifier.git
+[submodule "bundle/vim-autocomplpop"]
+	path = bundle/vim-autocomplpop
+	url = https://github.com/vim-scripts/AutoComplPop.git
