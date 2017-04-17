@@ -22,4 +22,7 @@ echo 'source ~/.vim/prompt.bash/docker-machine-prompt.bash' > ~/.bash_profile
 echo 'source ~/.vim/prompt.bash/docker-compose-prompt.bash' >> ~/.bash_profile
 echo 'source ~/.vim/prompt.bash/bash-prompt.bash' >> ~/.bash_profile
 
+if [ `uname -a|awk '{ print $2}'` == "Darwin" ] ; then
+    echo 'source /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-completion.bash' >> ~/.bash_profile
+fi;
 echo "Your VIM configuration has been installed."
