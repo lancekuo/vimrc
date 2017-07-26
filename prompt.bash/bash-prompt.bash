@@ -43,10 +43,5 @@ export HOMEBREW_GITHUB_API_TOKEN=a6176d3671d684c2508e766fe11028d3776037f3
 
 alias ll='ls -a -l -G'
 alias ls='ls -G'
-alias _go='cd ~/Projects/_go'
-alias _gobin='cd ~/Projects/_go/bin'
 alias _projects='cd ~/Projects'
-alias _dmstg='eval $(docker-machine env stg-consul-us-east-1a-0)'
-alias _dmprd='eval $(docker-machine env prd-consul-us-east-1a-0)'
-alias _dmdef='eval $(docker-machine env default)'
-alias _dmun='unset DOCKER_HOST;unset DOCKER_CERT_PATH;unset DOCKER_MACHINE_NAME;unset DOCKER_TLS_VERIFY;'
+alias update-ssh-config='cat ~/.ssh/config.d/* > ~/.ssh/config'
