@@ -1,23 +1,30 @@
 #!/bin/bash
+# if [ `uname -a|awk '{ print $1}'` == "Darwin" ] ; then
+#     defaultgopath="$HOME/Projects/_go"
+# else
+#     defaultgopath="/vagrant"
+# fi;
+# echo "Please enter your GOPATH: [default: $defaultgopath]"
+# read gopath
+# if [ "$gopath" == "" ]; then
+#     gopath=$defaultgopath;
+# fi;
+# 
+# if [ `uname -a|awk '{ print $1}'` == "Darwin" ] ; then
+#     echo -e "export GOPATH=$gopath\nexport PATH=$PATH:\$GOPATH/bin" >> ~/.bash_profile
+#     source ~/.bash_profile
+# else
+#     echo -e "export GOPATH=$gopath\nexport PATH=$PATH:\$GOPATH/bin" > /etc/profile.d/golang.sh
+#     source /etc/profile
+# fi;
+# Comment out above because go has default GOPATH since 1.8(7?)
 if [ `uname -a|awk '{ print $1}'` == "Darwin" ] ; then
-    defaultgopath="$HOME/Projects/_go"
-else
-    defaultgopath="/vagrant"
-fi;
-echo "Please enter your GOPATH: [default: $defaultgopath]"
-read gopath
-if [ "$gopath" == "" ]; then
-    gopath=$defaultgopath;
-fi;
-
-if [ `uname -a|awk '{ print $1}'` == "Darwin" ] ; then
-    echo -e "export GOPATH=$gopath\nexport PATH=$PATH:\$GOPATH/bin" >> ~/.bash_profile
+    echo -e "export PATH=$PATH:`go env GOPATH`/bin" >> ~/.bash_profile
     source ~/.bash_profile
 else
-    echo -e "export GOPATH=$gopath\nexport PATH=$PATH:\$GOPATH/bin" > /etc/profile.d/golang.sh
+    echo -e "export PATH=$PATH:`go env GOPATH`/bin" > /etc/profile.d/golang.sh
     source /etc/profile
 fi;
-
 go get -u github.com/jstemmer/gotags
 go get -u github.com/nsf/gocode
 go get -u github.com/rogpeppe/godef
