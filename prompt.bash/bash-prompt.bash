@@ -33,7 +33,7 @@ if [ `uname -a|awk '{ print $1}'` == 'Darwin' ] ; then
 # Ref: http://blog.lyhdev.com/2015/03/mac-os-x-command-hacks-markdown-rtf.html
     alias md2rtf='pbpaste | pandoc -f markdown -t html | textutil -stdin -format html -convert rtf -stdout -inputencoding UTF-8 -encoding UTF-8 | pbcopy'
     if [ -f $(brew --prefix)/etc/bash_completion ]; then
-	. $(brew --prefix)/etc/bash_completion
+        . $(brew --prefix)/etc/bash_completion
     fi
 fi
 

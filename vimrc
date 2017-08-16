@@ -232,6 +232,8 @@ let g:tagbar_type_go = {
     \ 'ctagsargs' : '-sort -silent'
     \ }
 
+let g:tagbar_phpctags_bin='~/.vim/opt/phpctags'
+let g:tagbar_phpctags_memory_limit = '512M'
 " Specific filetype by file name
 autocmd BufNewFile,BufRead Gemfile,Vagrantfile,*.rb set filetype=ruby
 autocmd BufNewFile,BufRead Jenkinsfile set filetype=groovy
@@ -247,6 +249,7 @@ autocmd BufNewFile,BufRead *.json,*.js,*.jsx set filetype=javascript
 autocmd BufNewFile,BufRead,BufEnter *.go call SetGoOptions()
 autocmd BufNewFile,BufRead,BufEnter *.py call SetGoOptions()
 autocmd BufNewFile,BufRead,BufEnter *.js,*.jsx call SetGoOptions()
+autocmd BufNewFile,BufRead,BufEnter *.php call SetGoOptions()
 
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
