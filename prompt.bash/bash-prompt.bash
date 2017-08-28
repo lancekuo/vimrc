@@ -7,7 +7,7 @@ YELLOW="\e[0;33m"
 BLUE="\e[0;34m"
 CYAN="\e[0;36m"
 WHITE="\e[1;37m"
-MAGENTA="\e[0;"
+MAGENTA="\e[0;38m"
 RETURN="\e[m"
 BOLD="tput bold"
 REV="\e[m"
@@ -27,7 +27,12 @@ function parse_git_dirty {
         printf $RED
     fi
 }
-PS1="$CYAN\$(__docker_machine_ps1)$WHITE[\u] \w\$(parse_git_dirty)\$(parse_git_branch)$RETURN\\$ ";
+function parse_terraform_workspace {
+    [ -f .terraform/environment ] || return
+    ref=$(cat .terraform/environment)
+    printf "[${ref}] "
+}
+PS1="$CYAN\$(__docker_machine_ps1)$WHITE[\u] \w\$(parse_git_dirty)\$(parse_git_branch)$CYAN\$(parse_terraform_workspace)$RETURN\\$ ";
 
 if [ `uname -a|awk '{ print $1}'` == 'Darwin' ] ; then
 # Ref: http://blog.lyhdev.com/2015/03/mac-os-x-command-hacks-markdown-rtf.html
