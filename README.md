@@ -1,3 +1,9 @@
+### Clipboard
+Have to install vim from brew to have +clipboard enabled.
+```bash
+brew install vim
+```
+
 ### align
 Help folks to align text, equals, declarations, tables, etc.
 
