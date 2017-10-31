@@ -49,4 +49,4 @@ export HOMEBREW_GITHUB_API_TOKEN=a6176d3671d684c2508e766fe11028d3776037f3
 alias ll='ls -a -l -G'
 alias ls='ls -G'
 alias _projects='cd ~/Projects'
-alias update-ssh-config='cat ~/.ssh/config.d/* > ~/.ssh/config'
+alias reload-ssh-config='cat ~/.ssh/config.d/* > ~/.ssh/config'
