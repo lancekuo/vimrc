@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 VIMHOME=~/.vim
 
 warn() {
@@ -17,15 +17,29 @@ git submodule update --init
 cd ~
 ln -s .vim/vimrc .vimrc
 ln -s .vim/tmux.conf .tmux.conf
+ln -s .vim/terraformrc .terraformrc
 
-echo 'source ~/.vim/prompt.bash/docker-machine-prompt.bash' > ~/.bash_profile
-echo 'source ~/.vim/prompt.bash/docker-compose-prompt.bash' >> ~/.bash_profile
-echo 'source ~/.vim/prompt.bash/bash-prompt.bash' >> ~/.bash_profile
+PROFILE="$HOME/.bash_profile"
+
+for f in bash-prompt.bash docker-prompt.bash docker-compose-prompt.bash docker-machine-prompt.bash
+do
+    if grep -qe ${f%.bash} $PROFILE; then
+        echo "SKIP... since $f has linked to $PROFILE.";
+    else
+        echo "source ~/.vim/prompt.bash/$f" >> $PROFILE
+        echo "Injected $f into your $PROFILE";
+    fi
+done
 
 if [ `uname -a|awk '{ print $1}'` == "Darwin" ] ; then
-    echo 'source /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-completion.bash' >> ~/.bash_profile
-    brew install bash-completion
-    brew tap homebrew/completions
+    if grep -qe "git-completion" $PROFILE; then
+        echo "SKIP... since git-completion.bash(Apple XCode) has linked to $PROFILE.";
+    else
+        brew install bash-completion
+        echo 'source /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-completion.bash' >> $PROFILE
+        echo "Injected git-completion.bash(Apple XCode) into your $PROFILE";
+    fi
 fi;
+
 mkdir -p ~/.ssh/config.d/
 echo "Your VIM configuration has been installed."
