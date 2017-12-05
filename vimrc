@@ -22,12 +22,14 @@ if executable('ag')
   let g:ctrlp_use_caching = 0
   " bind \ (backward slash) to grep shortcut
   command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+else
+    let g:ctrlp_user_command = 'find %s -not -path "*/\.*" -type f -exec grep -Iq . {} \; -and -print'
 endif
 colorscheme molokai
 " let &colorcolumn="80,".join(range(120,999),",")
 " let &colorcolumn="160"
 
-" let g:ctrlp_working_path_mode = 'ca'
+let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 let g:ctrlp_custom_ignore = {
     \ 'dir':  '\v[\/]\.(git|hg|svn)$',
