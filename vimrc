@@ -123,7 +123,7 @@ let g:go_def_mode = "godef"
 " let g:go_def_mapping_enabled = 0
 
 nmap <silent> <F1>       :NERDTreeToggle<CR>
-nmap <silent> <F2>       :set paste!<CR>:set paste?<CR>
+" nmap <silent> <F2>       :set paste!<CR>:set paste?<CR>
 nmap <silent> <F3>       :set number!<CR>:set number?<CR>
 nmap <silent> <F4>       :set invlist!<CR>:set invlist?<CR>
 nmap <F5>                :AlignCtrl I= =
@@ -292,3 +292,16 @@ augroup encrypted
   " after the file has been written.
   autocmd BufWritePost,FileWritePost *.gpg u
 augroup END
+    if &term =~ "xterm.*"
+        let &t_ti = &t_ti . "\e[?2004h"
+        let &t_te = "\e[?2004l" . &t_te
+        function XTermPasteBegin(ret)
+            set pastetoggle=<Esc>[201~
+            set paste
+            return a:ret
+        endfunction
+        map <expr> <Esc>[200~ XTermPasteBegin("i")
+        imap <expr> <Esc>[200~ XTermPasteBegin("")
+        cmap <Esc>[200~ <nop>
+        cmap <Esc>[201~ <nop>
+    endif
