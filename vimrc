@@ -1,201 +1,122 @@
 scriptencoding utf-8
-set encoding=utf-8
 
-set nocompatible
 call pathogen#infect()
 syntax on
 filetype plugin indent on
-
-"if exists("g:did_load_filetypes")
-"    filetype off
-"    filetype plugin indent off
-"endif
-" The Silver Searcher
-if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-  " bind \ (backward slash) to grep shortcut
-  command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-else
-    let g:ctrlp_user_command = 'find %s -not -path "*/\.*" -type f -exec grep -Iq . {} \; -and -print'
-endif
 colorscheme molokai
-" let &colorcolumn="80,".join(range(120,999),",")
-" let &colorcolumn="160"
+" colorscheme solarized
 
-let g:ctrlp_working_path_mode = 'ra'
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-    \ 'file': '\v\.(exe|so|dll)$',
-    \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-    \ }
-
-autocmd FileType python,shell,coffee set commentstring=#\ %s
-
+"  _____                           _
+" |  __ \                         | |
+" | |  \/ ___ _ __   ___ _ __ __ _| |
+" | | __ / _ \ '_ \ / _ \ '__/ _` | |
+" | |_\ \  __/ | | |  __/ | | (_| | |
+"  \____/\___|_| |_|\___|_|  \__,_|_|
 " Prevent flash close windows
 set completeopt-=preview
-
-" colorscheme solarized
 
 " For CentOS
 " set runtimepath+=/usr/lib/golang/misc/vim " replace $GOROOT with the output of: go env GOROOT
 " For uBuntu
 set runtimepath+=/usr/local/go/misc/vim " replace $GOROOT with the output of: go env GOROOT  "
 
-" set leader to ,
-let mapleader='\'
-" let g:mapleader=","
-
-" set nowrap
-set textwidth=0
+set autowrite
+set backspace=indent,eol,start
+set display+=lastline
+set encoding=utf-8
 set expandtab
-set shiftwidth=4
-set softtabstop=4
-set laststatus=2
-set number
-set list
-set listchars=trail:⋅,nbsp:⋅,tab:▸\ 
-set nocursorline
 set hlsearch
 set incsearch
 set laststatus=2
-set ruler
-set showcmd
-set wildmenu
-set scrolloff=1
-set display+=lastline
-set switchbuf+=usetab,newtab
-set backspace=indent,eol,start
+set list
+set listchars=trail:⋅,nbsp:⋅,tab:▸\ 
+set nocompatible
+set nocursorline
 set nojoinspaces
+" set nowrap
+set number
+set ruler
+set scrolloff=1
+set shiftwidth=4
+set showcmd
+set softtabstop=4
+set switchbuf+=usetab,newtab
+set textwidth=0
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+set wildmenu
 
-let g:tagbar_width = 50
+" set leader to ,
+let g:mapleader                               = ","
+let g:tagbar_width                            = 80
+let g:bufferline_echo                         = 0
+let g:SuperTabDefaultCompletionType           = "context"
 
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts                 = 1
+let g:airline#extensions#tabline#enabled      = 1
+let g:airline#extensions#tabline#left_sep     = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
 
-let g:syntastic_error_symbol='>>'
-let g:syntastic_warning_symbol='>'
-let g:syntastic_check_on_open=1
-let g:syntastic_enable_highlighting = 0
-" let g:syntastic_go_checkers=['gofmt']
-" let g:syntastic_python_checker="flake8,pyflakes,pep8,pylint""
-let g:syntastic_python_checkers=['pyflakes']
-let g:syntastic_javascript_checkers = ['jsl', 'jshint']
-let g:syntastic_html_checkers=['tidy', 'jshint']
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
-let g:go_list_type = "quickfix"
-highlight SyntasticErrorSign guifg=white guibg=black
+let g:syntastic_error_symbol                  = '❌'
+let g:syntastic_warning_symbol                = '❗'
+let g:syntastic_check_on_open                 = 1
+let g:syntastic_enable_highlighting           = 1
 
-" unicode symbols
-" let g:airline_left_sep = '»'
-" let g:airline_left_sep = '▶'
-" let g:airline_right_sep = '«'
-" let g:airline_right_sep = '◀'
-" let g:airline_symbols.linenr = '␊'
-" let g:airline_symbols.linenr = '␤'
-" let g:airline_symbols.linenr = '¶'
-" let g:airline_symbols.branch = '⎇'
-" let g:airline_symbols.paste = 'ρ'
-" let g:airline_symbols.paste = 'Þ'
-" let g:airline_symbols.paste = '∥'
-" let g:airline_symbols.whitespace = 'Ξ'
-"
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_types = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_interfaces = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-let g:go_fmt_command = "goimports"
-let g:go_fmt_fail_silently = 1
-let g:go_fmt_autosave = 1
-let g:go_play_open_browser = 0
-let g:go_auto_sameids = 0
-let g:go_def_mode = "godef"
-" let g:go_def_mapping_enabled = 0
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+    \ 'file': '\v\.(exe|so|dll)$',
+    \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+    \ }
 
-nmap <silent> <F1>       :NERDTreeToggle<CR>
-" nmap <silent> <F2>       :set paste!<CR>:set paste?<CR>
-nmap <silent> <F3>       :set number!<CR>:set number?<CR>
-nmap <silent> <F4>       :set invlist!<CR>:set invlist?<CR>
-nmap <F5>                :AlignCtrl I= =
-map  <silent> <F6>       :Align<CR>
-map  <silent> <F7> <Esc> :TagbarToggle<CR>
-map  <silent> <F8> <Esc> :setlocal spell spelllang=en_us<CR>
-map  <silent> <F9> <Esc> :setlocal nospell<CR>
-nnoremap K               :grep! "\b<C-R><C-W>\b"<CR>:botright cw<CR>
-nnoremap th              :tabfirst<CR>
-nnoremap tj              :tabnext<CR>
-nnoremap tk              :tabprev<CR>
-nnoremap tl              :tablast<CR>
-nnoremap tt              :tabedit<Space>
-nnoremap tm              :tabm<Space>
-nnoremap tx              :tabclose<CR>
-nnoremap tc              :tabnew<CR>
-nnoremap gt              :call go#def#Jump("tab")<CR>
-
-" autocmd FileType python     map <leader>t :call VimuxRunCommand("restart tellus-portal")<CR>
-autocmd FileType go         nmap <leader>t <Plug>(go-test)
-autocmd FileType go         nmap <leader>r <Plug>(go-run)
-autocmd FileType go         nmap <leader>i <Plug>(go-info)
-autocmd FileType go         nmap <leader>b <Plug>(go-build)
-autocmd FileType go         call SetGoOptions()
-autocmd FileType python     call SetGoOptions()
-autocmd FileType javascript call SetGoOptions()
-
-function! MyLastWindow()
-" if the window is quickfix go on
-  if &buftype=="quickfix"
-" if this window is last on screen quit without warning
-    if winbufnr(2) == -1
-      quit!
-    endif
-  endif
-  if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-endfunction
-
-function! SetGoOptions()
-     :call tagbar#autoopen(0)
-endfunction
-
+" Specific filetype by file name
 autocmd BufEnter * call MyLastWindow()
-" autocmd VimEnter * NERDTreeToggle
-" autocmd FileType go autocmd BufWritePre <buffer> Fmt
-" autocmd Filetype go set makeprg=go\ build
+autocmd BufNewFile,BufRead *.md set filetype=markdown
+autocmd BufNewFile,BufRead *.sh set filetype=sh
+autocmd BufNewFile,BufRead *.sql set filetype=sql
+autocmd BufNewFile,BufRead *.t set filetype=perl
+autocmd BufNewFile,BufRead *.yml set filetype=yaml
+autocmd BufNewFile,BufRead .vimrc set filetype=vim
+autocmd BufNewFile,BufRead Jenkinsfile set filetype=groovy
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd! BufWritePost .vimrc source %
 
+" // Setting different cursorline color in different mode
+" augroup CursorLine
+"     au!
+"     au VimEnter,WinEnter,BufWinEnter * setlocal nocursorline
+"     au WinLeave * setlocal nocursorline
+" augroup END
 
+"  _____ _
+" |_   _| |
+"   | | | |__   ___ _ __ ___   ___  ___ 
+"   | | | '_ \ / _ \ '_ ` _ \ / _ \/ __|
+"   | | | | | |  __/ | | | | |  __/\__ \
+"   \_/ |_| |_|\___|_| |_| |_|\___||___/
 " highlight   clear
 " highlight   Comment term=standout cterm=bold ctermfg=blue
 " highlight   Cursor  cterm=bold ctermbg=2
 " highlight   CursorLine   term=none cterm=bold
 " highlight   CursorLine   term=none cterm=none ctermbg=8
 " highlight   CursorLineNr term=bold ctermfg=8 gui=bold guifg=Yellow
+" highlight   Folded ctermbg=black ctermfg=darkcyan
 " highlight   LineNr   term=bold ctermfg=8
 highlight   Normal ctermbg=black ctermfg=white
-" highlight   Folded ctermbg=black ctermfg=darkcyan
-" highlight   clear SpellBad
 " highlight   OverLength ctermbg=red ctermfg=white guibg=#592929
-" match       OverLength /\%81v.\+/
 " highlight   Pmenu         ctermfg=0 ctermbg=2
-" highlight   PmenuSel      ctermfg=0 ctermbg=7
 " highlight   PmenuSbar     ctermfg=7 ctermbg=0
+" highlight   PmenuSel      ctermfg=0 ctermbg=7
 " highlight   PmenuThumb    ctermfg=0 ctermbg=7
-highlight   SpellBad term=underline cterm=underline ctermfg=red
 " highlight   Search cterm=NONE ctermfg=yellow ctermbg=red
+" highlight   SyntasticErrorSign ctermfg=red
+highlight   SpellBad term=underline cterm=underline ctermfg=red
 " highlight   TabLine ctermbg=blue
 " highlight   TabLineFill ctermbg=green
 " highlight   TabLineSel ctermbg=red
+" highlight   clear SpellBad
+" match       OverLength /\%81v.\+/
+
 " Default Colors for CursorLine
 " Change Color when entering Insert Mode
 " autocmd InsertEnter * highlight  CursorLine term=bold ctermbg=17 ctermfg=None
@@ -203,9 +124,144 @@ highlight   SpellBad term=underline cterm=underline ctermfg=red
 " Revert Color to default when leaving Insert Mode
 " autocmd InsertLeave * highlight  CursorLine term=none ctermbg=8 cterm=None
 
-let g:airline_powerline_fonts = 1
-let g:bufferline_echo = 0
-let g:SuperTabDefaultCompletionType = "context"
+" unicode symbols
+" let g:airline_left_sep = '»'
+" let g:airline_left_sep = '▶'
+" let g:airline_right_sep = '«'
+" let g:airline_right_sep = '◀'
+
+"  _   __          ___  ___
+" | | / /          |  \/  |
+" | |/ /  ___ _   _| .  . | __ _ _ __
+" |    \ / _ \ | | | |\/| |/ _` | '_ \
+" | |\  \  __/ |_| | |  | | (_| | |_) |
+" \_| \_/\___|\__, \_|  |_/\__,_| .__/
+"              __/ |            | |
+"             |___/             |_|
+nmap     <silent> <F1>       :NERDTreeToggle<CR>
+" nmap     <silent> <F2>       :set paste!<CR>:set paste?<CR>
+nmap     <silent> <F2>       :TagbarToggle<CR>
+nmap     <silent> <F3>       :set number!<CR>:set number?<CR>
+nmap     <silent> <F4>       :set invlist!<CR>:set invlist?<CR>
+nmap     <F5>                :AlignCtrl I= =
+nmap     <silent> <F6>       :Align<CR>
+nmap     <silent> <F7> <Esc> :TagbarToggle<CR>
+nmap     <silent> <F8> <Esc> :setlocal spell spelllang=en_us<CR>
+nmap     <silent> <F9> <Esc> :setlocal nospell<CR>
+nnoremap K                   :grep! "\b<C-R><C-W>\b"<CR>:botright cw<CR>
+nnoremap tc                  :tabnew<CR>
+nnoremap th                  :tabfirst<CR>
+nnoremap tj                  :tabnext<CR>
+nnoremap tk                  :tabprev<CR>
+nnoremap tl                  :tablast<CR>
+nnoremap tm                  :tabm<Space>
+nnoremap tt                  :tabedit<Space>
+nnoremap tx                  :tabclose<CR>
+
+map      <C-n>               :cnext<CR>
+map      <c-m>               :cprevious<CR>
+nnoremap <leader>a           :cclose<CR>
+"   _____       _
+"  |  __ \     | |
+"  | |__) |   _| |__  _   _
+"  |  _  / | | | '_ \| | | |
+"  | | \ \ |_| | |_) | |_| |
+"  |_|  \_\__,_|_.__/ \__, |
+"                      __/ |
+"                     |___/
+autocmd BufNewFile,BufRead Gemfile,Vagrantfile,*.rb set filetype=ruby
+
+"   _____       _   _
+"  |  __ \     | | | |
+"  | |__) |   _| |_| |__   ___  _ __
+"  |  ___/ | | | __| '_ \ / _ \| '_ \
+"  | |   | |_| | |_| | | | (_) | | | |
+"  |_|    \__, |\__|_| |_|\___/|_| |_|
+"          __/ |
+"         |___/
+" autocmd FileType python     map <leader>t :call VimuxRunCommand("restart tellus-portal")<CR>
+autocmd BufNewFile,BufRead *.py set filetype=python
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType python,shell,coffee set commentstring=#\ %s
+" let g:syntastic_python_checker="flake8,pyflakes,pep8,pylint""
+let g:syntastic_python_checkers=['pyflakes']
+
+
+"        _                                _       _
+"       | |                              (_)     | |
+"       | | __ ___   ____ _ ___  ___ _ __ _ _ __ | |_
+"   _   | |/ _` \ \ / / _` / __|/ __| '__| | '_ \| __|
+"  | |__| | (_| |\ V / (_| \__ \ (__| |  | | |_) | |_
+"   \____/ \__,_| \_/ \__,_|___/\___|_|  |_| .__/ \__|
+"                                          | |
+"                                          |_|
+autocmd BufNewFile,BufRead *.json,*.js,*.jsx set filetype=javascript
+let g:syntastic_javascript_checkers = ['jsl', 'jshint']
+let g:syntastic_html_checkers=['tidy', 'jshint']
+
+"  _____  _
+" |  __ \| |
+" | |__) | |__  _ __
+" |  ___/| '_ \| '_ \
+" | |    | | | | |_) |
+" |_|    |_| |_| .__/
+"              | |
+"              |_|
+let g:tagbar_phpctags_bin='~/.vim/opt/phpctags'
+let g:tagbar_phpctags_memory_limit = '512M'
+
+"    _____       _
+"   / ____|     | |
+"  | |  __  ___ | | __ _ _ __   __ _
+"  | | |_ |/ _ \| |/ _` | '_ \ / _` |
+"  | |__| | (_) | | (_| | | | | (_| |
+"   \_____|\___/|_|\__,_|_| |_|\__, |
+"                               __/ |
+"                              |___/
+let g:syntastic_go_checkers          = ['go']
+let g:syntastic_mode_map             = { 'mode': 'active', 'active_filetypes':['go'], 'passive_filetypes': [] }
+
+let g:go_auto_sameids                = 1
+let g:go_auto_type_info              = 1
+let g:go_decls_includes              = "func,type"
+let g:go_def_use_buffer              = 1
+let g:go_def_mapping_enabled         = 0
+let g:go_def_mode                    = "godef"
+let g:go_fmt_autosave                = 1
+let g:go_fmt_command                 = "goimports"
+let g:go_fmt_fail_silently           = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types       = 1
+let g:go_highlight_fields            = 1
+let g:go_highlight_functions         = 1
+let g:go_highlight_interfaces        = 1
+let g:go_highlight_methods           = 1
+let g:go_highlight_operators         = 1
+let g:go_highlight_structs           = 1
+let g:go_highlight_types             = 1
+let g:go_list_type                   = "quickfix"
+let g:go_metalinter_autosave         = 1
+let g:go_metalinter_deadline         = "5s"
+let g:go_metalinter_enabled          = ['vet', 'golint', 'errcheck']
+let g:go_play_open_browser           = 0
+let g:go_test_timeout                = '10s'
+set updatetime =100
+autocmd Filetype go         command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+autocmd Filetype go         command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+autocmd Filetype go         command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+autocmd Filetype go         command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+autocmd FileType go         nnoremap <buffer> gt :call go#def#Jump("tab")<CR>
+autocmd FileType go         nmap     <leader>c <Plug>(go-coverage-toggle)
+autocmd FileType go         nmap     <leader>C <Plug>(go-coverage-browser)
+autocmd FileType go         nmap     <leader>t <Plug>(go-test)
+autocmd FileType go         nmap     <leader>T <Plug>(go-test-func)
+autocmd FileType go         nmap     <leader>r <Plug>(go-run)
+autocmd FileType go         nmap     <leader>i <Plug>(go-info)
+autocmd FileType go         nmap     <leader>b :<C-u>call <SID>build_go_files()<CR>
+" autocmd FileType go         call     SetGoOptions()
+" autocmd FileType python     call     SetGoOptions()
+" autocmd FileType javascript call     SetGoOptions()
+
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
     \ 'kinds'     : [
@@ -233,40 +289,23 @@ let g:tagbar_type_go = {
     \ 'ctagsbin'  : 'gotags',
     \ 'ctagsargs' : '-sort -silent'
     \ }
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
 
-let g:tagbar_phpctags_bin='~/.vim/opt/phpctags'
-let g:tagbar_phpctags_memory_limit = '512M'
-" Specific filetype by file name
-autocmd BufNewFile,BufRead Gemfile,Vagrantfile,*.rb set filetype=ruby
-autocmd BufNewFile,BufRead Jenkinsfile set filetype=groovy
-autocmd BufNewFile,BufRead *.sh set filetype=sh
-autocmd BufNewFile,BufRead *.sql set filetype=sql
-autocmd BufNewFile,BufRead .vimrc set filetype=vim
-autocmd BufNewFile,BufRead *.md set filetype=markdown
-autocmd BufNewFile,BufRead *.yml set filetype=yaml
-autocmd BufNewFile,BufRead *.t set filetype=perl
-autocmd BufNewFile,BufRead *.py set filetype=python
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd BufNewFile,BufRead *.json,*.js,*.jsx set filetype=javascript
-autocmd BufNewFile,BufRead,BufEnter *.go call SetGoOptions()
-autocmd BufNewFile,BufRead,BufEnter *.py call SetGoOptions()
-autocmd BufNewFile,BufRead,BufEnter *.js,*.jsx call SetGoOptions()
-autocmd BufNewFile,BufRead,BufEnter *.php call SetGoOptions()
-
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" // Setting different cursorline color in different mode
-" augroup CursorLine
-"     au!
-"     au VimEnter,WinEnter,BufWinEnter * setlocal nocursorline
-"     au WinLeave * setlocal nocursorline
-" augroup END
-
-" if !exists('g:airline_symbols')
-"     let g:airline_symbols = {}
-" endif
+" ______
+" |  ___
+" | |_ _   _ _ __   ___
+" |  _| | | | '_ \ / __|
+" | | | |_| | | | | (__
+" \_|  \__,_|_| |_|\___|
 " Transparent editing of gpg encrypted files.
-" By Wouter Hanegraaff
 augroup encrypted
   au!
 
@@ -297,7 +336,7 @@ augroup END
     if &term =~ "xterm.*"
         let &t_ti = &t_ti . "\e[?2004h"
         let &t_te = "\e[?2004l" . &t_te
-        function XTermPasteBegin(ret)
+        function! XTermPasteBegin(ret)
             set pastetoggle=<Esc>[201~
             set paste
             return a:ret
@@ -307,3 +346,34 @@ augroup END
         cmap <Esc>[200~ <nop>
         cmap <Esc>[201~ <nop>
     endif
+
+function! MyLastWindow()
+" if the window is quickfix go on
+  if &buftype=="quickfix"
+" if this window is last on screen quit without warning
+    if winbufnr(2) == -1
+      quit!
+    endif
+  endif
+  if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+endfunction
+
+function! SetGoOptions()
+     :call tagbar#autoopen(0)
+endfunction
+
+" The Silver Searcher for CtrlP
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+  " bind \ (backward slash) to grep shortcut
+  command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+else
+    let g:ctrlp_user_command = 'find %s -not -path "*/\.*" -type f -exec grep -Iq . {} \; -and -print'
+endif
