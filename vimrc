@@ -2,6 +2,7 @@ scriptencoding utf-8
 
 call pathogen#infect()
 syntax on
+filetype off
 filetype plugin indent on
 colorscheme molokai
 " colorscheme solarized
@@ -12,36 +13,46 @@ colorscheme molokai
 " | | __ / _ \ '_ \ / _ \ '__/ _` | |
 " | |_\ \  __/ | | |  __/ | | (_| | |
 "  \____/\___|_| |_|\___|_|  \__,_|_|
-" Prevent flash close windows
-set completeopt-=preview
-
 " For CentOS
 " set runtimepath+=/usr/lib/golang/misc/vim " replace $GOROOT with the output of: go env GOROOT
 " For uBuntu
 set runtimepath+=/usr/local/go/misc/vim " replace $GOROOT with the output of: go env GOROOT  "
 
+" Prevent flash close windows
+set completeopt-=preview
+
 set autowrite
+set autoread
 set backspace=indent,eol,start
 set display+=lastline
 set encoding=utf-8
 set expandtab
+set fileformats=unix,dos,mac
 set hlsearch
+set ignorecase
 set incsearch
 set laststatus=2
+set lazyredraw
 set list
 set listchars=trail:⋅,nbsp:⋅,tab:▸\ 
+set nobackup
 set nocompatible
 set nocursorline
+set nocursorcolumn
 set nojoinspaces
-" set nowrap
+set noswapfile
 set number
 set ruler
 set scrolloff=1
 set shiftwidth=4
 set showcmd
+set smartcase
 set softtabstop=4
+set splitright
+set splitbelow
 set switchbuf+=usetab,newtab
 set textwidth=0
+set ttyfast
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 set wildmenu
 
@@ -69,17 +80,31 @@ let g:ctrlp_custom_ignore = {
     \ }
 
 " Specific filetype by file name
-autocmd BufEnter * call MyLastWindow()
-autocmd BufNewFile,BufRead *.md set filetype=markdown
-autocmd BufNewFile,BufRead *.sh set filetype=sh
-autocmd BufNewFile,BufRead *.sql set filetype=sql
-autocmd BufNewFile,BufRead *.t set filetype=perl
-autocmd BufNewFile,BufRead *.yml set filetype=yaml
-autocmd BufNewFile,BufRead .vimrc set filetype=vim
-autocmd BufNewFile,BufRead Jenkinsfile set filetype=groovy
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-autocmd! BufWritePost .vimrc source %
+autocmd  BufEnter           *           call   MyLastWindow()
+autocmd  BufNewFile,BufRead *.md        set    filetype=markdown
+autocmd  BufNewFile,BufRead *.sh        set    filetype=sh
+autocmd  BufNewFile,BufRead *.sql       set    filetype=sql
+autocmd  BufNewFile,BufRead *.t         set    filetype=perl
+autocmd  BufNewFile,BufRead *.yml       set    filetype=yaml
+autocmd  BufNewFile,BufRead .vimrc      set    filetype=vim
+autocmd  BufNewFile,BufRead Jenkinsfile set    filetype=groovy
+autocmd  StdinReadPre       *           let    s:std_in=1
+autocmd! BufWritePost       .vimrc      source %
+
+autocmd  VimEnter           *           if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+" Enable to copy to clipboard for operations like yank, delete, change and put
+" http://stackoverflow.com/questions/20186975/vim-mac-how-to-copy-to-clipboard-without-pbcopy
+if has('unnamedplus')
+  set clipboard^=unnamed
+  set clipboard^=unnamedplus
+endif
+
+" This enables us to undo files even if you exit Vim.
+if has('persistent_undo')
+  set undofile
+  set undodir=~/.config/vim/tmp/undo//
+endif
 
 " // Setting different cursorline color in different mode
 " augroup CursorLine
@@ -148,7 +173,6 @@ nmap     <silent> <F6>       :Align<CR>
 nmap     <silent> <F7> <Esc> :TagbarToggle<CR>
 nmap     <silent> <F8> <Esc> :setlocal spell spelllang=en_us<CR>
 nmap     <silent> <F9> <Esc> :setlocal nospell<CR>
-nnoremap K                   :grep! "\b<C-R><C-W>\b"<CR>:botright cw<CR>
 nnoremap tc                  :tabnew<CR>
 nnoremap th                  :tabfirst<CR>
 nnoremap tj                  :tabnext<CR>
@@ -161,6 +185,23 @@ nnoremap tx                  :tabclose<CR>
 map      <C-n>               :cnext<CR>
 map      <c-m>               :cprevious<CR>
 nnoremap <leader>a           :cclose<CR>
+" Visual linewise up and down by default (and use gj gk to go quicker)
+noremap <Up> gk
+noremap <Down> gj
+noremap j gj
+noremap k gk
+
+" Search mappings: These will make it so that going to the next one in a
+" search will center on the line it's found in.
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Act like D and C
+nnoremap Y y$
+
+" Enter automatically into the files directory
+autocmd BufEnter * silent! lcd %:p:h
+
 "   _____       _
 "  |  __ \     | |
 "  | |__) |   _| |__  _   _
@@ -226,7 +267,7 @@ let g:go_auto_type_info              = 1
 let g:go_decls_includes              = "func,type"
 let g:go_def_use_buffer              = 1
 let g:go_def_mapping_enabled         = 0
-let g:go_def_mode                    = "godef"
+" let g:go_def_mode                    = "godef"
 let g:go_fmt_autosave                = 1
 let g:go_fmt_command                 = "goimports"
 let g:go_fmt_fail_silently           = 1
@@ -246,21 +287,25 @@ let g:go_metalinter_enabled          = ['vet', 'golint', 'errcheck']
 let g:go_play_open_browser           = 0
 let g:go_test_timeout                = '10s'
 set updatetime =100
-autocmd Filetype go         command! -bang A call go#alternate#Switch(<bang>0, 'edit')
-autocmd Filetype go         command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
-autocmd Filetype go         command! -bang AS call go#alternate#Switch(<bang>0, 'split')
-autocmd Filetype go         command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
-autocmd FileType go         nnoremap <buffer> gt :call go#def#Jump("tab")<CR>
-autocmd FileType go         nmap     <leader>c <Plug>(go-coverage-toggle)
-autocmd FileType go         nmap     <leader>C <Plug>(go-coverage-browser)
-autocmd FileType go         nmap     <leader>t <Plug>(go-test)
-autocmd FileType go         nmap     <leader>T <Plug>(go-test-func)
-autocmd FileType go         nmap     <leader>r <Plug>(go-run)
-autocmd FileType go         nmap     <leader>i <Plug>(go-info)
-autocmd FileType go         nmap     <leader>b :<C-u>call <SID>build_go_files()<CR>
+autocmd Filetype go                  command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+autocmd Filetype go                  command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+autocmd Filetype go                  command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+autocmd Filetype go                  command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+autocmd FileType go                  nnoremap <buffer> gt :call go#def#Jump("tab")<CR>
+autocmd FileType go                  nmap     <leader>b :<C-u>call <SID>build_go_files()<CR>
+autocmd FileType go                  nmap     <leader>c <Plug>(go-coverage-toggle)
+autocmd FileType go                  nmap     <leader>C <Plug>(go-coverage-browser)
+autocmd FileType go                  nmap     <Leader>d <Plug>(go-doc)
+autocmd FileType go                  nmap     <leader>i <Plug>(go-info)
+autocmd FileType go                  nmap     <Leader>l <Plug>(go-metalinter)
+autocmd FileType go                  nmap     <leader>r <Plug>(go-run)
+autocmd FileType go                  nmap     <Leader>s <Plug>(go-def-split)
+autocmd FileType go                  nmap     <Leader>v <Plug>(go-def-vertical)
+autocmd FileType go                  nmap     <leader>t <Plug>(go-test)
+autocmd FileType go                  nmap     <leader>T <Plug>(go-test-func)
+autocmd FileType go                  map      <Leader>ra :wa<CR> :GolangTestCurrentPackage<CR>
+autocmd FileType go                  map      <Leader>rf :wa<CR> :GolangTestFocused<CR>
 " autocmd FileType go         call     SetGoOptions()
-" autocmd FileType python     call     SetGoOptions()
-" autocmd FileType javascript call     SetGoOptions()
 
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
