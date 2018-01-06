@@ -10,7 +10,7 @@ die() {
     exit 1
 }
 
-[ -e "~/.vimrc" ] && die "~/.vimrc already exists."
+[ -e "$HOME/.vimrc" ] && die "~/.vimrc already exists."
 
 git submodule update --init
 
@@ -40,6 +40,17 @@ if [ `uname -a|awk '{ print $1}'` == "Darwin" ] ; then
         echo "Injected git-completion.bash(Apple XCode) into your $PROFILE";
     fi
 fi;
-
 mkdir -p ~/.ssh/config.d/
+
 echo "Your VIM configuration has been installed."
+
+read -p '==> Do you want to install homebrew? (y/n)' install_brew
+
+if [ $install_brew == "y" ]; then
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+    read -p '==> Install VIM/jq from homebrew? (y/n)' install_vim_jq
+    if [ $install_vim_jq == "y" ]; then
+        /usr/local/bin/brew install vim jq
+    fi
+fi

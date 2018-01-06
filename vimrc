@@ -223,7 +223,7 @@ autocmd BufNewFile,BufRead Gemfile,Vagrantfile,*.rb set filetype=ruby
 " autocmd FileType python     map <leader>t :call VimuxRunCommand("restart tellus-portal")<CR>
 autocmd BufNewFile,BufRead *.py set filetype=python
 autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType python,shell,coffee set commentstring=#\ %s
+" autocmd FileType python,shell,coffee set commentstring=#\ %s
 " let g:syntastic_python_checker="flake8,pyflakes,pep8,pylint""
 let g:syntastic_python_checkers=['pyflakes']
 
