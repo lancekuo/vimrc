@@ -25,10 +25,7 @@ else
     echo -e "export PATH=$PATH:`go env GOPATH`/bin" > /etc/profile.d/golang.sh
     source /etc/profile
 fi;
-go get -u github.com/jstemmer/gotags
-go get -u github.com/nsf/gocode
-go get -u github.com/rogpeppe/godef
-go get -u github.com/fatih/gomodifytags
+
 if [ `go env GOOS` == "darwin" ]; then
 # https://github.com/leoliu/ggtags/wiki/Install-Global-with-support-for-exuberant-ctags
     brew install -y ctags
@@ -41,3 +38,4 @@ else
     dpkg -i the-silver-searcher_0.15-1_amd64.deb
 # rpm -ivh http://swiftsignal.com/packages/centos/6/x86_64/the-silver-searcher-0.13.1-1.el6.x86_64.rpm
 fi;
+/usr/local/bin/vim -c GoInstallBinaries -c qa

@@ -6,24 +6,19 @@ This repo stores my most used bundles and tricks.
 
 ## General
 
-### Use system clipboard on Mac (:y+)
+Scripts
 
-Have to install vim via `brew` to have the version of +clipboard enabled.
-```bash
-brew install vim jq
-```
+1.  `install.sh` handles `vim`, `tmux`, `terraformrc` and `bash_profile`. It will install `Homebrew`, `vim` and `jq` by default.
+2.  `set-golang.sh` handles all dependencies of vim plugin and environment setup. Since Go would set `GOPATH` to `$HOME/go` from version 1.8 hence we just put `bin/` into our environment variable setup.
+3.  `set-php.sh` is deprecated.
 
-Ouch, do not forget `jq`, it is pretty awesome and little tiny swiss knife tool in restful world.
 
-Take a jq tutorial [here](https://stedolan.github.io/jq/manual/).
+
+Take jq tutorial from [here](https://stedolan.github.io/jq/manual/).
 
 ## Bundle: [Vim-go](https://github.com/fatih/vim-go-tutorial/blob/master/README.md)
 
-This bundle is pretty much everything I have built on.
-
-1.  `:GoInstallBinaries` in Vim
-2.  ​
-3.  ​
+As title, for golang.
 
 | Action           | Sub actions                              | KeyMap    | Commands                                 | NOTE!                                    |
 | ---------------- | ---------------------------------------- | --------- | ---------------------------------------- | ---------------------------------------- |
