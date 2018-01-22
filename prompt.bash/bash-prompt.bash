@@ -14,13 +14,13 @@ REV="\e[m"
 
 
 function parse_git_branch {
-    ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-    printf " (${ref#refs/heads/}) "
+    ref=$(git symbolic-ref --short HEAD 2> /dev/null) || return
+    printf "(${ref#refs/heads/})"
 }
 
 function parse_git_dirty {
     git status 2 > /dev/null 2>&1 || return;
-    if git status |grep -q "nothing to commit"
+    if [[ -z $(git status --porcelain) ]]
     then
         printf $GREEN
     else
@@ -30,9 +30,9 @@ function parse_git_dirty {
 function parse_terraform_workspace {
     [ -f .terraform/environment ] || return
     ref=$(cat .terraform/environment)
-    printf "[${ref}] "
+    printf "[${ref}]"
 }
-PS1="$CYAN\$(__docker_machine_ps1)$WHITE[\u] \w\$(parse_git_dirty)\$(parse_git_branch)$CYAN\$(parse_terraform_workspace)$RETURN\\$ ";
+PS1="$CYAN\$(__docker_machine_ps1)\$(parse_git_dirty)\$(parse_git_branch)$CYAN\$(parse_terraform_workspace)$WHITE \w$RETURN $ ";
 
 if [ `uname -a|awk '{ print $1}'` == 'Darwin' ] ; then
 # Ref: http://blog.lyhdev.com/2015/03/mac-os-x-command-hacks-markdown-rtf.html
@@ -41,10 +41,6 @@ if [ `uname -a|awk '{ print $1}'` == 'Darwin' ] ; then
         . $(brew --prefix)/etc/bash_completion
     fi
 fi
-
-
-
-export HOMEBREW_GITHUB_API_TOKEN=a6176d3671d684c2508e766fe11028d3776037f3
 
 alias ll='ls -a -l -G'
 alias ls='ls -G'
