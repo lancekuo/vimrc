@@ -71,6 +71,9 @@ let g:syntastic_error_symbol                  = '❌'
 let g:syntastic_warning_symbol                = '❗'
 let g:syntastic_check_on_open                 = 1
 let g:syntastic_enable_highlighting           = 1
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = {
@@ -250,6 +253,29 @@ let g:syntastic_html_checkers=['tidy', 'jshint']
 "              |_|
 let g:tagbar_phpctags_bin='~/.vim/opt/phpctags'
 let g:tagbar_phpctags_memory_limit = '512M'
+
+"  _____                    __
+" |_   _|                  / _|
+"   | | ___ _ __ _ __ __ _| |_ ___  _ __ _ __ ___  
+"   | |/ _ \ '__| '__/ _` |  _/ _ \| '__| '_ ` _ \ 
+"   | |  __/ |  | | | (_| | || (_) | |  | | | | | |
+"   \_/\___|_|  |_|  \__,_|_| \___/|_|  |_| |_| |_|
+let g:terraform_align=1
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_wq = 0
+autocmd FileType terraform setlocal commentstring=#%s
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+" (Optional) Enable terraform plan to be include in filter
+let g:syntastic_terraform_tffilter_plan = 1
+
+" (Optional) Default: 0, enable(1)/disable(0) plugin's keymapping
+let g:terraform_completion_keys = 1
+
+" (Optional) Default: 1, enable(1)/disable(0) terraform module registry completion
+let g:terraform_registry_module_completion = 1
+
 
 "    _____       _
 "   / ____|     | |
