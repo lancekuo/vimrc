@@ -20,8 +20,9 @@ if [ $install_brew == "y" ]; then
     read -p '==> Install python3/VIM/jq from homebrew? (y/n)' install_vim_jq
     if [ $install_vim_jq == "y" ]; then
         /usr/local/bin/brew install python3
+        /usr/local/bin/pip3 install neovim ujson
         /usr/local/bin/brew install vim --with-python3
-        /usr/local/bin/brew install jq neovim
+        /usr/local/bin/brew install jq
     fi
 
     read -p '==> Setup/update Github Token for homebrew? (y/n)' token_for_homebrew

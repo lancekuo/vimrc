@@ -296,10 +296,15 @@ call deoplete#initialize()
 "   \_____|\___/|_|\__,_|_| |_|\__, |
 "                               __/ |
 "                              |___/
+let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+let g:deoplete#sources#go#package_dot   = 1
+let g:deoplete#sources#go#sort_class    = ['package', 'func', 'type', 'var', 'const']
+let g:deoplete#sources#go#pointer       = 1
+
 let g:syntastic_go_checkers          = ['go']
 let g:syntastic_mode_map             = { 'mode': 'active', 'active_filetypes':['go'], 'passive_filetypes': [] }
 
-let g:go_auto_sameids                = 1
+let g:go_auto_sameids                = 0
 let g:go_auto_type_info              = 1
 let g:go_decls_includes              = "func,type"
 let g:go_def_use_buffer              = 1
@@ -318,7 +323,7 @@ let g:go_highlight_operators         = 1
 let g:go_highlight_structs           = 1
 let g:go_highlight_types             = 1
 let g:go_list_type                   = "quickfix"
-let g:go_metalinter_autosave         = 1
+let g:go_metalinter_autosave         = 0
 let g:go_metalinter_deadline         = "5s"
 let g:go_metalinter_enabled          = ['vet', 'golint', 'errcheck']
 let g:go_play_open_browser           = 0
