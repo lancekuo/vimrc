@@ -17,9 +17,11 @@ read -p '==> Do you want to install homebrew? (y/n)' install_brew
 if [ $install_brew == "y" ]; then
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-    read -p '==> Install VIM/jq from homebrew? (y/n)' install_vim_jq
+    read -p '==> Install python3/VIM/jq from homebrew? (y/n)' install_vim_jq
     if [ $install_vim_jq == "y" ]; then
-        /usr/local/bin/brew install vim jq
+        /usr/local/bin/brew install python3
+        /usr/local/bin/brew install vim --with-python3
+        /usr/local/bin/brew install jq neovim
     fi
 
     read -p '==> Setup/update Github Token for homebrew? (y/n)' token_for_homebrew

@@ -56,11 +56,16 @@ set ttyfast
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 set wildmenu
 
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
 " set leader to ,
 let g:mapleader                               = ","
 let g:tagbar_width                            = 80
 let g:bufferline_echo                         = 0
-let g:SuperTabDefaultCompletionType           = "context"
+" let g:SuperTabDefaultCompletionType           = "context"
+let g:SuperTabDefaultCompletionType           = '<c-n>'
 
 let g:airline_powerline_fonts                 = 1
 let g:airline#extensions#tabline#enabled      = 1
@@ -71,9 +76,6 @@ let g:syntastic_error_symbol                  = '❌'
 let g:syntastic_warning_symbol                = '❗'
 let g:syntastic_check_on_open                 = 1
 let g:syntastic_enable_highlighting           = 1
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
 
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = {
@@ -81,6 +83,7 @@ let g:ctrlp_custom_ignore = {
     \ 'file': '\v\.(exe|so|dll)$',
     \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
     \ }
+
 
 " Specific filetype by file name
 autocmd  BufEnter           *           call   MyLastWindow()
@@ -129,16 +132,17 @@ endif
 " highlight   CursorLine   term=none cterm=none ctermbg=8
 " highlight   CursorLineNr term=bold ctermfg=8 gui=bold guifg=Yellow
 " highlight   Folded ctermbg=black ctermfg=darkcyan
-" highlight   LineNr   term=bold ctermfg=8
+highlight   LineNr  ctermfg=DarkGrey ctermbg=233
 highlight   Normal ctermbg=black ctermfg=white
 " highlight   OverLength ctermbg=red ctermfg=white guibg=#592929
-" highlight   Pmenu         ctermfg=0 ctermbg=2
-" highlight   PmenuSbar     ctermfg=7 ctermbg=0
-" highlight   PmenuSel      ctermfg=0 ctermbg=7
-" highlight   PmenuThumb    ctermfg=0 ctermbg=7
+highlight   Pmenu           ctermfg=248  ctermbg=240
+highlight   PmenuSel        ctermfg=0    ctermbg=248
+highlight   PmenuSbar                    ctermbg=232
+highlight   PmenuThumb      ctermfg=240  ctermbg=248
 " highlight   Search cterm=NONE ctermfg=yellow ctermbg=red
 " highlight   SyntasticErrorSign ctermfg=red
 highlight   SpellBad term=underline cterm=underline ctermfg=red
+
 " highlight   TabLine ctermbg=blue
 " highlight   TabLineFill ctermbg=green
 " highlight   TabLineSel ctermbg=red
@@ -201,6 +205,9 @@ nnoremap N Nzzzv
 
 " Act like D and C
 nnoremap Y y$
+
+" deoplete tab-complete
+inoremap <expr><tab> pumvisible()? "\<c-n>" : "\<tab>"
 
 " Enter automatically into the files directory
 autocmd BufEnter * silent! lcd %:p:h
@@ -276,6 +283,10 @@ let g:terraform_completion_keys = 1
 " (Optional) Default: 1, enable(1)/disable(0) terraform module registry completion
 let g:terraform_registry_module_completion = 1
 
+let g:deoplete#omni_patterns = {}
+let g:deoplete#omni_patterns.terraform = '[^ *\t"{=$]\w*'
+let g:deoplete#enable_at_startup = 1
+call deoplete#initialize()
 
 "    _____       _
 "   / ____|     | |
