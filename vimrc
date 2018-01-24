@@ -267,7 +267,7 @@ let g:tagbar_phpctags_memory_limit = '512M'
 "   | |/ _ \ '__| '__/ _` |  _/ _ \| '__| '_ ` _ \ 
 "   | |  __/ |  | | | (_| | || (_) | |  | | | | | |
 "   \_/\___|_|  |_|  \__,_|_| \___/|_|  |_| |_| |_|
-let g:terraform_align=1
+" let g:terraform_align=1
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_wq = 0
