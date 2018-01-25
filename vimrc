@@ -72,10 +72,16 @@ let g:airline#extensions#tabline#enabled      = 1
 let g:airline#extensions#tabline#left_sep     = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 
-let g:syntastic_error_symbol                  = '❌'
-let g:syntastic_warning_symbol                = '❗'
+let g:syntastic_always_populate_loc_list      = 1
+let g:syntastic_auto_loc_list                 = 1
 let g:syntastic_check_on_open                 = 1
+let g:syntastic_check_on_wq                   = 1
 let g:syntastic_enable_highlighting           = 1
+let g:syntastic_error_symbol                  = '❌'
+let g:syntastic_loc_list_height               = 5
+let g:syntastic_style_error_symbol            = '⁉️'
+let g:syntastic_style_warning_symbol          = '💩'
+let g:syntastic_warning_symbol                = '⚠️'
 
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = {
@@ -125,29 +131,33 @@ endif
 "   | | | '_ \ / _ \ '_ ` _ \ / _ \/ __|
 "   | | | | | |  __/ | | | | |  __/\__ \
 "   \_/ |_| |_|\___|_| |_| |_|\___||___/
-" highlight   clear
-" highlight   Comment term=standout cterm=bold ctermfg=blue
-" highlight   Cursor  cterm=bold ctermbg=2
-" highlight   CursorLine   term=none cterm=bold
-" highlight   CursorLine   term=none cterm=none ctermbg=8
-" highlight   CursorLineNr term=bold ctermfg=8 gui=bold guifg=Yellow
-" highlight   Folded ctermbg=black ctermfg=darkcyan
-highlight   LineNr  ctermfg=DarkGrey ctermbg=233
-highlight   Normal ctermbg=black ctermfg=white
-" highlight   OverLength ctermbg=red ctermfg=white guibg=#592929
-highlight   Pmenu           ctermfg=248  ctermbg=240
-highlight   PmenuSel        ctermfg=0    ctermbg=248
-highlight   PmenuSbar                    ctermbg=232
-highlight   PmenuThumb      ctermfg=240  ctermbg=248
-" highlight   Search cterm=NONE ctermfg=yellow ctermbg=red
-" highlight   SyntasticErrorSign ctermfg=red
-highlight   SpellBad term=underline cterm=underline ctermfg=red
 
-" highlight   TabLine ctermbg=blue
-" highlight   TabLineFill ctermbg=green
-" highlight   TabLineSel ctermbg=red
-" highlight   clear SpellBad
-" match       OverLength /\%81v.\+/
+" highlight Comment            term=standout             cterm=bold       ctermfg=blue
+" highlight CursorLine         cterm=none                ctermbg=240
+" highlight CursorLineNr       ctermfg=8                 ctermbg=8
+" highlight Folded             ctermbg=black             ctermfg=darkcyan
+" highlight OverLength         ctermbg=red               ctermfg=white    guibg=#592929
+" highlight Search             cterm=NONE                ctermfg=yellow   ctermbg=red
+" highlight SyntasticErrorSign ctermfg=red
+" highlight TabLine            ctermbg=blue
+" highlight TabLineFill        ctermbg=green
+" highlight TabLineSel         ctermbg=red
+" highlight clear
+" highlight clear              SpellBad
+" match     OverLength         /\\%81v.\\+/
+highlight Cursor             ctermfg=0                 ctermbg=10
+highlight LineNr             ctermfg=DarkGrey          ctermbg=233
+highlight Normal             ctermbg=black             ctermfg=white
+highlight Pmenu              ctermfg=248               ctermbg=240
+highlight PmenuSbar          ctermbg=232
+highlight PmenuSel           ctermfg=0                 ctermbg=248
+highlight PmenuThumb         ctermfg=240               ctermbg=248
+highlight SpellBad           term=underline            cterm=underline  ctermfg=red
+highlight Visual             cterm=bold                ctermbg=240
+highlight link               SyntasticErrorSign        SignColumn
+highlight link               SyntasticStyleErrorSign   SignColumn
+highlight link               SyntasticStyleWarningSign SignColumn
+highlight link               SyntasticWarningSign      SignColumn
 
 " Default Colors for CursorLine
 " Change Color when entering Insert Mode
@@ -268,9 +278,6 @@ let g:tagbar_phpctags_memory_limit = '512M'
 "   | |  __/ |  | | | (_| | || (_) | |  | | | | | |
 "   \_/\___|_|  |_|  \__,_|_| \___/|_|  |_| |_| |_|
 " let g:terraform_align=1
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_wq = 0
 autocmd FileType terraform setlocal commentstring=#%s
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
