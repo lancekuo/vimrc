@@ -72,6 +72,7 @@ let g:airline_powerline_fonts                 = 1
 let g:airline#extensions#tabline#enabled      = 1
 let g:airline#extensions#tabline#left_sep     = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#formatter    = 'unique_tail'
 
 let g:syntastic_always_populate_loc_list      = 1
 let g:syntastic_auto_loc_list                 = 1
@@ -84,8 +85,9 @@ let g:syntastic_style_error_symbol            = '⁉️'
 let g:syntastic_style_warning_symbol          = '💩'
 let g:syntastic_warning_symbol                = '⚠️'
 
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_custom_ignore = {
+let g:ctrlp_regexp                            = 1
+let g:ctrlp_working_path_mode                 = 'ra'
+let g:ctrlp_custom_ignore                     = {
     \ 'dir':  '\v[\/]\.(git|hg|svn)$',
     \ 'file': '\v\.(exe|so|dll)$',
     \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
