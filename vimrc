@@ -474,7 +474,7 @@ endif
 
 "If this is Terminal.app, do cursor hack for visible cursor
 "This hack does not behave well with other terminals (particularly xterm)
-function MacOSX()
+function! MacOSX()
   hi CursorLine term=none cterm=none "Invisible CursorLine
   set cursorline "cursorline required to continuously update cursor position
   hi Cursor cterm=bold "I like a reversed cursor, edit this to your liking
