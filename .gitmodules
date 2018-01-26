@@ -70,3 +70,9 @@
 [submodule "bundle/deoplete-go"]
 	path = bundle/deoplete-go
 	url = https://github.com/zchee/deoplete-go.git
+[submodule "bundle/vim-gitgutter"]
+	path = bundle/vim-gitgutter
+	url = git://github.com/airblade/vim-gitgutter.git
+[submodule "bundle/vim-fugitive"]
+	path = bundle/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
