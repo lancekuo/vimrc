@@ -148,7 +148,7 @@ endif
 " highlight clear
 " highlight clear              SpellBad
 " match     OverLength         /\\%81v.\\+/
-highlight Cursor             ctermfg=0                 ctermbg=10
+highlight Cursor             ctermfg=7                 ctermbg=10
 highlight LineNr             ctermfg=DarkGrey          ctermbg=233
 highlight Normal             ctermbg=black             ctermfg=white
 highlight Pmenu              ctermfg=248               ctermbg=240
