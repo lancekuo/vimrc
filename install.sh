@@ -58,13 +58,7 @@ do
 done
 
 if [ `uname -a|awk '{ print $1}'` == "Darwin" ] ; then
-    if grep -qe "git-completion" $PROFILE; then
-        echo "SKIP... since git-completion.bash(Apple XCode) has linked to $PROFILE.";
-    else
-        brew install bash-completion
-        echo 'source /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-completion.bash' >> $PROFILE
-        echo "Injected git-completion.bash(Apple XCode) into your $PROFILE";
-    fi
+    brew install git bash-completion && brew link --overwrite git
 fi;
 mkdir -p ~/.ssh/config.d/
 
