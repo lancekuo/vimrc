@@ -19,6 +19,7 @@ colorscheme molokai
 set runtimepath+=/usr/local/go/misc/vim " replace $GOROOT with the output of: go env GOROOT  "
 
 " Prevent flash close windows
+" (Optional)Remove Info(Preview) window
 set completeopt-=preview
 
 set autowrite
@@ -77,7 +78,7 @@ let g:airline#extensions#tabline#formatter    = 'unique_tail'
 let g:syntastic_always_populate_loc_list      = 1
 let g:syntastic_auto_loc_list                 = 1
 let g:syntastic_check_on_open                 = 1
-let g:syntastic_check_on_wq                   = 1
+let g:syntastic_check_on_wq                   = 0
 let g:syntastic_enable_highlighting           = 1
 let g:syntastic_error_symbol                  = '❌'
 let g:syntastic_loc_list_height               = 5
@@ -282,6 +283,7 @@ let g:tagbar_phpctags_memory_limit = '512M'
 "   \_/\___|_|  |_|  \__,_|_| \___/|_|  |_| |_| |_|
 " let g:terraform_align=1
 autocmd FileType terraform setlocal commentstring=#%s
+" (Optional)Hide Info(Preview) window after completions
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 " (Optional) Enable terraform plan to be include in filter
@@ -291,10 +293,13 @@ let g:syntastic_terraform_tffilter_plan = 1
 let g:terraform_completion_keys = 1
 
 " (Optional) Default: 1, enable(1)/disable(0) terraform module registry completion
-let g:terraform_registry_module_completion = 1
+let g:terraform_registry_module_completion = 0
 
 let g:deoplete#omni_patterns = {}
-let g:deoplete#omni_patterns.terraform = '[^ *\t"{=$]\w*'
+call deoplete#custom#option('omni_patterns', {
+\ 'complete_method': 'omnifunc',
+\ 'terraform': '[^ *\t"{=$]\w*',
+\})
 let g:deoplete#enable_at_startup = 1
 call deoplete#initialize()
 
