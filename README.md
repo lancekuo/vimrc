@@ -112,11 +112,11 @@ Help folks to align text, equals, declarations, tables, etc.
 
 Usage:
 
-* ``\t=`` Align assignments.
-* ``\t,`` Align on commas.
-* ``\tsp`` Align on whitespace.
-* ``\acom`` Align comments.
-* ``\Htd`` Align HTML tables.
+* ``<leader>t=`` Align assignments.
+* ``<leader>t,`` Align on commas.
+* ``<leader>tsp`` Align on whitespace.
+* ``<leader>acom`` Align comments.
+* ``<leader>Htd`` Align HTML tables.
 
 ## Bundle: Commentary
 

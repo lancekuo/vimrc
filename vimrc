@@ -362,7 +362,7 @@ autocmd FileType go                  nmap     <leader>t <Plug>(go-test)
 autocmd FileType go                  nmap     <leader>T <Plug>(go-test-func)
 autocmd FileType go                  map      <Leader>ra :wa<CR> :GolangTestCurrentPackage<CR>
 autocmd FileType go                  map      <Leader>rf :wa<CR> :GolangTestFocused<CR>
-" autocmd FileType go         call     SetGoOptions()
+autocmd FileType go         call     SetGoOptions()
 
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
