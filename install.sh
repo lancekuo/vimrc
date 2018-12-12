@@ -62,4 +62,6 @@ if [ `uname -a|awk '{ print $1}'` == "Darwin" ] ; then
 fi;
 mkdir -p ~/.ssh/config.d/
 
+[ ! -e "~/.ssh/config.d/default" ] && echo -e "host *\n  ControlMaster auto\n  ControlPath ~/.ssh/ssh_mux_%h_%p_%r\n" > ~/.ssh/config.d/default
+
 echo "Your VIM configuration has been installed."
