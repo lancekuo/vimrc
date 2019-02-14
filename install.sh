@@ -41,6 +41,11 @@ fi;
 [ -e "$HOME/.vimrc" ] && die "~/.vimrc already exists."
 
 git submodule update --init
+git config --global --add merge.tool vimdiff
+git config --global --add merge.conflictstyle diff3
+git config --global --add mergetool.prompt false
+git config --global --add user.name "Lance Kuo"
+git config --global --add user.email lancekuo@gmail.com
 
 cd ~
 ln -s .vim/vimrc .vimrc
