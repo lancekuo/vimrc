@@ -46,6 +46,7 @@ git config --global --add merge.conflictstyle diff3
 git config --global --add mergetool.prompt false
 git config --global --add user.name "Lance Kuo"
 git config --global --add user.email lancekuo@gmail.com
+git config --global --add commit.gpgsign true
 
 cd ~
 ln -s .vim/vimrc .vimrc
