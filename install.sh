@@ -48,6 +48,8 @@ git config --global --add user.name "Lance Kuo"
 git config --global --add user.email lancekuo@gmail.com
 git config --global --add commit.gpgsign true
 git config --global alias.oldest-ancestor '!bash -c '\''diff --old-line-format='' --new-line-format='' <(git rev-list --first-parent "${1:-master}") <(git rev-list --first-parent "${2:-HEAD}") | head -1'\'' -'
+git config --global alias.branchdiff '!bash -c "git diff `git oldest-ancestor`.."'
+git config --global alias.branchlog '!bash -c "git log `git oldest-ancestor`.."'
 
 cd ~
 ln -s .vim/vimrc .vimrc
