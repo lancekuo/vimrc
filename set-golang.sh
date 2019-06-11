@@ -28,10 +28,10 @@ fi;
 
 if [ `go env GOOS` == "darwin" ]; then
 # https://github.com/leoliu/ggtags/wiki/Install-Global-with-support-for-exuberant-ctags
-    brew install -y ctags
+    brew install ctags
     brew link ctags
-    brew install global --with-exuberant-ctags
-    brew install -y the_silver_searcher
+    # brew install global --with-exuberant-ctags
+    brew install the_silver_searcher
 else
     apt-get install -y ctags
     wget https://launchpad.net/~pgolm/+archive/ubuntu/the-silver-searcher/+files/the-silver-searcher_0.15-1_amd64.deb
