@@ -21,7 +21,7 @@ if [ $install_brew == "y" ]; then
     if [ $install_vim_jq == "y" ]; then
         /usr/local/bin/brew install python3
         /usr/local/bin/pip3 install neovim ujson
-        /usr/local/bin/brew install vim --with-python3
+        /usr/local/bin/brew install vim
         /usr/local/bin/brew install jq
     fi
 
