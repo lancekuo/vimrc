@@ -82,3 +82,6 @@
 [submodule "bundle/vim-rego"]
 	path = bundle/vim-rego
 	url = git@github.com:tsandall/vim-rego.git
+[submodule "bundle/vim-protobuf"]
+	path = bundle/vim-protobuf
+	url = git://github.com/uarun/vim-protobuf.git
