@@ -19,7 +19,7 @@
 # fi;
 # Comment out above because go has default GOPATH since 1.8(7?)
 if [ `uname -a|awk '{ print $1}'` == "Darwin" ] ; then
-    echo -e "export PATH=$PATH:$HOME/bin:`go env GOPATH`/bin" >> ~/.bash_profile
+    echo -e "export PATH=$PATH:$HOME/bin:`go env GOPATH`/bin" >> $HOME/.bash_profile
     source ~/.bash_profile
 else
     echo -e "export PATH=$PATH:$HOME/bin:`go env GOPATH`/bin" > /etc/profile.d/golang.sh

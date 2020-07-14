@@ -47,16 +47,19 @@ git config --global --add mergetool.prompt false
 git config --global --add user.name "Lance Kuo"
 git config --global --add user.email lancekuo@gmail.com
 git config --global --add commit.gpgsign true
+# Aim to solve the problem from `go dep` issue
+git config --global --add url.git@github.com:.insteadOf https://github.com/
 git config --global alias.oldest-ancestor '!bash -c '\''diff --old-line-format='' --new-line-format='' <(git rev-list --first-parent "${1:-master}") <(git rev-list --first-parent "${2:-HEAD}") | head -1'\'' -'
 git config --global alias.branchdiff '!bash -c "git diff `git oldest-ancestor`.."'
 git config --global alias.branchlog '!bash -c "git log `git oldest-ancestor`.."'
+git config --global alias.permission-resetb '!git diff -p --no-ext-diff --no-color --diff-filter=d | grep -E "^(diff|old mode|new mode)" | sed -e "s/^old/NEW/;s/^new/old/;s/^NEW/new/" | git apply'
 
-cd ~
-ln -s .vim/vimrc .vimrc
-ln -s .vim/tmux.conf .tmux.conf
-ln -s .vim/terraformrc .terraformrc
+ln -s $PWD $HOME/.vim
+ln -s $HOME/.vim/vimrc $HOME/.vimrc
+ln -s $HOME/.vim/tmux.conf $HOME/.tmux.conf
+ln -s $HOME/.vim/terraformrc $HOME/.terraformrc
 
-for f in bash-prompt.bash docker-prompt.bash docker-compose-prompt.bash docker-machine-prompt.bash
+for f in bash-prompt.bash docker-prompt.bash docker-compose-prompt.bash
 do
     if grep -qe ${f%.bash} $PROFILE; then
         echo "SKIP... since $f has linked to $PROFILE.";
@@ -69,7 +72,7 @@ done
 if [ `uname -a|awk '{ print $1}'` == "Darwin" ] ; then
     brew install git bash-completion && brew link --overwrite git
 fi;
-mkdir -p ~/.ssh/config.d/
+mkdir -p $HOME/.ssh/config.d/
 
 [ ! -e "~/.ssh/config.d/default" ] && echo -e "host *\n  ControlMaster auto\n  ControlPath ~/.ssh/ssh_mux_%h_%p_%r\n" > ~/.ssh/config.d/default
 

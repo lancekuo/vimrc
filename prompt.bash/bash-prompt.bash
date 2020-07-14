@@ -32,7 +32,7 @@ function parse_terraform_workspace {
     ref=$(cat .terraform/environment)
     printf "[${ref}]"
 }
-PS1="$CYAN\$(__docker_machine_ps1)\$(parse_git_dirty)\$(parse_git_branch)$CYAN\$(parse_terraform_workspace)$WHITE \w$RETURN $ ";
+PS1="$CYAN\$(parse_git_dirty)\$(parse_git_branch)$CYAN\$(parse_terraform_workspace)$WHITE \w$RETURN $ ";
 
 if [ `uname -a|awk '{ print $1}'` == 'Darwin' ] ; then
 # Ref: http://blog.lyhdev.com/2015/03/mac-os-x-command-hacks-markdown-rtf.html
