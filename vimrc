@@ -75,6 +75,8 @@ let g:airline#extensions#tabline#left_sep     = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter    = 'unique_tail'
 
+let g:deoplete#enable_at_startup              = 1
+
 let g:syntastic_always_populate_loc_list      = 1
 let g:syntastic_auto_loc_list                 = 1
 let g:syntastic_check_on_open                 = 1
@@ -203,6 +205,8 @@ nnoremap tm                  :tabm<Space>
 nnoremap tt                  :tabedit<Space>
 nnoremap tx                  :tabclose<CR>
 
+map      <C-j>               :lnext<CR>
+map      <c-k>               :lprevious<CR>
 map      <C-n>               :cnext<CR>
 map      <c-m>               :cprevious<CR>
 nnoremap <leader>a           :cclose<CR>
@@ -300,8 +304,6 @@ call deoplete#custom#option('omni_patterns', {
 \ 'complete_method': 'omnifunc',
 \ 'terraform': '[^ *\t"{=$]\w*',
 \})
-let g:deoplete#enable_at_startup = 1
-call deoplete#initialize()
 
 "    _____       _
 "   / ____|     | |
@@ -311,10 +313,15 @@ call deoplete#initialize()
 "   \_____|\___/|_|\__,_|_| |_|\__, |
 "                               __/ |
 "                              |___/
-let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-let g:deoplete#sources#go#package_dot   = 1
-let g:deoplete#sources#go#sort_class    = ['package', 'func', 'type', 'var', 'const']
-let g:deoplete#sources#go#pointer       = 1
+" let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+" let g:deoplete#sources#go#package_dot   = 1
+" let g:deoplete#sources#go#sort_class    = ['package', 'func', 'type', 'var', 'const']
+" let g:deoplete#sources#go#pointer       = 1
+call deoplete#custom#option('omni_patterns', {
+\ 'go': '[^. *\t]\.\w*',
+\})
+
+" let g:go_debug=['lsp']
 
 let g:syntastic_go_checkers          = ['go']
 let g:syntastic_mode_map             = { 'mode': 'active', 'active_filetypes':['go'], 'passive_filetypes': [] }
@@ -322,12 +329,15 @@ let g:syntastic_mode_map             = { 'mode': 'active', 'active_filetypes':['
 let g:go_auto_sameids                = 0
 let g:go_auto_type_info              = 1
 let g:go_decls_includes              = "func,type"
-let g:go_def_use_buffer              = 1
 let g:go_def_mapping_enabled         = 0
-" let g:go_def_mode                    = "godef"
+" let g:go_def_mode                  = "godef"
+let g:go_def_mode                    = 'gopls'
+let g:go_info_mode                   = 'gopls'
+let g:go_def_use_buffer              = 1
 let g:go_fmt_autosave                = 1
 let g:go_fmt_command                 = "goimports"
 let g:go_fmt_fail_silently           = 1
+let g:go_guru_scope                  = ["github.com/doc-ai/..."]
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types       = 1
 let g:go_highlight_fields            = 1
@@ -339,10 +349,12 @@ let g:go_highlight_structs           = 1
 let g:go_highlight_types             = 1
 let g:go_list_type                   = "quickfix"
 let g:go_metalinter_autosave         = 0
+let g:go_metalinter_autosave_enabled = ['vet', 'golint']
 let g:go_metalinter_deadline         = "5s"
 let g:go_metalinter_enabled          = ['vet', 'golint', 'errcheck']
 let g:go_play_open_browser           = 0
 let g:go_test_timeout                = '10s'
+let g:go_textobj_include_function_doc = 1
 set updatetime =100
 autocmd Filetype go                  command! -bang A call go#alternate#Switch(<bang>0, 'edit')
 autocmd Filetype go                  command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
@@ -362,7 +374,7 @@ autocmd FileType go                  nmap     <leader>t <Plug>(go-test)
 autocmd FileType go                  nmap     <leader>T <Plug>(go-test-func)
 autocmd FileType go                  map      <Leader>ra :wa<CR> :GolangTestCurrentPackage<CR>
 autocmd FileType go                  map      <Leader>rf :wa<CR> :GolangTestFocused<CR>
-autocmd FileType go         call     SetGoOptions()
+autocmd FileType go                  call     SetGoOptions()
 
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',

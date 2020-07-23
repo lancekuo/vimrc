@@ -1,0 +1,5 @@
+# json field tag
+snippet bson "\`bson:key\`"
+\`bson:"${1:`!v  go#util#camelcase(matchstr(getline("."), '\w\+'))`}"\`
+endsnippet
+
