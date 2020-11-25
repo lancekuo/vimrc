@@ -356,6 +356,7 @@ call deoplete#custom#option('omni_patterns', {
 \})
 
 " let g:go_debug=['lsp']
+let g:go_debug=['shell-commands']
 
 let g:syntastic_go_checkers          = ['go']
 let g:syntastic_mode_map             = { 'mode': 'active', 'active_filetypes':['go'], 'passive_filetypes': [] }
