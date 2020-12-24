@@ -20,46 +20,46 @@ Take jq tutorial from [here](https://stedolan.github.io/jq/manual/).
 
 As title, for golang.
 
-| Action           | Sub actions                              | KeyMap    | Commands                                 | NOTE!                                    |
-| ---------------- | ---------------------------------------- | --------- | ---------------------------------------- | ---------------------------------------- |
-|                  | Next error in quickfix                   | <C-n>     |                                          |                                          |
-|                  | Previous error in quick fix              | <C-m>     |                                          |                                          |
-|                  | Close quick fix                          | <leader>a |                                          |                                          |
-| Build            |                                          | <leader>b | (build_go_files)                         | run `:GoBuild` or `:GoTestCompile` based on the file we currently have |
-| Test             |                                          | <leader>t | `:GoTest`                                |                                          |
-|                  |                                          |           | `:GoTestFunc`                            |                                          |
-| Coverage         |                                          | <leader>c | `:GoCoverageToggle`                      |                                          |
-|                  |                                          | <leader>C | `:GOCoverageBrowser`                     |                                          |
-| Go Import        |                                          |           | `:GoImport strings` `:GoImportAs str strings` |                                          |
-| Go Drop          |                                          |           | `:GoDrop strings`                        |                                          |
-|                  | Range, Inside the function               | if        |                                          | vif                                      |
-|                  | Range, All the function                  | at        |                                          | vaf, includes comment                    |
-| GoAlternate      | Jump between go and go test file         |           | `:GoAlternate` `:A` `:AV` `:AS` `:AT`    | `:AV` vSplit `:AS`Split `:AT`Tab         |
-| Go To Definition |                                          | gd        |                                          |                                          |
-|                  |                                          | gt        |                                          |                                          |
-| Navigation       | Jump to previous position                | <C-o>     |                                          |                                          |
-|                  | Jump to previous location                | <C-t>     |                                          |                                          |
-|                  | Open GoDef history                       |           | `:GoDefStack`                            |                                          |
-|                  | Clear GoDef history                      |           | `:GoDefStackClear`                       |                                          |
-|                  | Jump to previous function                | [[        |                                          | v[[                                      |
-|                  | Jump to next function                    | ]]        |                                          | 3[[                                      |
-|                  | Looking for declaration                  |           | `:GoDecls` `:GoDeclsDir` `:GoDeclsClear` | Required `ctrlp`                         |
-|                  | Looking for documentation                | K         | `:GoDoc`                                 |                                          |
-|                  | Show identifier                          | <leader>i | `:GoInfo`                                | auto_type_info                           |
-|                  | List package dependency files            |           | `:GoFiles`                               |                                          |
-|                  | List all dependency files                |           | `:GoDeps`                                |                                          |
-|                  | Find reference                           |           | `:GoReferrers`                           |                                          |
-|                  | Show identifier advanced                 |           | `:GoDescribe`                            |                                          |
-|                  | List interfaces the type is implementing |           | `:GoImplements`                          |                                          |
-|                  | List possible error value of the type    |           | `:GoWhicherrs`                           |                                          |
-|                  | Describe channels                        |           | `:GoChannelPeers`                        |                                          |
-|                  | Who been called as the function?         |           | `:GoCallees`                             |                                          |
-|                  | Who call the function?                   |           | `:GoCallers`                             |                                          |
-|                  | List call stack from root                |           | `:GoCallstack`                           |                                          |
-|                  | Change guru scope                        |           | `:GoGuruScope`                           | `:GoGuruScope ...`                       |
-|                  | Refactory name                           |           | `:GoRename`                              | Change struct field                      |
-|                  | Detect Free Vars                         |           | `:GoFreevars`                            | Select a range...                        |
-|                  | AutoGen - Implement                      |           | `:GoImpl`                                | Put your cursor on top of `T` `:GoImpl io.ReadWriteCloser`<br />`:GoImpl b *B fmt.Stringer` |
+| Action           | Sub actions                              | KeyMap    | Commands                                      | NOTE!                                                        |
+| ---------------- | ---------------------------------------- | --------- | --------------------------------------------- | ------------------------------------------------------------ |
+|                  | Next error in quickfix                   | <C-n>     |                                               |                                                              |
+|                  | Previous error in quick fix              | <C-m>     |                                               |                                                              |
+|                  | Close quick fix                          | <leader>a |                                               |                                                              |
+| Build            |                                          | <leader>b | (build_go_files)                              | run `:GoBuild` or `:GoTestCompile` based on the file we currently have |
+| Test             |                                          | <leader>t | `:GoTest`                                     |                                                              |
+|                  |                                          |           | `:GoTestFunc`                                 |                                                              |
+| Coverage         |                                          | <leader>c | `:GoCoverageToggle`                           |                                                              |
+|                  |                                          | <leader>C | `:GOCoverageBrowser`                          |                                                              |
+| Go Import        |                                          |           | `:GoImport strings` `:GoImportAs str strings` |                                                              |
+| Go Drop          |                                          |           | `:GoDrop strings`                             |                                                              |
+|                  | Range, Inside the function               | if        |                                               | vif                                                          |
+|                  | Range, All the function                  | at        |                                               | vaf, includes comment                                        |
+| GoAlternate      | Jump between go and go test file         |           | `:GoAlternate` `:A` `:AV` `:AS` `:AT`         | `:AV` vSplit `:AS`Split `:AT`Tab                             |
+| Go To Definition |                                          | <leader>d | :GoDef                                        |                                                              |
+|                  |                                          | gt        |                                               |                                                              |
+| Navigation       | Jump to previous position                | <C-o>     |                                               |                                                              |
+|                  | Jump to previous location                | <C-t>     |                                               |                                                              |
+|                  | Open GoDef history                       |           | `:GoDefStack`                                 |                                                              |
+|                  | Clear GoDef history                      |           | `:GoDefStackClear`                            |                                                              |
+|                  | Jump to previous function                | [[        |                                               | v[[                                                          |
+|                  | Jump to next function                    | ]]        |                                               | 3[[                                                          |
+|                  | Looking for declaration                  |           | `:GoDecls` `:GoDeclsDir` `:GoDeclsClear`      | Required `ctrlp`                                             |
+|                  | Looking for documentation                | K         | `:GoDoc`                                      |                                                              |
+|                  | Show identifier                          | <leader>i | `:GoInfo`                                     | auto_type_info                                               |
+|                  | List package dependency files            |           | `:GoFiles`                                    |                                                              |
+|                  | List all dependency files                |           | `:GoDeps`                                     |                                                              |
+|                  | Find reference                           |           | `:GoReferrers`                                |                                                              |
+|                  | Show identifier advanced                 |           | `:GoDescribe`                                 |                                                              |
+|                  | List interfaces the type is implementing |           | `:GoImplements`                               |                                                              |
+|                  | List possible error value of the type    |           | `:GoWhicherrs`                                |                                                              |
+|                  | Describe channels                        |           | `:GoChannelPeers`                             |                                                              |
+|                  | Who been called as the function?         |           | `:GoCallees`                                  |                                                              |
+|                  | Who call the function?                   |           | `:GoCallers`                                  |                                                              |
+|                  | List call stack from root                |           | `:GoCallstack`                                |                                                              |
+|                  | Change guru scope                        |           | `:GoGuruScope`                                | `:GoGuruScope ...`                                           |
+|                  | Refactory name                           |           | `:GoRename`                                   | Change struct field                                          |
+|                  | Detect Free Vars                         |           | `:GoFreevars`                                 | Select a range...                                            |
+|                  | AutoGen - Implement                      |           | `:GoImpl`                                     | Put your cursor on top of `T` `:GoImpl io.ReadWriteCloser`<br />`:GoImpl b *B fmt.Stringer` |
 ```bash
 let g:go_guru_scope = ["github.com/fatih/vim-go-tutorial"]
 let g:go_guru_scope = ["..."]

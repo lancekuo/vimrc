@@ -52,6 +52,7 @@ set softtabstop=4
 set splitright
 set splitbelow
 set switchbuf+=usetab,newtab
+set tabstop=4
 set textwidth=0
 set ttyfast
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
@@ -365,14 +366,15 @@ let g:go_auto_sameids                = 0
 let g:go_auto_type_info              = 1
 let g:go_decls_includes              = "func,type"
 let g:go_def_mapping_enabled         = 0
-" let g:go_def_mode                  = "godef"
+" let g:go_def_mode                    = "godef"
 let g:go_def_mode                    = 'gopls'
 let g:go_info_mode                   = 'gopls'
 let g:go_def_use_buffer              = 1
 let g:go_fmt_autosave                = 1
 let g:go_fmt_command                 = "goimports"
 let g:go_fmt_fail_silently           = 1
-let g:go_guru_scope                  = ["github.com/doc-ai/..."]
+" https://golang.org/s/using-guru
+let g:go_guru_scope                  = ["..."]
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types       = 1
 let g:go_highlight_fields            = 1
@@ -382,7 +384,7 @@ let g:go_highlight_methods           = 1
 let g:go_highlight_operators         = 1
 let g:go_highlight_structs           = 1
 let g:go_highlight_types             = 1
-let g:go_list_type                   = "quickfix"
+" let g:go_list_type                   = "quickfix"
 let g:go_metalinter_autosave         = 0
 let g:go_metalinter_autosave_enabled = ['vet', 'golint']
 let g:go_metalinter_deadline         = "5s"
@@ -391,6 +393,7 @@ let g:go_play_open_browser           = 0
 let g:go_test_timeout                = '10s'
 let g:go_textobj_include_function_doc = 1
 set updatetime =100
+autocmd BufNewFile,BufRead *.go      setlocal noexpandtab tabstop=4 shiftwidth=4
 autocmd Filetype go                  command! -bang A call go#alternate#Switch(<bang>0, 'edit')
 autocmd Filetype go                  command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
 autocmd Filetype go                  command! -bang AS call go#alternate#Switch(<bang>0, 'split')
