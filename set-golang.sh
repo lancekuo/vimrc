@@ -27,9 +27,7 @@ else
 fi;
 
 if [ `go env GOOS` == "darwin" ]; then
-# https://github.com/leoliu/ggtags/wiki/Install-Global-with-support-for-exuberant-ctags
-    brew install ctags
-    brew link ctags
+    brew install universal-ctags
     # brew install global --with-exuberant-ctags
     brew install the_silver_searcher
 else
@@ -38,4 +36,4 @@ else
     dpkg -i the-silver-searcher_0.15-1_amd64.deb
 # rpm -ivh http://swiftsignal.com/packages/centos/6/x86_64/the-silver-searcher-0.13.1-1.el6.x86_64.rpm
 fi;
-/usr/local/bin/vim -c GoInstallBinaries -c qa
+vim -c GoInstallBinaries -c qa

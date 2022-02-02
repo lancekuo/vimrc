@@ -15,14 +15,27 @@ die() {
 read -p '==> Do you want to install homebrew? (y/n)' install_brew
 
 if [ $install_brew == "y" ]; then
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.bash_profile
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 
     read -p '==> Install python3/VIM/jq from homebrew? (y/n)' install_vim_jq
     if [ $install_vim_jq == "y" ]; then
-        /usr/local/bin/brew install python3
-        /usr/local/bin/pip3 install neovim ujson
-        /usr/local/bin/brew install vim
-        /usr/local/bin/brew install jq
+        brew install python3
+        pip3 install neovim ujson pynvim # Make sure we having homebrew shellenv injected or we are going to mix up diff py version here
+        brew install vim jq yq
+    fi
+
+    read -p '==> Install awscli from homebrew? (y/n)' install_awscli
+    if [ $install_awscli == "y" ]; then
+        brew install awscli
+    fi
+
+    read -p '==> Install google cloud sdk from curl? (y/n)' install_gcloud
+    if [ $install_gcloud == "y" ]; then
+        curl https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-370.0.0-darwin-arm.tar.gz |tar zxv
+        sudo mkdir -p /usr/local/Caskroom
+        sudo mv ~/Downloads/google-cloud-sdk /usr/local/Caskroom/
     fi
 
     read -p '==> Setup/update Github Token for homebrew? (y/n)' token_for_homebrew

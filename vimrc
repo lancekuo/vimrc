@@ -96,7 +96,7 @@ let g:ctrlp_custom_ignore                     = {
     \ 'file': '\v\.(exe|so|dll)$',
     \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
     \ }
-let g:NERDTreeIndicatorMapCustom              = {
+let g:NERDTreeGitStatusIndicatorMapCustom     = {
     \ "Modified"  : "✹",
     \ "Staged"    : "✚",
     \ "Untracked" : "✭",
@@ -311,8 +311,8 @@ let g:syntastic_html_checkers=['tidy', 'jshint']
 " |_|    |_| |_| .__/
 "              | |
 "              |_|
-let g:tagbar_phpctags_bin='~/.vim/opt/phpctags'
-let g:tagbar_phpctags_memory_limit = '512M'
+" let g:tagbar_phpctags_bin='~/.vim/opt/phpctags'
+" let g:tagbar_phpctags_memory_limit = '512M'
 
 "  _____                    __
 " |_   _|                  / _|
@@ -322,6 +322,8 @@ let g:tagbar_phpctags_memory_limit = '512M'
 "   \_/\___|_|  |_|  \__,_|_| \___/|_|  |_| |_| |_|
 " let g:terraform_align=1
 autocmd FileType terraform setlocal commentstring=#%s
+autocmd FileType terraform call     OpenTagbar()
+autocmd BufNewFile,BufRead *.tf   set filetype=terraform
 " (Optional)Hide Info(Preview) window after completions
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
@@ -329,7 +331,7 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 let g:syntastic_terraform_tffilter_plan = 1
 
 " (Optional) Default: 0, enable(1)/disable(0) plugin's keymapping
-let g:terraform_completion_keys = 0
+let g:terraform_completion_keys = 1
 
 " (Optional) Default: 1, enable(1)/disable(0) terraform module registry completion
 let g:terraform_registry_module_completion = 1
@@ -412,7 +414,7 @@ autocmd FileType go                  nmap     <leader>t <Plug>(go-test)
 autocmd FileType go                  nmap     <leader>T <Plug>(go-test-func)
 autocmd FileType go                  map      <Leader>ra :wa<CR> :GolangTestCurrentPackage<CR>
 autocmd FileType go                  map      <Leader>rf :wa<CR> :GolangTestFocused<CR>
-autocmd FileType go                  call     SetGoOptions()
+autocmd FileType go                  call     OpenTagbar()
 
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
@@ -510,7 +512,7 @@ function! MyLastWindow()
   if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 endfunction
 
-function! SetGoOptions()
+function! OpenTagbar()
      :call tagbar#autoopen(0)
 endfunction
 
