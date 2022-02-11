@@ -1,16 +1,18 @@
 #!/bin/bash
 # .bash_profile
-BLACK="\e[0;30m"
-RED="\e[0;31m"
-GREEN="\e[0;32m"
-YELLOW="\e[0;33m"
-BLUE="\e[0;34m"
-CYAN="\e[0;36m"
-WHITE="\e[1;37m"
-MAGENTA="\e[0;38m"
-RETURN="\e[m"
+BLACK="\[\e[0;30m\]"
+BLUE="\[\e[0;34m\]"
 BOLD="tput bold"
-REV="\e[m"
+BYELLOW="\[\e[1;33m\]"
+CYAN="\[\e[0;36m\]"
+GREEN="\[\e[0;32m\]"
+IBLACK="\[\e[0;90m\]"
+MAGENTA="\[\e[0;38m\]"
+PS_CLEAR="\[\e[m\]"
+RED="\[\e[0;31m\]"
+RETURN="\[\e[m\]"
+WHITE="\[\e[1;37m\]"
+YELLOW="\[\e[0;33m\]"
 
 
 function parse_git_branch {
@@ -32,7 +34,7 @@ function parse_terraform_workspace {
     ref=$(cat .terraform/environment)
     printf "[${ref}]"
 }
-PS1="$CYAN\$(parse_git_dirty)\$(parse_git_branch)$CYAN\$(parse_terraform_workspace)$WHITE \w$RETURN $ ";
+PS1="$(parse_git_dirty)$(parse_git_branch)${CYAN}\$(parse_terraform_workspace) ${IBLACK}\w ${PS_CLEAR}\$ ";
 
 if [ `uname -a|awk '{ print $1}'` == 'Darwin' ] ; then
 # Ref: http://blog.lyhdev.com/2015/03/mac-os-x-command-hacks-markdown-rtf.html

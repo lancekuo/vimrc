@@ -23,7 +23,8 @@ if [ $install_brew == "y" ]; then
     if [ $install_vim_jq == "y" ]; then
         brew install python3
         pip3 install neovim ujson pynvim # Make sure we having homebrew shellenv injected or we are going to mix up diff py version here
-        brew install vim jq yq
+        brew install vim jq yq fzf
+        /opt/homebrew/opt/fzf/install --no-zsh --no-fish
     fi
 
     read -p '==> Install awscli from homebrew? (y/n)' install_awscli
