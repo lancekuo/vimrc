@@ -43,9 +43,6 @@
 [submodule "bundle/vimux-golang"]
 	path = bundle/vimux-golang
 	url = https://github.com/benmills/vimux-golang.git
-[submodule "opt/tmuxifier"]
-	path = opt/tmuxifier
-	url = https://github.com/jimeh/tmuxifier.git
 [submodule "bundle/splitjoin"]
 	path = bundle/splitjoin
 	url = https://github.com/AndrewRadev/splitjoin.vim

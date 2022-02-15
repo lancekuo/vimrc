@@ -49,10 +49,21 @@ fi
 alias ll='ls -a -l -G'
 alias ls='ls -G'
 alias _projects='cd ~/Projects'
-alias reload-ssh-config='cat ~/.ssh/config.d/* > ~/.ssh/config'
+alias rebuild-ssh-config='cat ~/.ssh/config.d/* > ~/.ssh/config'
+alias reload-env='. ~/.bash_profile'
 alias k='kubectl'
 alias ktx='kubectx'
 
 export RUBYOPT='--disable-did_you_mean' # Fixed tmuxinator ruby warning msg
 export EDITOR='vim' # Value for tmuxinator
 export DISABLE_AUTO_TITLE=true # fixed mess up window title in terminal with tmuxinator
+
+# AWS MFA script alias
+# $ mfa code
+setToken() {
+    ~/.vim/opt/bin/mfa.sh $1 $2
+    source ~/.token_file
+    echo "Your creds have been set in your env."
+}
+alias mfa=setToken
+if [ -f "$HOME/.token_file" ]; then . "$HOME/.token_file"; fi
