@@ -52,3 +52,7 @@ alias _projects='cd ~/Projects'
 alias reload-ssh-config='cat ~/.ssh/config.d/* > ~/.ssh/config'
 alias k='kubectl'
 alias ktx='kubectx'
+
+export RUBYOPT='--disable-did_you_mean' # Fixed tmuxinator ruby warning msg
+export EDITOR='vim' # Value for tmuxinator
+export DISABLE_AUTO_TITLE=true # fixed mess up window title in terminal with tmuxinator
