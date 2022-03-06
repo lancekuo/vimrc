@@ -57,6 +57,7 @@ alias ktx='kubectx'
 export RUBYOPT='--disable-did_you_mean' # Fixed tmuxinator ruby warning msg
 export EDITOR='vim' # Value for tmuxinator
 export DISABLE_AUTO_TITLE=true # fixed mess up window title in terminal with tmuxinator
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
 # AWS MFA script alias
 # $ mfa code
