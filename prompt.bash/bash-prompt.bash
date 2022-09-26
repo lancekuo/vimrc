@@ -41,8 +41,8 @@ PS1="\[\$(parse_git_dirty)\]\$(parse_git_branch)${CYAN}\$(parse_terraform_worksp
 if [ `uname -a|awk '{ print $1}'` == 'Darwin' ] ; then
 # Ref: http://blog.lyhdev.com/2015/03/mac-os-x-command-hacks-markdown-rtf.html
     alias md2rtf='pbpaste | pandoc -f markdown -t html | textutil -stdin -format html -convert rtf -stdout -inputencoding UTF-8 -encoding UTF-8 | pbcopy'
-    if [ -f $(brew --prefix)/etc/bash_completion ]; then
-        . $(brew --prefix)/etc/bash_completion
+    if [ -f $(/opt/homebrew/bin/brew --prefix)/etc/bash_completion ]; then
+        . $(/opt/homebrew/bin/brew --prefix)/etc/bash_completion
     fi
 fi
 
