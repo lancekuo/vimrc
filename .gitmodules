@@ -85,3 +85,9 @@
 [submodule "bundle/nerdtree-git-plugin"]
 	path = bundle/nerdtree-git-plugin
 	url = https://github.com/Xuyuanp/nerdtree-git-plugin.git
+[submodule "bundle/rust.vim"]
+	path = bundle/rust.vim
+	url = https://github.com/rust-lang/rust.vim.git
+[submodule "bundle/copilot.vim"]
+	path = bundle/copilot.vim
+	url = https://github.com/github/copilot.vim.git

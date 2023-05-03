@@ -264,6 +264,24 @@ inoremap <expr><tab> pumvisible()? "\<c-n>" : "\<tab>"
 
 " Enter automatically into the files directory
 autocmd BufEnter * silent! lcd %:p:h
+"   _____            _ _       _
+"  / ____|         (_) |     | |
+" | |     ___  _ __  _| | ___ | |_
+" | |    / _ \| '_ \| | |/ _ \| __|
+" | |___| (_) | |_) | | | (_) | |_
+"  \_____\___/| .__/|_|_|\___/ \__|
+"             | |
+"             |_|
+let g:copilot_filetypes = {
+    \ 'gitcommit': v:true,
+    \ 'markdown': v:true,
+    \ 'yaml': v:true
+    \ }
+autocmd BufReadPre *
+    \ let f=getfsize(expand("<afile>"))
+    \ | if f > 100000 || f == -2
+    \ | let b:copilot_enabled = v:false
+    \ | endif
 
 "   _____       _
 "  |  __ \     | |
@@ -401,6 +419,7 @@ autocmd Filetype go                  command! -bang AV call go#alternate#Switch(
 autocmd Filetype go                  command! -bang AS call go#alternate#Switch(<bang>0, 'split')
 autocmd Filetype go                  command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
 autocmd FileType go                  nnoremap <buffer> gt :call go#def#Jump("tab",0)<CR>
+autocmd FileType go                  nnoremap <buffer> gr :call go#referrers#Referrers(-1)<CR>
 autocmd FileType go                  nmap     <leader>b :<C-u>call <SID>build_go_files()<CR>
 autocmd FileType go                  nmap     <leader>c <Plug>(go-coverage-toggle)
 autocmd FileType go                  nmap     <leader>C <Plug>(go-coverage-browser)
