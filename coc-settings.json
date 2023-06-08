@@ -1,0 +1,16 @@
+{
+    // this is comment
+    //
+    "languageserver": {
+        "terraform": {
+            "command": "terraform-ls",
+            "args": ["serve"],
+            "filetypes": [
+                "terraform",
+                "tf"
+            ],
+            "initializationOptions": {},
+            "settings": {}
+        }
+    }
+}
