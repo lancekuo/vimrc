@@ -1,0 +1,524 @@
+scriptencoding utf-8
+
+call pathogen#infect()
+syntax on
+filetype off
+filetype plugin indent on
+colorscheme molokai
+" colorscheme solarized
+
+"  _____                           _
+" |  __ \                         | |
+" | |  \/ ___ _ __   ___ _ __ __ _| |
+" | | __ / _ \ '_ \ / _ \ '__/ _` | |
+" | |_\ \  __/ | | |  __/ | | (_| | |
+"  \____/\___|_| |_|\___|_|  \__,_|_|
+" For CentOS
+" set runtimepath+=/usr/lib/golang/misc/vim " replace $GOROOT with the output of: go env GOROOT
+" For uBuntu
+set runtimepath+=/usr/local/go/misc/vim " replace $GOROOT with the output of: go env GOROOT  "
+
+" Prevent flash close windows
+" (Optional)Remove Info(Preview) window
+set completeopt-=preview
+
+set autowrite
+set autoread
+set backspace=indent,eol,start
+set display+=lastline
+set encoding=utf-8
+set expandtab
+set fileformats=unix,dos,mac
+set hlsearch
+set ignorecase
+set incsearch
+set laststatus=2
+set lazyredraw
+set list
+set listchars=trail:⋅,nbsp:⋅,tab:▸\ 
+set nobackup
+set nocompatible
+set nocursorline
+set nocursorcolumn
+set nojoinspaces
+set noswapfile
+set number
+set ruler
+set scrolloff=1
+set shiftwidth=4
+set showcmd
+set smartcase
+set softtabstop=4
+set splitright
+set splitbelow
+set switchbuf+=usetab,newtab
+set tabstop=4
+set textwidth=0
+set ttyfast
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+set wildmenu
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%{fugitive#statusline()}
+set statusline+=%*
+
+" set leader to ,
+let g:mapleader                               = ","
+let g:tagbar_width                            = 80
+let g:bufferline_echo                         = 0
+" let g:SuperTabDefaultCompletionType           = "context"
+let g:SuperTabDefaultCompletionType           = '<c-n>'
+
+let g:airline_powerline_fonts                 = 1
+let g:airline#extensions#tabline#enabled      = 1
+let g:airline#extensions#tabline#left_sep     = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#formatter    = 'unique_tail'
+
+
+let g:NERDTreeGitStatusIndicatorMapCustom     = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Ignored"   : "☒",
+    \ "Unknown"   : "?"
+    \ }
+
+
+" Specific filetype by file name
+autocmd  BufEnter           *           call   MyLastWindow()
+autocmd  BufNewFile,BufRead *.md        set    filetype=markdown
+autocmd  BufNewFile,BufRead *.sh        set    filetype=sh
+autocmd  BufNewFile,BufRead *.sql       set    filetype=sql
+autocmd  BufNewFile,BufRead *.t         set    filetype=perl
+autocmd  BufNewFile,BufRead *.yml       set    filetype=yaml
+autocmd  BufNewFile,BufRead .vimrc      set    filetype=vim
+autocmd  BufNewFile,BufRead Jenkinsfile set    filetype=groovy
+autocmd  StdinReadPre       *           let    s:std_in=1
+autocmd! BufWritePost       .vimrc      source %
+autocmd ColorScheme * hi CocMenuSel ctermbg=237 guibg=#13354A
+
+" autocmd  VimEnter           *           if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" autocmd  VimEnter           *           if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+
+" Enable to copy to clipboard for operations like yank, delete, change and put
+" http://stackoverflow.com/questions/20186975/vim-mac-how-to-copy-to-clipboard-without-pbcopy
+if has('unnamedplus')
+  set clipboard^=unnamed
+  set clipboard^=unnamedplus
+endif
+
+" This enables us to undo files even if you exit Vim.
+if has('persistent_undo')
+  set undofile
+  set undodir=~/.config/vim/tmp/undo//
+endif
+
+" // Setting different cursorline color in different mode
+" augroup CursorLine
+"     au!
+"     au VimEnter,WinEnter,BufWinEnter * setlocal nocursorline
+"     au WinLeave * setlocal nocursorline
+" augroup END
+
+" NERDTress File highlighting
+" function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+"  exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+"  exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+" endfunction
+
+" call NERDTreeHighlightFile('jade',   'green',   'none', 'green',   '#151515')
+" call NERDTreeHighlightFile('ini',    'yellow',  'none', 'yellow',  '#151515')
+" call NERDTreeHighlightFile('md',     'blue',    'none', '#3366FF', '#151515')
+" call NERDTreeHighlightFile('yml',    'yellow',  'none', 'yellow',  '#151515')
+" call NERDTreeHighlightFile('yaml',   'yellow',  'none', 'yellow',  '#151515')
+" call NERDTreeHighlightFile('config', 'yellow',  'none', 'yellow',  '#151515')
+" call NERDTreeHighlightFile('conf',   'yellow',  'none', 'yellow',  '#151515')
+" call NERDTreeHighlightFile('json',   'yellow',  'none', 'yellow',  '#151515')
+" call NERDTreeHighlightFile('html',   'yellow',  'none', 'yellow',  '#151515')
+" call NERDTreeHighlightFile('styl',   'cyan',    'none', 'cyan',    '#151515')
+" call NERDTreeHighlightFile('css',    'cyan',    'none', 'cyan',    '#151515')
+" call NERDTreeHighlightFile('coffee', 'Red',     'none', 'red',     '#151515')
+" call NERDTreeHighlightFile('js',     'Red',     'none', '#ffa500', '#151515')
+" call NERDTreeHighlightFile('php',    'Magenta', 'none', '#ff00ff', '#151515')
+" call NERDTreeHighlightFile('go',     'Magenta', 'none', '#ff00ff', '#151515')
+"  _____ _
+" |_   _| |
+"   | | | |__   ___ _ __ ___   ___  ___ 
+"   | | | '_ \ / _ \ '_ ` _ \ / _ \/ __|
+"   | | | | | |  __/ | | | | |  __/\__ \
+"   \_/ |_| |_|\___|_| |_| |_|\___||___/
+
+" highlight Comment            term=standout             cterm=bold       ctermfg=blue
+" highlight CursorLine         cterm=none                ctermbg=240
+" highlight CursorLineNr       ctermfg=8                 ctermbg=8
+" highlight Folded             ctermbg=black             ctermfg=darkcyan
+" highlight OverLength         ctermbg=red               ctermfg=white    guibg=#592929
+" highlight Search             cterm=NONE                ctermfg=yellow   ctermbg=red
+" highlight SyntasticErrorSign ctermfg=red
+" highlight TabLine            ctermbg=blue
+" highlight TabLineFill        ctermbg=green
+" highlight TabLineSel         ctermbg=red
+" highlight clear
+" highlight clear              SpellBad
+" match     OverLength         /\\%81v.\\+/
+
+" highlight Cursor             ctermfg=7                 ctermbg=10
+" highlight LineNr             ctermfg=DarkGrey          ctermbg=233
+" highlight Normal             ctermbg=black             ctermfg=white
+" highlight Pmenu              ctermfg=248               ctermbg=240
+" highlight PmenuSbar          ctermbg=232
+" highlight PmenuSel           ctermfg=0                 ctermbg=248
+" highlight PmenuThumb         ctermfg=240               ctermbg=248
+" highlight SpellBad           term=underline            cterm=underline  ctermfg=red
+" highlight Visual             cterm=bold                ctermbg=240
+" highlight link               SyntasticErrorSign        SignColumn
+" highlight link               SyntasticStyleErrorSign   SignColumn
+" highlight link               SyntasticStyleWarningSign SignColumn
+" highlight link               SyntasticWarningSign      SignColumn
+
+highlight CocMenuSel ctermbg=237 guibg=#13354A
+highlight link CocFloating Normal
+
+" Default Colors for CursorLine
+" Change Color when entering Insert Mode
+" autocmd InsertEnter * highlight  CursorLine term=bold ctermbg=17 ctermfg=None
+
+" Revert Color to default when leaving Insert Mode
+" autocmd InsertLeave * highlight  CursorLine term=none ctermbg=8 cterm=None
+
+" unicode symbols
+" let g:airline_left_sep = '»'
+" let g:airline_left_sep = '▶'
+" let g:airline_right_sep = '«'
+" let g:airline_right_sep = '◀'
+
+"  _   __          ___  ___
+" | | / /          |  \/  |
+" | |/ /  ___ _   _| .  . | __ _ _ __
+" |    \ / _ \ | | | |\/| |/ _` | '_ \
+" | |\  \  __/ |_| | |  | | (_| | |_) |
+" \_| \_/\___|\__, \_|  |_/\__,_| .__/
+"              __/ |            | |
+"             |___/             |_|
+nmap     <silent> <F1>       :CocCommand explorer<CR>
+" nmap     <silent> <F2>       :set paste!<CR>:set paste?<CR>
+nmap     <silent> <F2>       :TagbarToggle<CR>
+nmap     <silent> <F3>       :set number!<CR>:set number?<CR>
+nmap     <silent> <F4>       :set invlist!<CR>:set invlist?<CR>
+nmap     <silent> <F7> <Esc> :TagbarToggle<CR>
+nmap     <silent> <F8> <Esc> :setlocal spell spelllang=en_us<CR>
+nmap     <silent> <F9> <Esc> :setlocal nospell<CR>
+nnoremap tc                  :tabnew<CR>
+nnoremap th                  :tabfirst<CR>
+nnoremap tj                  :tabnext<CR>
+nnoremap tk                  :tabprev<CR>
+nnoremap tl                  :tablast<CR>
+nnoremap tm                  :tabm<Space>
+nnoremap tt                  :tabedit<Space>
+nnoremap tx                  :tabclose<CR>
+
+map      <C-j>               :lnext<CR>
+map      <c-k>               :lprevious<CR>
+map      <C-n>               :cnext<CR>
+map      <c-m>               :cprevious<CR>
+nnoremap <leader>a           :cclose<CR>
+" Visual linewise up and down by default (and use gj gk to go quicker)
+noremap <Up> gk
+noremap <Down> gj
+noremap j gj
+noremap k gk
+
+" Search mappings: These will make it so that going to the next one in a
+" search will center on the line it's found in.
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Act like D and C
+nnoremap Y y$
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Enter automatically into the files directory
+autocmd BufEnter * silent! lcd %:p:h
+autocmd ColorScheme * call Highlight()
+
+function! Highlight() abort
+  hi Conceal ctermfg=239 guifg=#504945
+  hi CocSearch ctermfg=12 guifg=#18A3FF
+endfunction
+nmap <Leader>f [fzf-p]
+xmap <Leader>f [fzf-p]
+
+nnoremap <silent> [fzf-p]p     :<C-u>CocCommand fzf-preview.FromResources project_mru git<CR>
+nnoremap <silent> [fzf-p]gs    :<C-u>CocCommand fzf-preview.GitStatus<CR>
+nnoremap <silent> [fzf-p]ga    :<C-u>CocCommand fzf-preview.GitActions<CR>
+nnoremap <silent> [fzf-p]b     :<C-u>CocCommand fzf-preview.Buffers<CR>
+nnoremap <silent> [fzf-p]B     :<C-u>CocCommand fzf-preview.AllBuffers<CR>
+nnoremap <silent> [fzf-p]o     :<C-u>CocCommand fzf-preview.FromResources buffer project_mru<CR>
+nnoremap <silent> [fzf-p]<C-o> :<C-u>CocCommand fzf-preview.Jumps<CR>
+nnoremap <silent> [fzf-p]g;    :<C-u>CocCommand fzf-preview.Changes<CR>
+nnoremap <silent> [fzf-p]/     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
+nnoremap <silent> [fzf-p]*     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
+nnoremap          [fzf-p]gr    :<C-u>CocCommand fzf-preview.ProjectGrep<Space>
+xnoremap          [fzf-p]gr    "sy:CocCommand   fzf-preview.ProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
+nnoremap <silent> [fzf-p]t     :<C-u>CocCommand fzf-preview.BufferTags<CR>
+nnoremap <silent> [fzf-p]q     :<C-u>CocCommand fzf-preview.QuickFix<CR>
+nnoremap <silent> [fzf-p]l     :<C-u>CocCommand fzf-preview.LocationList<CR>
+"   _____            _ _       _
+"  / ____|         (_) |     | |
+" | |     ___  _ __  _| | ___ | |_
+" | |    / _ \| '_ \| | |/ _ \| __|
+" | |___| (_) | |_) | | | (_) | |_
+"  \_____\___/| .__/|_|_|\___/ \__|
+"             | |
+"             |_|
+let g:copilot_filetypes = {
+    \ 'gitcommit': v:true,
+    \ 'markdown': v:true,
+    \ 'yaml': v:true
+    \ }
+autocmd BufReadPre *
+    \ let f=getfsize(expand("<afile>"))
+    \ | if f > 100000 || f == -2
+    \ | let b:copilot_enabled = v:false
+    \ | endif
+let g:copilot_no_tab_map = v:true
+
+"   _____       _
+"  |  __ \     | |
+"  | |__) |   _| |__  _   _
+"  |  _  / | | | '_ \| | | |
+"  | | \ \ |_| | |_) | |_| |
+"  |_|  \_\__,_|_.__/ \__, |
+"                      __/ |
+"                     |___/
+autocmd BufNewFile,BufRead Gemfile,Vagrantfile,*.rb set filetype=ruby
+
+"   _____       _   _
+"  |  __ \     | | | |
+"  | |__) |   _| |_| |__   ___  _ __
+"  |  ___/ | | | __| '_ \ / _ \| '_ \
+"  | |   | |_| | |_| | | | (_) | | | |
+"  |_|    \__, |\__|_| |_|\___/|_| |_|
+"          __/ |
+"         |___/
+" autocmd FileType python     map <leader>t :call VimuxRunCommand("restart tellus-portal")<CR>
+autocmd BufNewFile,BufRead *.py set filetype=python
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+" autocmd FileType python,shell,coffee set commentstring=#\ %s
+" let g:syntastic_python_checker="flake8,pyflakes,pep8,pylint""
+let g:syntastic_python_checkers=['pyflakes']
+
+
+"        _                                _       _
+"       | |                              (_)     | |
+"       | | __ ___   ____ _ ___  ___ _ __ _ _ __ | |_
+"   _   | |/ _` \ \ / / _` / __|/ __| '__| | '_ \| __|
+"  | |__| | (_| |\ V / (_| \__ \ (__| |  | | |_) | |_
+"   \____/ \__,_| \_/ \__,_|___/\___|_|  |_| .__/ \__|
+"                                          | |
+"                                          |_|
+autocmd BufNewFile,BufRead *.json,*.js,*.jsx set filetype=javascript
+let g:syntastic_javascript_checkers = ['jsl', 'jshint']
+let g:syntastic_html_checkers=['tidy', 'jshint']
+
+"  _____  _
+" |  __ \| |
+" | |__) | |__  _ __
+" |  ___/| '_ \| '_ \
+" | |    | | | | |_) |
+" |_|    |_| |_| .__/
+"              | |
+"              |_|
+" let g:tagbar_phpctags_bin='~/.vim/opt/phpctags'
+" let g:tagbar_phpctags_memory_limit = '512M'
+
+"  _____                    __
+" |_   _|                  / _|
+"   | | ___ _ __ _ __ __ _| |_ ___  _ __ _ __ ___  
+"   | |/ _ \ '__| '__/ _` |  _/ _ \| '__| '_ ` _ \ 
+"   | |  __/ |  | | | (_| | || (_) | |  | | | | | |
+"   \_/\___|_|  |_|  \__,_|_| \___/|_|  |_| |_| |_|
+" let g:terraform_align=1
+autocmd FileType terraform setlocal commentstring=#%s
+autocmd FileType terraform call     OpenTagbar()
+autocmd BufNewFile,BufRead *.tf   set filetype=terraform
+" (Optional)Hide Info(Preview) window after completions
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+" (Optional) Default: 0, enable(1)/disable(0) plugin's keymapping
+let g:terraform_completion_keys = 1
+
+" (Optional) Default: 1, enable(1)/disable(0) terraform module registry completion
+let g:terraform_registry_module_completion = 1
+
+" let g:deoplete#omni_patterns = {}
+" call deoplete#custom#option('omni_patterns', {
+" \ 'complete_method': 'omnifunc',
+" \ 'terraform': '[^ *\t"{=$]\w*',
+" \})
+
+"    _____       _
+"   / ____|     | |
+"  | |  __  ___ | | __ _ _ __   __ _
+"  | | |_ |/ _ \| |/ _` | '_ \ / _` |
+"  | |__| | (_) | | (_| | | | | (_| |
+"   \_____|\___/|_|\__,_|_| |_|\__, |
+"                               __/ |
+"                              |___/
+autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
+autocmd FileType go                  call     OpenTagbar()
+
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+    \ }
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+" coc-snippets
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+" Use <leader>x for convert visual selected code to snippet
+xmap <leader>x  <Plug>(coc-convert-snippet)
+" ______
+" |  ___
+" | |_ _   _ _ __   ___
+" |  _| | | | '_ \ / __|
+" | | | |_| | | | | (__
+" \_|  \__,_|_| |_|\___|
+" Transparent editing of gpg encrypted files.
+augroup encrypted
+  au!
+
+  " First make sure nothing is written to ~/.viminfo while editing
+  " an encrypted file.
+  autocmd BufReadPre,FileReadPre *.gpg set viminfo=
+  " We don't want a various options which write unencrypted data to disk
+  autocmd BufReadPre,FileReadPre *.gpg set noswapfile noundofile nobackup
+
+  " Switch to binary mode to read the encrypted file
+  autocmd BufReadPre,FileReadPre *.gpg set bin
+  autocmd BufReadPre,FileReadPre *.gpg let ch_save = &ch|set ch=2
+  " (If you use tcsh, you may need to alter this line.)
+  autocmd BufReadPost,FileReadPost *.gpg '[,']!gpg --decrypt 2> /dev/null
+
+  " Switch to normal mode for editing
+  autocmd BufReadPost,FileReadPost *.gpg set nobin
+  autocmd BufReadPost,FileReadPost *.gpg let &ch = ch_save|unlet ch_save
+  autocmd BufReadPost,FileReadPost *.gpg execute ":doautocmd BufReadPost " . expand("%:r")
+
+  " Convert all text to encrypted text before writing
+  " (If you use tcsh, you may need to alter this line.)
+  autocmd BufWritePre,FileWritePre *.gpg '[,']!gpg --default-recipient-self -ae 2>/dev/null
+  " Undo the encryption so we are back in the normal text, directly
+  " after the file has been written.
+  autocmd BufWritePost,FileWritePost *.gpg u
+augroup END
+    if &term =~ "xterm.*"
+        let &t_ti = &t_ti . "\e[?2004h"
+        let &t_te = "\e[?2004l" . &t_te
+        function! XTermPasteBegin(ret)
+            set pastetoggle=<Esc>[201~
+            set paste
+            return a:ret
+        endfunction
+        map <expr> <Esc>[200~ XTermPasteBegin("i")
+        imap <expr> <Esc>[200~ XTermPasteBegin("")
+        cmap <Esc>[200~ <nop>
+        cmap <Esc>[201~ <nop>
+    endif
+
+function! MyLastWindow()
+" if the window is quickfix go on
+  if &buftype=="quickfix"
+" if this window is last on screen quit without warning
+    if winbufnr(2) == -1
+      quit!
+    endif
+  endif
+  if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+endfunction
+
+function! OpenTagbar()
+     :call tagbar#autoopen(0)
+endfunction
+
+"If this is Terminal.app, do cursor hack for visible cursor
+"This hack does not behave well with other terminals (particularly xterm)
+function! MacOSX()
+  hi CursorLine term=none cterm=none "Invisible CursorLine
+  set cursorline "cursorline required to continuously update cursor position
+  hi Cursor cterm=bold "I like a reversed cursor, edit this to your liking
+  match Cursor /\%#/ "This line does all the work
+endfunction
+
+if $TERM_PROGRAM == "Apple_Terminal" " Terminal.app, xterm and urxvt pass this test
+ if $WINDOWID == ""                  " xterm and urxvt don't pass this test
+  "It is unlikely that anything except Terminal.app will get here
+  call MacOSX()
+ endif
+endif
+
+if $SSH_TTY != ""            " If the user is connected through ssh
+ if $TERM == "xterm-color" || $ORIGTERM = "xterm-color"
+  "Something other than Terminal.app might well get here
+  call MacOSX()
+ endif
+endif
+
