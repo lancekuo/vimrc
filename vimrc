@@ -109,6 +109,9 @@ set statusline+=%{NearestMethodOrFunction()}
 "
 " If you want to show the nearest function in your statusline automatically,
 " you can add the following line to your vimrc
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 " How each level is indented and what to prepend.
@@ -124,6 +127,7 @@ let g:vista_default_executive = 'coc'
 let g:vista#renderer#enable_icon = 1
 
 let g:vista#finders = ['fzf']
+let g:vista_fzf_preview = ['right:50%']
 let g:vista#renderer#icons = {
 \    'augroup': 'פּ',
 \    'class': '',
@@ -176,7 +180,7 @@ let g:vista_sidebar_width          = 50
 let g:vista_update_on_text_changed = 1
 let g:vista_blink                  = [1, 100]
 
-nmap <silent> <Leader>v <Cmd>Vista<CR>
+nmap <silent> <Leader>v <Cmd>Vista!!<CR>
 
 function! s:vista_settings() abort
    nmap <silent> <buffer> <nowait> q    <Cmd>quit<CR>
@@ -186,7 +190,6 @@ endfunction
 
 autocmd FileType vista,vista_markdown call <SID>vista_settings()
 nmap <leader>e :CocCommand explorer<CR>
-" AutoCmd VimEnter * call vista#RunForNearestMethodOrFunction()
 call coc#config('explorer', {
     \ 'icon.enableNerdfont': 1,
     \})
@@ -395,5 +398,4 @@ if $SSH_TTY != ""            " If the user is connected through ssh
   call MacOSX()
  endif
 endif
-
 
