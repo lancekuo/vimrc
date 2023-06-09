@@ -134,7 +134,7 @@ let g:vista#renderer#icons = {
 \    'const': '󱓻',
 \    'constant': '󱓻',
 \    'constructor': '󰮮',
-\    'default': '',
+\    'default': '',
 \    'enum': '',
 \    'enumerator': '',
 \    'enummember': '',
