@@ -399,3 +399,15 @@ if $SSH_TTY != ""            " If the user is connected through ssh
  endif
 endif
 
+autocmd  BufEnter           *           call   MyLastWindow()
+function! MyLastWindow()
+" if the window is quickfix go on
+  if &buftype=="quickfix"
+" if this window is last on screen quit without warning
+    if winbufnr(2) == -1
+      quit!
+    endif
+  endif
+  if (winnr("$") == 1 && vista#sidebar#IsOpen()) | q | endif
+endfunction
+
