@@ -145,6 +145,49 @@ function! MyLastWindow()
   if (winnr("$") == 1 && vista#sidebar#IsOpen()) | q | endif
 endfunction
 
+" Transparent editing of gpg encrypted files.
+augroup encrypted
+  au!
+
+  " First make sure nothing is written to ~/.viminfo while editing
+  " an encrypted file.
+  autocmd BufReadPre,FileReadPre *.gpg set viminfo=
+  " We don't want a various options which write unencrypted data to disk
+  autocmd BufReadPre,FileReadPre *.gpg set noswapfile noundofile nobackup
+
+  " Switch to binary mode to read the encrypted file
+  autocmd BufReadPre,FileReadPre *.gpg set bin
+  autocmd BufReadPre,FileReadPre *.gpg let ch_save = &ch|set ch=2
+  " (If you use tcsh, you may need to alter this line.)
+  autocmd BufReadPost,FileReadPost *.gpg '[,']!gpg --decrypt 2> /dev/null
+
+  " Switch to normal mode for editing
+  autocmd BufReadPost,FileReadPost *.gpg set nobin
+  autocmd BufReadPost,FileReadPost *.gpg let &ch = ch_save|unlet ch_save
+  autocmd BufReadPost,FileReadPost *.gpg execute ":doautocmd BufReadPost " . expand("%:r")
+
+  " Convert all text to encrypted text before writing
+  " (If you use tcsh, you may need to alter this line.)
+  autocmd BufWritePre,FileWritePre *.gpg '[,']!gpg --default-recipient-self -ae 2>/dev/null
+  " Undo the encryption so we are back in the normal text, directly
+  " after the file has been written.
+  autocmd BufWritePost,FileWritePost *.gpg u
+augroup END
+
+if &term =~ "xterm.*"
+    let &t_ti = &t_ti . "\e[?2004h"
+    let &t_te = "\e[?2004l" . &t_te
+    function! XTermPasteBegin(ret)
+        set pastetoggle=<Esc>[201~
+        set paste
+        return a:ret
+    endfunction
+    map <expr> <Esc>[200~ XTermPasteBegin("i")
+    imap <expr> <Esc>[200~ XTermPasteBegin("")
+    cmap <Esc>[200~ <nop>
+    cmap <Esc>[201~ <nop>
+endif
+
 " ███████  █████  ███████ ██    ██  █████  ██      ██  ██████  ███    ██
 " ██      ██   ██ ██       ██  ██  ██   ██ ██      ██ ██       ████   ██
 " █████   ███████ ███████   ████   ███████ ██      ██ ██   ███ ██ ██  ██
@@ -156,6 +199,83 @@ xmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
+
+"  ██████  ██ ████████  ██████  ██    ██ ████████ ████████ ███████ ██████
+" ██       ██    ██    ██       ██    ██    ██       ██    ██      ██   ██
+" ██   ███ ██    ██    ██   ███ ██    ██    ██       ██    █████   ██████
+" ██    ██ ██    ██    ██    ██ ██    ██    ██       ██    ██      ██   ██
+"  ██████  ██    ██     ██████   ██████     ██       ██    ███████ ██   ██
+"  pack/git/start/vim-gitgutter
+"  ]c   Jump to next hunk
+"  [c   Jump to previous hunk
+"  <leader>hp   Preview the hunk under the cursor
+"  <leader>hr   Reset the hunk under the cursor
+"  <leader>hs   Stage the hunk under the cursor
+"  <leader>hu   Undo the hunk under the cursor
+"
+
+" ███████ ██████  ██      ██ ████████      ██  ██████  ██ ███    ██
+" ██      ██   ██ ██      ██    ██         ██ ██    ██ ██ ████   ██
+" ███████ ██████  ██      ██    ██         ██ ██    ██ ██ ██ ██  ██
+"      ██ ██      ██      ██    ██    ██   ██ ██    ██ ██ ██  ██ ██
+" ███████ ██      ███████ ██    ██     █████   ██████  ██ ██   ████
+" pack/format/start/splitjoin.vim
+" gS   Split one-liners into multiple lines.
+" gJ   Join multiple lines into one.
+" gss  Split one-liners without space.
+" gsj  Split one-liners with space.
+" gSj  Split one-liners with space and join them back.
+" gSs  Split one-liners without space and join them back.
+" gJj  Join lines with space.
+" gJJ  Join lines without space.
+" gJc  Join lines with space and add a leading comment sign.
+" gCc  Join lines without space and add a leading comment sign.
+" gJm  Join lines with space and add a trailing comment sign.
+" gCm  Join lines without space and add a trailing comment sign.
+" gJp  Join lines with space and add a trailing comma.
+" gCp  Join lines without space and add a trailing comma.
+" gJd  Join lines with space and add a trailing dot.
+" gCd  Join lines without space and add a trailing dot.
+
+
+" ███████ ██    ██ ██████  ██████   ██████  ██    ██ ███    ██ ██████
+" ██      ██    ██ ██   ██ ██   ██ ██    ██ ██    ██ ████   ██ ██   ██
+" ███████ ██    ██ ██████  ██████  ██    ██ ██    ██ ██ ██  ██ ██   ██
+"      ██ ██    ██ ██   ██ ██   ██ ██    ██ ██    ██ ██  ██ ██ ██   ██
+" ███████  ██████  ██   ██ ██   ██  ██████   ██████  ██   ████ ██████
+" pack/format/start/vim-surround
+" cs"'     change surround " to ',    'Hello world!'
+" cs'<q>   change surround ' to <q>,  <q>Hello world!</q>
+" ds       delete surround ",         Hello world!
+" ysiw]    surround word with [],     [Hello] world!
+" cs]}     surround word with {},     {Hello} world!
+" yssb     surround line with (),     ({Hello} world!)
+" ds{ds)   delete surround {} and (), Hello world!
+" ysiw<em> surround word with <em></em>, <em>Hello</em> world!
+" Press a capital V (for linewise visual mode) followed by S<p class="important">.
+" <p class="important">
+"   <em>Hello</em> world!
+" </p>
+
+
+"  ██████  ██████  ██████  ██ ██       ██████  ████████
+" ██      ██    ██ ██   ██ ██ ██      ██    ██    ██
+" ██      ██    ██ ██████  ██ ██      ██    ██    ██
+" ██      ██    ██ ██      ██ ██      ██    ██    ██
+"  ██████  ██████  ██      ██ ███████  ██████     ██
+"  pack/theme/start/copilot.vim
+let g:copilot_filetypes = {
+    \ 'gitcommit': v:true,
+    \ 'markdown': v:true,
+    \ 'yaml': v:true
+    \ }
+autocmd BufReadPre *
+    \ let f=getfsize(expand("<afile>"))
+    \ | if f > 100000 || f == -2
+    \ | let b:copilot_enabled = v:false
+    \ | endif
+let g:copilot_no_tab_map = v:true
 
 
 " ██    ██ ██ ███████ ████████  █████
