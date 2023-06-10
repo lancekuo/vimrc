@@ -1,10 +1,15 @@
+" Ascii art generated with http://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=Vim%20Config
 scriptencoding utf-8
 
 " May need for Vim (not Neovim) since coc.nvim calculates byte offset by count
 " utf-8 byte sequence
 set encoding=utf-8
 
-" call pathogen#infect()
+"  ██████  ███████ ███    ██ ███████ ██████   █████  ██
+" ██       ██      ████   ██ ██      ██   ██ ██   ██ ██
+" ██   ███ █████   ██ ██  ██ █████   ██████  ███████ ██
+" ██    ██ ██      ██  ██ ██ ██      ██   ██ ██   ██ ██
+"  ██████  ███████ ██   ████ ███████ ██   ██ ██   ██ ███████
 syntax on
 filetype off
 filetype plugin indent on
@@ -24,10 +29,10 @@ set signcolumn=yes
 
 " Prevent flash close windows
 " (Optional)Remove Info(Preview) window
-set completeopt-=preview
+" set completeopt-=preview
 
-set autowrite
 set autoread
+set autowrite
 set backspace=indent,eol,start
 set display+=lastline
 set encoding=utf-8
@@ -42,8 +47,8 @@ set list
 set listchars=trail:⋅,nbsp:⋅,tab:▸\ 
 set nobackup
 set nocompatible
-set nocursorline
 set nocursorcolumn
+set nocursorline
 set nojoinspaces
 set noswapfile
 set number
@@ -53,8 +58,8 @@ set shiftwidth=4
 set showcmd
 set smartcase
 set softtabstop=4
-set splitright
 set splitbelow
+set splitright
 set switchbuf+=usetab,newtab
 set tabstop=4
 set textwidth=0
@@ -77,13 +82,74 @@ let g:airline#extensions#tabline#left_sep     = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter    = 'unique_tail'
 
+" nmap     <silent> <F1>       :CocCommand explorer<CR>
+" nmap     <silent> <F2>       :Vista!!<CR>
+nmap     <silent> <F3>       :set number!<CR>:set number?<CR>
+nmap     <silent> <F4>       :set invlist!<CR>:set invlist?<CR>
+nnoremap bf                  :bfirst<CR>
+nnoremap bn                  :bnext<CR>
+nnoremap bp                  :bprev<CR>
+nnoremap bl                  :blast<CR>
 
-" Test
-let g:molokai_original = 1
-let g:rehash256 = 1
-" End of test
+map      <C-j>               :lnext<CR>
+map      <c-k>               :lprevious<CR>
+map      <C-n>               :cnext<CR>
+map      <c-m>               :cprevious<CR>
+nnoremap <leader>a           :cclose<CR>
+" Visual linewise up and down by default (and use gj gk to go quicker)
+noremap <Up> gk
+noremap <Down> gj
+noremap j gj
+noremap k gk
 
+" Search mappings: These will make it so that going to the next one in a
+" search will center on the line it's found in.
+nnoremap n nzzzv
+nnoremap N Nzzzv
 
+" Act like D and C
+nnoremap Y y$
+
+"If this is Terminal.app, do cursor hack for visible cursor
+"This hack does not behave well with other terminals (particularly xterm)
+function! MacOSX()
+  hi CursorLine term=none cterm=none "Invisible CursorLine
+  set cursorline "cursorline required to continuously update cursor position
+  hi Cursor cterm=bold "I like a reversed cursor, edit this to your liking
+  match Cursor /\%#/ "This line does all the work
+endfunction
+
+if $TERM_PROGRAM == "Apple_Terminal" " Terminal.app, xterm and urxvt pass this test
+ if $WINDOWID == ""                  " xterm and urxvt don't pass this test
+  "It is unlikely that anything except Terminal.app will get here
+  call MacOSX()
+ endif
+endif
+
+if $SSH_TTY != ""            " If the user is connected through ssh
+ if $TERM == "xterm-color" || $ORIGTERM = "xterm-color"
+  "Something other than Terminal.app might well get here
+  call MacOSX()
+ endif
+endif
+
+autocmd  BufEnter           *           call   MyLastWindow()
+function! MyLastWindow()
+" if the window is quickfix go on
+  if &buftype=="quickfix"
+" if this window is last on screen quit without warning
+    if winbufnr(2) == -1
+      quit!
+    endif
+  endif
+  if (winnr("$") == 1 && vista#sidebar#IsOpen()) | q | endif
+endfunction
+
+" ███████  █████  ███████ ██    ██  █████  ██      ██  ██████  ███    ██
+" ██      ██   ██ ██       ██  ██  ██   ██ ██      ██ ██       ████   ██
+" █████   ███████ ███████   ████   ███████ ██      ██ ██   ███ ██ ██  ██
+" ██      ██   ██      ██    ██    ██   ██ ██      ██ ██    ██ ██  ██ ██
+" ███████ ██   ██ ███████    ██    ██   ██ ███████ ██  ██████  ██   ████
 " format/start/easyAlign
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
@@ -91,14 +157,12 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-" theme/start/devicon
-" let g:webdevicons_enable = 1
-" let g:webdevicons_enable_vimfiler = 1
-" let g:webdevicons_enable_airline_tabline = 1
-" let g:webdevicons_enable_airline_statusline = 1
-" let g:WebDevIconsUnicodeDecorateFileNodes = 1
-" let g:WebDevIconsOS = 'Darwin'
 
+" ██    ██ ██ ███████ ████████  █████
+" ██    ██ ██ ██         ██    ██   ██
+" ██    ██ ██ ███████    ██    ███████
+"  ██  ██  ██      ██    ██    ██   ██
+"   ████   ██ ███████    ██    ██   ██
 " theme/start/vista
 function! NearestMethodOrFunction() abort
   return get(b:, 'vista_nearest_method_or_function', '')
@@ -194,39 +258,22 @@ call coc#config('explorer', {
     \ 'icon.enableNerdfont': 1,
     \})
 
+" ██████  ██    ██ ██████  ██  ██████  ██   ██ ████████
+" ██   ██  ██  ██  ██   ██ ██ ██       ██   ██    ██
+" ██████    ████   ██████  ██ ██   ███ ███████    ██
+" ██         ██    ██   ██ ██ ██    ██ ██   ██    ██
+" ██         ██    ██   ██ ██  ██████  ██   ██    ██
 " Pyright
+" lang/start/pyright
 autocmd FileType python map <F5> :w<CR>:!python %<CR>
 autocmd FileType python map <F6> :w<CR>:!pytest %<CR>
 
 
-
-" nmap     <silent> <F1>       :CocCommand explorer<CR>
-" nmap     <silent> <F2>       :Vista!!<CR>
-nmap     <silent> <F3>       :set number!<CR>:set number?<CR>
-nmap     <silent> <F4>       :set invlist!<CR>:set invlist?<CR>
-nnoremap bf                  :bfirst<CR>
-nnoremap bn                  :bnext<CR>
-nnoremap bp                  :bprev<CR>
-nnoremap bl                  :blast<CR>
-
-map      <C-j>               :lnext<CR>
-map      <c-k>               :lprevious<CR>
-map      <C-n>               :cnext<CR>
-map      <c-m>               :cprevious<CR>
-nnoremap <leader>a           :cclose<CR>
-" Visual linewise up and down by default (and use gj gk to go quicker)
-noremap <Up> gk
-noremap <Down> gj
-noremap j gj
-noremap k gk
-
-" Search mappings: These will make it so that going to the next one in a
-" search will center on the line it's found in.
-nnoremap n nzzzv
-nnoremap N Nzzzv
-
-" Act like D and C
-nnoremap Y y$
+"  ██████  ██████   ██████
+" ██      ██    ██ ██
+" ██      ██    ██ ██
+" ██      ██    ██ ██
+"  ██████  ██████   ██████
 " Use tab for trigger completion with characters ahead and navigate
 " NOTE: There's always complete item selected by default, you may want to enable
 " no select by `"suggest.noselect": true` in your configuration file
@@ -375,39 +422,4 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 " hi CocInlayHint guibg=Red guifg=Blue ctermbg=Red ctermfg=Blue
 hi CocInlayHint guibg=Red guifg=Blue ctermbg=0 ctermfg=71
-
-"If this is Terminal.app, do cursor hack for visible cursor
-"This hack does not behave well with other terminals (particularly xterm)
-function! MacOSX()
-  hi CursorLine term=none cterm=none "Invisible CursorLine
-  set cursorline "cursorline required to continuously update cursor position
-  hi Cursor cterm=bold "I like a reversed cursor, edit this to your liking
-  match Cursor /\%#/ "This line does all the work
-endfunction
-
-if $TERM_PROGRAM == "Apple_Terminal" " Terminal.app, xterm and urxvt pass this test
- if $WINDOWID == ""                  " xterm and urxvt don't pass this test
-  "It is unlikely that anything except Terminal.app will get here
-  call MacOSX()
- endif
-endif
-
-if $SSH_TTY != ""            " If the user is connected through ssh
- if $TERM == "xterm-color" || $ORIGTERM = "xterm-color"
-  "Something other than Terminal.app might well get here
-  call MacOSX()
- endif
-endif
-
-autocmd  BufEnter           *           call   MyLastWindow()
-function! MyLastWindow()
-" if the window is quickfix go on
-  if &buftype=="quickfix"
-" if this window is last on screen quit without warning
-    if winbufnr(2) == -1
-      quit!
-    endif
-  endif
-  if (winnr("$") == 1 && vista#sidebar#IsOpen()) | q | endif
-endfunction
 
