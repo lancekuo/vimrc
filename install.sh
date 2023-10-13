@@ -18,42 +18,41 @@ if [ $install_brew == "y" ]; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.bash_profile
     eval "$(/opt/homebrew/bin/brew shellenv)"
-
-    read -p '==> Install python3/VIM/jq from homebrew? (y/n)' install_vim_jq
-    if [ $install_vim_jq == "y" ]; then
-        brew install python3
-        pip3 install neovim ujson pynvim # Make sure we having homebrew shellenv injected or we are going to mix up diff py version here
-        brew install vim jq yq fzf tmuxinator git bash-completion
-        $(brew --prefix)/opt/fzf/install --no-zsh --no-fish
-        echo "[[ -r \"\$(brew --prefix)/etc/profile.d/bash_completion.sh\" ]] && . \"\$(brew --prefix)/etc/profile.d/bash_completion.sh\"" >> ~/.bash_profile
-    fi
-
-    read -p '==> Install awscli from homebrew? (y/n)' install_awscli
-    if [ $install_awscli == "y" ]; then
-        brew install awscli
-    fi
-
-    read -p '==> Install google cloud sdk from curl? (y/n)' install_gcloud
-    if [ $install_gcloud == "y" ]; then
-        curl https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-370.0.0-darwin-arm.tar.gz |tar zxv
-        sudo mkdir -p /usr/local/Caskroom
-        sudo mv ~/Downloads/google-cloud-sdk /usr/local/Caskroom/
-    fi
-
-    read -p '==> Setup/update Github Token for homebrew? (y/n)' token_for_homebrew
-    if [ $token_for_homebrew == "y" ]; then
-        read -p '==>==> Paste your token: ' token
-        if grep -qe "HOMEBREW_GITHUB_API_TOKEN" $PROFILE; then
-            /usr/bin/sed -i "" '/HOMEBREW_GITHUB_API_TOKEN/d' $PROFILE
-            echo "export HOMEBREW_GITHUB_API_TOKEN=$token" >> $PROFILE
-            echo "Updated the token for Homebrew into your $PROFILE";
-        else
-            echo "export HOMEBREW_GITHUB_API_TOKEN=$token" >> $PROFILE
-            echo "Added the token for Homebrew into your $PROFILE";
-        fi
-    fi
 fi;
-[ -e "$HOME/.vimrc" ] && die "~/.vimrc already exists."
+
+read -p '==> Install VIM/jq from homebrew? (y/n)' install_vim_jq
+if [ $install_vim_jq == "y" ]; then
+    # brew install python3
+    # pip3 install neovim ujson pynvim # Make sure we having homebrew shellenv injected or we are going to mix up diff py version here
+    # ^^ comment out due to out-of-date
+    brew install vim jq yq fzf tmuxinator git bash-completion
+    $(brew --prefix)/opt/fzf/install --no-zsh --no-fish
+    echo "[[ -r \"\$(brew --prefix)/etc/profile.d/bash_completion.sh\" ]] && . \"\$(brew --prefix)/etc/profile.d/bash_completion.sh\"" >> ~/.bash_profile
+fi
+
+read -p '==> Install awscli from homebrew? (y/n)' install_awscli
+if [ $install_awscli == "y" ]; then
+    brew install awscli
+fi
+
+read -p '==> Install google cloud sdk from curl? (y/n)' install_gcloud
+if [ $install_gcloud == "y" ]; then
+    brew install google-cloud-sdk
+fi
+
+read -p '==> Setup/update Github Token for homebrew? (y/n)' token_for_homebrew
+if [ $token_for_homebrew == "y" ]; then
+    read -p '==>==> Paste your token: ' token
+    if grep -qe "HOMEBREW_GITHUB_API_TOKEN" $PROFILE; then
+        /usr/bin/sed -i "" '/HOMEBREW_GITHUB_API_TOKEN/d' $PROFILE
+        echo "export HOMEBREW_GITHUB_API_TOKEN=$token" >> $PROFILE
+        echo "Updated the token for Homebrew into your $PROFILE";
+    else
+        echo "export HOMEBREW_GITHUB_API_TOKEN=$token" >> $PROFILE
+        echo "Added the token for Homebrew into your $PROFILE";
+    fi
+fi
+# [ -e "$HOME/.vimrc" ] && die "~/.vimrc already exists."
 
 git submodule update --init
 git config --global --add merge.tool vimdiff
@@ -75,7 +74,7 @@ ln -s $HOME/.vim/vimrc $HOME/.vimrc
 ln -s $HOME/.vim/tmux.conf $HOME/.tmux.conf
 ln -s $HOME/.vim/terraformrc $HOME/.terraformrc
 
-for f in bash-prompt.bash docker-prompt.bash docker-compose-prompt.bash
+for f in bash-prompt.bash kubectl.bash
 do
     if grep -qe ${f%.bash} $PROFILE; then
         echo "SKIP... since $f has linked to $PROFILE.";
@@ -84,6 +83,22 @@ do
         echo "Injected $f into your $PROFILE";
     fi
 done
+
+cat << EOF >> $HOME/.bash_profile
+if type brew &>/dev/null
+then
+  HOMEBREW_PREFIX="$(brew --prefix)"
+  if [[ -r "\${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]
+  then
+    source "\${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+  else
+    for COMPLETION in "\${HOMEBREW_PREFIX}/etc/bash_completion.d/"*
+    do
+      [[ -r "\${COMPLETION}" ]] && source "\${COMPLETION}"
+    done
+  fi
+fi
+EOF
 
 if [ `uname -a|awk '{ print $1}'` == "Darwin" ] ; then
     brew install git && brew link --overwrite git
