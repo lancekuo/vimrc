@@ -25,7 +25,8 @@ if [ $install_vim_jq == "y" ]; then
     # brew install python3
     # pip3 install neovim ujson pynvim # Make sure we having homebrew shellenv injected or we are going to mix up diff py version here
     # ^^ comment out due to out-of-date
-    brew install vim jq yq fzf tmuxinator git bash-completion
+    # terraform@1.5.* stay with Mozilla Public License
+    brew install vim jq yq fzf tmuxinator git bash-completion go terraform
     $(brew --prefix)/opt/fzf/install --no-zsh --no-fish
     echo "[[ -r \"\$(brew --prefix)/etc/profile.d/bash_completion.sh\" ]] && . \"\$(brew --prefix)/etc/profile.d/bash_completion.sh\"" >> ~/.bash_profile
 fi
