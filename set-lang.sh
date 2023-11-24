@@ -29,5 +29,3 @@ fi;
 # Install COC plugin
 vim -c "CocInstall coc-snippets coc-pairs coc-lightbulb coc-html coc-fzf-preview coc-explorer coc-go coc-pyright coc-sh coc-docker" -c "qa"
 
-# Install language server
-brew install hashicorp/tap/terraform-ls

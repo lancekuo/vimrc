@@ -26,14 +26,23 @@ if [ $install_vim_jq == "y" ]; then
     # pip3 install neovim ujson pynvim # Make sure we having homebrew shellenv injected or we are going to mix up diff py version here
     # ^^ comment out due to out-of-date
     # terraform@1.5.* stay with Mozilla Public License
-    brew install vim jq yq fzf tmuxinator git bash-completion go terraform
+    brew install vim jq yq fzf tmuxinator git bash-completion go terraform terraform-ls bat
     $(brew --prefix)/opt/fzf/install --no-zsh --no-fish
     echo "[[ -r \"\$(brew --prefix)/etc/profile.d/bash_completion.sh\" ]] && . \"\$(brew --prefix)/etc/profile.d/bash_completion.sh\"" >> ~/.bash_profile
+
+    terraform -install-autocomplete
 fi
 
-read -p '==> Install awscli from homebrew? (y/n)' install_awscli
+read -p '==> Install awscli and terraform tools from homebrew? (y/n)' install_awscli
 if [ $install_awscli == "y" ]; then
-    brew install awscli
+    brew install awscli iam-policy-json-to-terraform miniconda
+fi
+
+read -p '==> Install kubectl tools from homebrew? (y/n)' install_k8s
+if [ $install_k8s == "y" ]; then
+    brew install kubernetes-cli kubectx helm k9s
+    helm plugin install https://github.com/databus23/helm-diff --version v3.8.1
+    helm plugin install https://github.com/jkroepke/helm-secrets --version v4.5.1
 fi
 
 read -p '==> Install google cloud sdk from curl? (y/n)' install_gcloud
@@ -56,6 +65,7 @@ fi
 # [ -e "$HOME/.vimrc" ] && die "~/.vimrc already exists."
 
 git submodule update --init
+git config --global init.defaultBranch main
 git config --global --add merge.tool vimdiff
 git config --global --add merge.conflictstyle diff3
 git config --global --add mergetool.prompt false
@@ -75,7 +85,7 @@ ln -s $HOME/.vim/vimrc $HOME/.vimrc
 ln -s $HOME/.vim/tmux.conf $HOME/.tmux.conf
 ln -s $HOME/.vim/terraformrc $HOME/.terraformrc
 
-for f in bash-prompt.bash kubectl.bash
+for f in bash-prompt.bash
 do
     if grep -qe ${f%.bash} $PROFILE; then
         echo "SKIP... since $f has linked to $PROFILE.";
@@ -109,3 +119,7 @@ mkdir -p $HOME/.ssh/config.d/
 [ ! -e "~/.ssh/config.d/default" ] && echo -e "host *\n  ControlMaster auto\n  ControlPath ~/.ssh/ssh_mux_%h_%p_%r\n" > ~/.ssh/config.d/default
 
 echo "Your VIM configuration has been installed."
+
+# Setup completion for alias
+echo 'complete -o default -o nospace -F __start_kubectl k' >> $PROFILE
+echo 'complete -F _kube_contexts ktx' >> $PROFILE
