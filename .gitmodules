@@ -52,3 +52,6 @@
 [submodule "pack/theme/start/vista.vim"]
 	path = pack/plugins/start/vista.vim
 	url = git@github.com:liuchengxu/vista.vim.git
+[submodule "pack/plugins/start/vim-hjson"]
+	path = pack/plugins/start/vim-hjson
+	url = git@github.com:hjson/vim-hjson

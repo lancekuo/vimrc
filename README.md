@@ -158,6 +158,18 @@ Usage:
 * `ra` :GolangTestCurrentPackage
 * `rw` :GolangTestFocused
 
+## Bundle: vim-hjson
+
+The `zf` operator not only creates a fold but also folds the text. To unfold, it press `zo`, and then `zc` closes the fold again. Mnemonics of this is also quite smart (`:help usr_28`). `z` looks like a folded piece of paper, and then `o` stands for "open", and `c` for "close".
+
+There is also `zM` and `zR` to close / open all the folds in the file, no matter how deep. That's super useful with big files when you need to get an overview of the whole file.
+
+And of course, let's not forget about `za`, which works like a toggle. When the cursor is on an open fold, it will close it and the other way around. I'm using it so often that I have it mapped to Space:
+
+```vim
+nnoremap <space> za
+```
+
 ## Notes
 
 Vim-go has the functionality to go over the reference by using `:GoReferrer` but it just works for go language. There is another option we can use for the other languages, most are ruby and javascript.

@@ -188,6 +188,15 @@ if &term =~ "xterm.*"
     cmap <Esc>[201~ <nop>
 endif
 
+" ██   ██ ██    ██      ██ ███████  ██████  ███    ██ 
+" ██   ██ ██    ██      ██ ██      ██    ██ ████   ██ 
+" ███████ ██    ██      ██ ███████ ██    ██ ██ ██  ██ 
+" ██   ██ ██    ██ ██   ██      ██ ██    ██ ██  ██ ██ 
+" ██   ██  ██████   █████  ███████  ██████  ██   ████
+autocmd BufNewFile,BufRead *.hujson setlocal filetype=hjson
+autocmd FileType hjson setlocal foldmethod=syntax
+nnoremap <space> za
+
 " ███████  █████  ███████ ██    ██  █████  ██      ██  ██████  ███    ██
 " ██      ██   ██ ██       ██  ██  ██   ██ ██      ██ ██       ████   ██
 " █████   ███████ ███████   ████   ███████ ██      ██ ██   ███ ██ ██  ██
