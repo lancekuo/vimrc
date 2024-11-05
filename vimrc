@@ -174,6 +174,9 @@ augroup encrypted
   autocmd BufWritePost,FileWritePost *.gpg u
 augroup END
 
+autocmd BufNewFile,BufRead *.dac setlocal filetype=yaml
+autocmd BufWritePost *.dac silent !awsdac % -o %.png >/dev/null 2>&1
+
 if &term =~ "xterm.*"
     let &t_ti = &t_ti . "\e[?2004h"
     let &t_te = "\e[?2004l" . &t_te
