@@ -196,6 +196,7 @@ endif
 " ███████ ██    ██      ██ ███████ ██    ██ ██ ██  ██ 
 " ██   ██ ██    ██ ██   ██      ██ ██    ██ ██  ██ ██ 
 " ██   ██  ██████   █████  ███████  ██████  ██   ████
+autocmd FileType hjson set noexpandtab
 autocmd BufNewFile,BufRead *.hujson setlocal filetype=hjson
 autocmd FileType hjson setlocal foldmethod=syntax
 nnoremap <space> za

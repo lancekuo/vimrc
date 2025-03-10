@@ -53,6 +53,7 @@ alias rebuild-ssh-config='cat ~/.ssh/config.d/* > ~/.ssh/config'
 alias reload-env='. ~/.bash_profile'
 alias k='kubectl'
 alias ktx='kubectx'
+alias kdebug='kubectl run -i --rm=true --tty debug --image=busybox --restart=Never -- sh'
 alias cat="bat --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo default || echo GitHub)"
 
 export RUBYOPT='--disable-did_you_mean' # Fixed tmuxinator ruby warning msg
