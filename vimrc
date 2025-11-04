@@ -110,6 +110,9 @@ nnoremap N Nzzzv
 " Act like D and C
 nnoremap Y y$
 
+" Remove trailing whitespace by pressing F5
+nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+
 "If this is Terminal.app, do cursor hack for visible cursor
 "This hack does not behave well with other terminals (particularly xterm)
 function! MacOSX()
