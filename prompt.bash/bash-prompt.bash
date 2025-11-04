@@ -62,6 +62,7 @@ export EDITOR='vim' # Value for tmuxinator
 export DISABLE_AUTO_TITLE=true # fixed mess up window title in terminal with tmuxinator
 #export DOCKER_DEFAULT_PLATFORM=linux/amd64
 export PYTHONDONTWRITEBYTECODE=true
+export GPG_TTY=$(tty)
 
 # AWS MFA script alias
 # $ mfa code
