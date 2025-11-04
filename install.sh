@@ -26,7 +26,7 @@ if [ $install_vim_jq == "y" ]; then
     # pip3 install neovim ujson pynvim # Make sure we having homebrew shellenv injected or we are going to mix up diff py version here
     # ^^ comment out due to out-of-date
     # terraform@1.5.* stay with Mozilla Public License
-    brew install vim jq yq fzf tmuxinator git bash-completion go terraform terraform-ls bat
+    brew install vim jq yq fzf git bash-completion go terraform terraform-ls bat
     $(brew --prefix)/opt/fzf/install --no-zsh --no-fish
     echo "[[ -r \"\$(brew --prefix)/etc/profile.d/bash_completion.sh\" ]] && . \"\$(brew --prefix)/etc/profile.d/bash_completion.sh\"" >> ~/.bash_profile
 
@@ -35,17 +35,17 @@ fi
 
 read -p '==> Install awscli and terraform tools from homebrew? (y/n)' install_awscli
 if [ $install_awscli == "y" ]; then
-    brew install awscli iam-policy-json-to-terraform miniconda
+    brew install awscli
 fi
 
 read -p '==> Install kubectl tools from homebrew? (y/n)' install_k8s
 if [ $install_k8s == "y" ]; then
     brew install kubernetes-cli kubectx helm k9s
-    helm plugin install https://github.com/databus23/helm-diff --version v3.8.1
-    helm plugin install https://github.com/jkroepke/helm-secrets --version v4.5.1
+    helm plugin install https://github.com/databus23/helm-diff --version v3.13.1
+    helm plugin install https://github.com/jkroepke/helm-secrets --version v4.6.11
 fi
 
-read -p '==> Install google cloud sdk from curl? (y/n)' install_gcloud
+read -p '==> Install google cloud sdk from brew? (y/n)' install_gcloud
 if [ $install_gcloud == "y" ]; then
     brew install google-cloud-sdk
 fi
