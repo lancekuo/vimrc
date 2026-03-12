@@ -287,10 +287,16 @@ EOF
 }
 
 setup_kubectl_completion() {
-    append_if_missing "$PROFILE" 'complete -o default -o nospace -F __start_kubectl k' "__start_kubectl" && \
+    if append_if_missing "$PROFILE" 'complete -o default -o nospace -F __start_kubectl k' "__start_kubectl"; then
         echo "Added kubectl completion for 'k' alias"
-    append_if_missing "$PROFILE" 'complete -F _kube_contexts ktx' "_kube_contexts" && \
+    else
+        echo "SKIP: kubectl completion already in $PROFILE"
+    fi
+    if append_if_missing "$PROFILE" 'complete -F _kube_contexts ktx' "_kube_contexts"; then
         echo "Added kubectx completion for 'ktx' alias"
+    else
+        echo "SKIP: kubectx completion already in $PROFILE"
+    fi
 }
 
 # =============================================================================
