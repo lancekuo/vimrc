@@ -144,7 +144,12 @@ install_homebrew() {
 install_core_tools() {
     # Core CLI tools
     # terraform@1.5.* stays with Mozilla Public License
-    brew install vim jq yq fzf git bash-completion go terraform terraform-ls bat
+    brew install vim jq yq fzf git go terraform terraform-ls bat
+
+    # bash-completion may conflict with util-linux on Linux
+    if ! brew install bash-completion 2>/dev/null; then
+        echo "Note: bash-completion skipped (may conflict with util-linux)"
+    fi
 
     # AWS CLI
     brew install awscli
@@ -153,21 +158,22 @@ install_core_tools() {
     brew install kubernetes-cli kubectx helm k9s
 
     # GitOps tools
-    brew tap akuity/tap
-    brew install argocd akuity/tap/kargo
+    brew install argocd kargo
 
     # Install fzf key bindings and fuzzy completion
-    "$(brew --prefix)/opt/fzf/install" --no-zsh --no-fish --no-update-rc
+    if ! "$(brew --prefix)/opt/fzf/install" --no-zsh --no-fish --no-update-rc --key-bindings --completion 2>/dev/null; then
+        echo "Note: fzf shell integration skipped (fzf still available via brew)"
+    fi
 
     # Terraform autocomplete
     terraform -install-autocomplete 2>/dev/null || true
 
     # Install helm plugins (check if already installed)
     if ! helm plugin list | grep -q "^diff"; then
-        helm plugin install https://github.com/databus23/helm-diff
+        helm plugin install --verify=false https://github.com/databus23/helm-diff
     fi
     if ! helm plugin list | grep -q "^secrets"; then
-        helm plugin install https://github.com/jkroepke/helm-secrets
+        helm plugin install --verify=false https://github.com/jkroepke/helm-secrets
     fi
 }
 
