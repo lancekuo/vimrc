@@ -131,14 +131,23 @@ install_homebrew() {
     # NONINTERACTIVE=1 skips "Press RETURN/ENTER" prompt
     NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-    # Add brew shellenv to profile and evaluate it now
-    local brew_path brew_shellenv
-    brew_path="$(get_brew_path)"
+    # Add brew shellenv to profile for future sessions
+    local brew_shellenv
     brew_shellenv="$(get_brew_shellenv)"
     append_if_missing "$PROFILE" "$brew_shellenv" "brew shellenv"
 
-    # Evaluate using full path (brew not in PATH yet)
-    eval "$("$brew_path" shellenv)" || true
+    # Set PATH directly for current session (simpler than eval)
+    if [[ "$OS" == "linux" ]]; then
+        export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
+    elif [[ -d "/opt/homebrew" ]]; then
+        export HOMEBREW_PREFIX="/opt/homebrew"
+    else
+        export HOMEBREW_PREFIX="/usr/local"
+    fi
+    export PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PATH"
+    export HOMEBREW_CELLAR="$HOMEBREW_PREFIX/Cellar"
+    export HOMEBREW_REPOSITORY="$HOMEBREW_PREFIX/Homebrew"
+
     echo "Homebrew installed and configured."
 }
 
