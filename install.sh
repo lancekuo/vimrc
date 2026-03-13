@@ -157,9 +157,7 @@ install_core_tools() {
     brew install vim jq yq fzf git go terraform terraform-ls bat
 
     # bash-completion may conflict with util-linux on Linux
-    if ! brew install bash-completion 2>/dev/null; then
-        echo "Note: bash-completion skipped (may conflict with util-linux)"
-    fi
+    brew install bash-completion 2>&1 || echo "Note: bash-completion skipped (may conflict with util-linux)"
 
     # AWS CLI
     brew install awscli
