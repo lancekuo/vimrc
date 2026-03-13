@@ -25,15 +25,6 @@ detect_os() {
     echo "Detected OS: $OS (profile: $PROFILE)"
 }
 
-# Cross-platform sed in-place edit
-sed_inplace() {
-    if [[ "$OS" == "macos" ]]; then
-        sed -i "" "$@"
-    else
-        sed -i "$@"
-    fi
-}
-
 # Get Homebrew binary path based on OS
 get_brew_path() {
     if [[ "$OS" == "macos" ]]; then
@@ -189,22 +180,6 @@ install_gcloud() {
     brew install google-cloud-sdk
 }
 
-setup_homebrew_token() {
-    local token
-    read -rp '==>==> Paste your GitHub token: ' token
-    if [ -z "$token" ]; then
-        echo "No token provided, skipping."
-        return
-    fi
-
-    # Remove existing token line if present
-    if grep -qe "HOMEBREW_GITHUB_API_TOKEN" "$PROFILE" 2>/dev/null; then
-        sed_inplace '/HOMEBREW_GITHUB_API_TOKEN/d' "$PROFILE"
-    fi
-    echo "export HOMEBREW_GITHUB_API_TOKEN=$token" >> "$PROFILE"
-    echo "Token for Homebrew configured in $PROFILE"
-}
-
 setup_git_config() {
     local git_name git_email
 
@@ -340,11 +315,6 @@ main() {
     # Google Cloud SDK
     if prompt_yn "Install Google Cloud SDK?"; then
         install_gcloud
-    fi
-
-    # Homebrew GitHub token
-    if prompt_yn "Setup GitHub token for Homebrew?"; then
-        setup_homebrew_token
     fi
 
     # Git submodules
