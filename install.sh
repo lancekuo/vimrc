@@ -128,7 +128,8 @@ install_homebrew() {
         fi
     fi
 
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    # NONINTERACTIVE=1 skips "Press RETURN/ENTER" prompt
+    NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
     # Add brew shellenv to profile and evaluate it now
     local brew_path brew_shellenv
@@ -137,7 +138,7 @@ install_homebrew() {
     append_if_missing "$PROFILE" "$brew_shellenv" "brew shellenv"
 
     # Evaluate using full path (brew not in PATH yet)
-    eval "$("$brew_path" shellenv)"
+    eval "$("$brew_path" shellenv)" || true
     echo "Homebrew installed and configured."
 }
 
