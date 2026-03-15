@@ -1,10 +1,6 @@
 " Ascii art generated with http://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=Vim%20Config
 scriptencoding utf-8
 
-" May need for Vim (not Neovim) since coc.nvim calculates byte offset by count
-" utf-8 byte sequence
-set encoding=utf-8
-
 "  ██████  ███████ ███    ██ ███████ ██████   █████  ██
 " ██       ██      ████   ██ ██      ██   ██ ██   ██ ██
 " ██   ███ █████   ██ ██  ██ █████   ██████  ███████ ██
@@ -15,8 +11,6 @@ filetype off
 filetype plugin indent on
 colorscheme molokai
 
-" Some servers have issues with backup files, see #649
-set nobackup
 set nowritebackup
 
 " Having longer updatetime (default is 4000 ms = 4s) leads to noticeable
@@ -95,7 +89,6 @@ map      <C-j>               :lnext<CR>
 map      <c-k>               :lprevious<CR>
 map      <C-n>               :cnext<CR>
 map      <c-m>               :cprevious<CR>
-nnoremap <leader>a           :cclose<CR>
 " Visual linewise up and down by default (and use gj gk to go quicker)
 noremap <Up> gk
 noremap <Down> gj
@@ -130,7 +123,7 @@ if $TERM_PROGRAM == "Apple_Terminal" " Terminal.app, xterm and urxvt pass this t
 endif
 
 if $SSH_TTY != ""            " If the user is connected through ssh
- if $TERM == "xterm-color" || $ORIGTERM = "xterm-color"
+ if $TERM == "xterm-color" || $ORIGTERM == "xterm-color"
   "Something other than Terminal.app might well get here
   call MacOSX()
  endif
@@ -287,9 +280,6 @@ imap <C-l> <Plug>(coc-snippets-expand)
 " Use <C-j> for select text for visual placeholder of snippet.
 vmap <C-j> <Plug>(coc-snippets-select)
 
-" Use <C-j> for jump to next placeholder, it's default of coc.nvim
-let g:coc_snippet_next = '<c-j>'
-
 " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
 let g:coc_snippet_prev = '<c-k>'
 
@@ -304,11 +294,6 @@ inoremap <silent><expr> <TAB>
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ CheckBackspace() ? "\<TAB>" :
       \ coc#refresh()
-
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
 
 let g:coc_snippet_next = '<tab>'
 
@@ -345,13 +330,6 @@ function! NearestMethodOrFunction() abort
 endfunction
 
 set statusline+=%{NearestMethodOrFunction()}
-" By default vista.vim never run if you don't call it explicitly.
-"
-" If you want to show the nearest function in your statusline automatically,
-" you can add the following line to your vimrc
-function! NearestMethodOrFunction() abort
-  return get(b:, 'vista_nearest_method_or_function', '')
-endfunction
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 " How each level is indented and what to prepend.
@@ -411,7 +389,6 @@ let g:vista#renderer#icons = {
 
 let g:vista_echo_cursor_strategy = 'floating_win'
 let g:vista_floating_border = 'rounded'
-let g:vista_sidebar_width = '50'
 autocmd FileType vista,vista_kind nnoremap <buffer> <silent> / :<c-u>call vista#finder#fzf#Run()<CR>
 let g:vista_keep_fzf_colors = 1
 
