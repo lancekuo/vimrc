@@ -6,52 +6,52 @@
 	url = https://github.com/neoclide/coc.nvim.git
 [submodule "pack/format/start/splitjoin.vim"]
 	path = pack/plugins/start/splitjoin.vim
-	url = git@github.com:AndrewRadev/splitjoin.vim.git
+	url = https://github.com/AndrewRadev/splitjoin.vim.git
 [submodule "pack/format/start/vim-commentary"]
 	path = pack/plugins/start/vim-commentary
-	url = git@github.com:tpope/vim-commentary.git
+	url = https://github.com/tpope/vim-commentary.git
 [submodule "pack/format/start/vim-easy-align"]
 	path = pack/plugins/start/vim-easy-align
-	url = git@github.com:junegunn/vim-easy-align.git
+	url = https://github.com/junegunn/vim-easy-align.git
 [submodule "pack/format/start/vim-surround"]
 	path = pack/plugins/start/vim-surround
-	url = git@github.com:tpope/vim-surround.git
+	url = https://github.com/tpope/vim-surround.git
 [submodule "pack/fzf/start/fzf"]
 	path = pack/plugins/start/fzf
-	url = git@github.com:junegunn/fzf.git
+	url = https://github.com/junegunn/fzf.git
 [submodule "pack/fzf/start/fzf.vim"]
 	path = pack/plugins/start/fzf.vim
-	url = git@github.com:junegunn/fzf.vim.git
+	url = https://github.com/junegunn/fzf.vim.git
 [submodule "pack/git/start/fugitive"]
 	path = pack/plugins/start/fugitive
-	url = git@github.com:tpope/vim-fugitive.git
+	url = https://github.com/tpope/vim-fugitive.git
 [submodule "pack/git/start/vim-gitgutter"]
 	path = pack/plugins/start/vim-gitgutter
-	url = git@github.com:airblade/vim-gitgutter.git
+	url = https://github.com/airblade/vim-gitgutter.git
 [submodule "pack/lang/start/vim-mustache-handlebars"]
 	path = pack/plugins/start/vim-mustache-handlebars
-	url = git@github.com:mustache/vim-mustache-handlebars.git
+	url = https://github.com/mustache/vim-mustache-handlebars.git
 [submodule "pack/lang/start/vim-rego"]
 	path = pack/plugins/start/vim-rego
-	url = git@github.com:tsandall/vim-rego.git
+	url = https://github.com/tsandall/vim-rego.git
 [submodule "pack/lang/start/vim-terraform"]
 	path = pack/plugins/start/vim-terraform
-	url = git@github.com:hashivim/vim-terraform.git
+	url = https://github.com/hashivim/vim-terraform.git
 [submodule "pack/sys/start/vim-scriptease"]
 	path = pack/plugins/start/vim-scriptease
-	url = git@github.com:tpope/vim-scriptease.git
+	url = https://github.com/tpope/vim-scriptease.git
 [submodule "pack/theme/start/copilot.vim"]
 	path = pack/plugins/start/copilot.vim
-	url = git@github.com:github/copilot.vim.git
+	url = https://github.com/github/copilot.vim.git
 [submodule "pack/theme/start/molokai"]
 	path = pack/plugins/start/molokai
-	url = git@github.com:tomasr/molokai.git
+	url = https://github.com/tomasr/molokai.git
 [submodule "pack/theme/start/vim-airline"]
 	path = pack/plugins/start/vim-airline
-	url = git@github.com:vim-airline/vim-airline.git
+	url = https://github.com/vim-airline/vim-airline.git
 [submodule "pack/theme/start/vista.vim"]
 	path = pack/plugins/start/vista.vim
-	url = git@github.com:liuchengxu/vista.vim.git
+	url = https://github.com/liuchengxu/vista.vim.git
 [submodule "pack/plugins/start/vim-hjson"]
 	path = pack/plugins/start/vim-hjson
-	url = git@github.com:hjson/vim-hjson
+	url = https://github.com/hjson/vim-hjson

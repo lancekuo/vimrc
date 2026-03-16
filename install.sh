@@ -319,7 +319,6 @@ main() {
 
     # Git submodules
     echo ""
-    echo "Note: Submodules use git@github.com - ensure your SSH key is added first."
     if prompt_yn "Update git submodules?"; then
         git submodule update --init
     fi
