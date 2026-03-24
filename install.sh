@@ -226,6 +226,7 @@ setup_symlinks() {
     safe_symlink "$HOME/.vim/vimrc" "$HOME/.vimrc"
     safe_symlink "$HOME/.vim/tmux.conf" "$HOME/.tmux.conf"
     safe_symlink "$HOME/.vim/terraformrc" "$HOME/.terraformrc"
+    safe_symlink "$SCRIPT_DIR/claude-skills" "$HOME/.claude/skills"
 }
 
 setup_bash_prompt() {
