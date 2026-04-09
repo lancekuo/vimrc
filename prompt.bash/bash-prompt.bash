@@ -46,8 +46,19 @@ if [ `uname -a|awk '{ print $1}'` == 'Darwin' ] ; then
     fi
 fi
 
-alias ll='ls -a -l -G'
-alias ls='ls -G'
+if [ "$(uname -s)" = 'Darwin' ]; then
+    alias ll='ls -a -l -G'
+    alias ls='ls -G'
+    alias cat="bat --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo default || echo GitHub)"
+else
+    alias ll='ls -a -l --color=auto'
+    alias ls='ls --color=auto'
+    if command -v batcat &>/dev/null; then
+        alias cat='batcat'
+    elif command -v bat &>/dev/null && [[ "$(bat --version 2>&1)" == bat* ]]; then
+        alias cat='bat'
+    fi
+fi
 alias _projects='cd ~/Projects'
 alias rebuild-ssh-config='cat ~/.ssh/config.d/* > ~/.ssh/config'
 alias reload-env='. ~/.bash_profile'
@@ -55,7 +66,6 @@ alias k='kubectl'
 alias ktx='kubectx'
 alias kns='kubens'
 alias kdebug='kubectl run -i --rm=true --tty debug --image=busybox --restart=Never -- sh'
-alias cat="bat --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo default || echo GitHub)"
 
 export RUBYOPT='--disable-did_you_mean' # Fixed tmuxinator ruby warning msg
 export EDITOR='vim' # Value for tmuxinator
