@@ -214,6 +214,9 @@ setup_symlinks() {
     safe_symlink "$HOME/.vim/terraformrc" "$HOME/.terraformrc"
     safe_symlink "$SCRIPT_DIR/claude-skills" "$HOME/.claude/skills"
     safe_symlink "$SCRIPT_DIR/scripts/workspace.sh" "$HOME/.local/bin/workspace"
+    safe_symlink "$SCRIPT_DIR/scripts/md2docx.sh" "$HOME/.local/bin/md2docx"
+    safe_symlink "$SCRIPT_DIR/scripts/md2docx-reference" "$HOME/.local/bin/md2docx-reference"
+    safe_symlink "$SCRIPT_DIR/scripts/md2gdoc.sh" "$HOME/.local/bin/md2gdoc"
 }
 
 setup_local_bin_path() {
