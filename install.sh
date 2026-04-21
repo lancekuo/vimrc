@@ -79,6 +79,7 @@ append_if_missing() {
 safe_symlink() {
     local source="$1"
     local target="$2"
+    mkdir -p "$(dirname "$target")"
     if [ -L "$target" ]; then
         echo "Symlink $target already exists, skipping."
     elif [ -e "$target" ]; then
@@ -133,8 +134,14 @@ install_homebrew() {
 
 install_core_tools() {
     # Core CLI tools
-    # terraform@1.5.* stays with Mozilla Public License
-    brew install vim jq yq fzf git go terraform terraform-ls bat
+    # terraform is installed via tfenv (pinned to 1.5.7, last MPL-licensed release)
+    brew install vim jq yq fzf git go tfenv terraform-ls bat node
+
+    # Pin terraform to 1.5.7 (last MPL-licensed release; later versions are BUSL)
+    if command -v tfenv &>/dev/null; then
+        tfenv install 1.5.7 || true
+        tfenv use 1.5.7
+    fi
 
     # bash-completion may conflict with util-linux on Linux
     brew install bash-completion 2>&1 || echo "Note: bash-completion skipped (may conflict with util-linux)"
@@ -212,6 +219,8 @@ setup_symlinks() {
     safe_symlink "$HOME/.vim/vimrc" "$HOME/.vimrc"
     safe_symlink "$HOME/.vim/tmux.conf" "$HOME/.tmux.conf"
     safe_symlink "$HOME/.vim/terraformrc" "$HOME/.terraformrc"
+    # Plugin cache dir referenced by terraformrc ╬ô├ç├╢ must exist or terraform warns
+    mkdir -p "$HOME/.terraform.d/plugin-cache"
     safe_symlink "$SCRIPT_DIR/claude-skills" "$HOME/.claude/skills"
     safe_symlink "$SCRIPT_DIR/scripts/workspace.sh" "$HOME/.local/bin/workspace"
     safe_symlink "$SCRIPT_DIR/scripts/md2docx.sh" "$HOME/.local/bin/md2docx"
@@ -356,7 +365,7 @@ main() {
     fi
 
     # Core tools (includes AWS CLI and Kubernetes tools)
-    if prompt_yn "Install core tools (vim, jq, yq, fzf, git, bash-completion, go, terraform, terraform-ls, bat, awscli, kubectl, kubectx, helm, k9s, argocd, kargo)?"; then
+    if prompt_yn "Install core tools (vim, jq, yq, fzf, git, bash-completion, go, tfenv+terraform 1.5.7, terraform-ls, bat, node, awscli, kubectl, kubectx, helm, k9s, argocd, kargo)?"; then
         install_core_tools
     fi
 
