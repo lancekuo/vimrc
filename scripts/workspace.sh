@@ -26,6 +26,10 @@ tmux send-keys -t "$SESSION:2" 'cd ~/project && claude "we are going to troubles
 tmux new-window -t "$SESSION" -n chore
 tmux send-keys -t "$SESSION:3" 'cd ~/project' Enter
 
+# Window 9: agtop - monitor Claude Code / Codex sessions
+tmux new-window -t "$SESSION:9" -n usage
+tmux send-keys -t "$SESSION:9" 'agtop' Enter
+
 # Start on window 0
 tmux select-window -t "$SESSION:0"
 tmux attach-session -t "$SESSION"
