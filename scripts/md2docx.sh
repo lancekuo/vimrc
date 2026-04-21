@@ -127,13 +127,16 @@ def fix_table_grid(match):
     cols = re.findall(r'<w:gridCol w:w="(\d+)"\s*/>', table_xml)
     if not cols:
         return table_xml
-    ncols = len(cols)
-    col_width = PAGE_TEXT_WIDTH // ncols
-    remainder = PAGE_TEXT_WIDTH - (col_width * ncols)
-    new_cols = []
-    for i in range(ncols):
-        w = col_width + (1 if i < remainder else 0)
-        new_cols.append(f'<w:gridCol w:w="{w}" />')
+    # Scale existing proportions to fill page width (preserves Lua filter ratios)
+    current_total = sum(int(c) for c in cols)
+    if current_total == 0:
+        return table_xml
+    scale = PAGE_TEXT_WIDTH / current_total
+    new_widths = [int(int(c) * scale) for c in cols]
+    # Fix rounding remainder
+    remainder = PAGE_TEXT_WIDTH - sum(new_widths)
+    new_widths[-1] += remainder
+    new_cols = [f'<w:gridCol w:w="{w}" />' for w in new_widths]
     new_grid = '<w:tblGrid>' + ''.join(new_cols) + '</w:tblGrid>'
     table_xml = re.sub(r'<w:tblGrid>.*?</w:tblGrid>', new_grid, table_xml, flags=re.DOTALL)
     return table_xml

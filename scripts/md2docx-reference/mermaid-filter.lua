@@ -10,11 +10,62 @@ end
 
 function Table(tbl)
   local ncols = #tbl.colspecs
-  local width = 1.0 / ncols
+
+  -- Measure avg + max content length per column across all rows
+  local max_len = {}
+  local sum_len = {}
+  local row_count = 0
+  for i = 1, ncols do max_len[i] = 1; sum_len[i] = 0 end
+
+  local function measure_rows(rows)
+    for _, row in ipairs(rows) do
+      local cells = row.cells or row
+      row_count = row_count + 1
+      for i, cell in ipairs(cells) do
+        if i <= ncols then
+          local text = pandoc.utils.stringify(cell)
+          sum_len[i] = sum_len[i] + #text
+          if #text > max_len[i] then max_len[i] = #text end
+        end
+      end
+    end
+  end
+
+  -- Measure header rows
+  if tbl.head and tbl.head.rows then
+    measure_rows(tbl.head.rows)
+  end
+  -- Measure body rows
+  for _, body in ipairs(tbl.bodies) do
+    if body.body then measure_rows(body.body) end
+  end
+
+  -- Use blend of max and avg to avoid short columns being too wide
+  -- (e.g. "#" column with max_len=1 shouldn't get 33% of a 3-col table)
+  local effective = {}
+  for i = 1, ncols do
+    local avg = row_count > 0 and (sum_len[i] / row_count) or max_len[i]
+    effective[i] = (max_len[i] + avg) / 2
+  end
+
+  -- Calculate proportional widths
+  local total = 0
+  for i = 1, ncols do total = total + effective[i] end
+
   local new_colspecs = {}
   for i, spec in ipairs(tbl.colspecs) do
-    new_colspecs[i] = {spec[1], width}
+    local w = effective[i] / total
+    if w < 0.05 then w = 0.05 end
+    new_colspecs[i] = {spec[1], w}
   end
+
+  -- Normalize so widths sum to 1.0
+  local sum = 0
+  for i = 1, ncols do sum = sum + new_colspecs[i][2] end
+  for i = 1, ncols do
+    new_colspecs[i][2] = new_colspecs[i][2] / sum
+  end
+
   tbl.colspecs = new_colspecs
   return tbl
 end
@@ -32,7 +83,7 @@ function CodeBlock(block)
     f:write(block.text)
     f:close()
 
-    os.execute("mmdc -i " .. infile .. " -o " .. outfile .. " -b white")
+    os.execute("mmdc -i " .. infile .. " -o " .. outfile .. " -b white -s 5")
 
     os.remove(infile)
     return pandoc.Para({pandoc.Image({}, outfile)})
