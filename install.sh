@@ -143,6 +143,13 @@ install_core_tools() {
         tfenv use 1.5.7
     fi
 
+    # agtop - TUI for monitoring Claude Code / Codex sessions
+    # Install into ~/.local (scoped to this command; leaves global npm prefix untouched)
+    if command -v npm &>/dev/null; then
+        mkdir -p "$HOME/.local/bin"
+        npm install -g --prefix "$HOME/.local" @ldegio/agtop || true
+    fi
+
     # bash-completion may conflict with util-linux on Linux
     brew install bash-completion 2>&1 || echo "Note: bash-completion skipped (may conflict with util-linux)"
 
@@ -365,7 +372,7 @@ main() {
     fi
 
     # Core tools (includes AWS CLI and Kubernetes tools)
-    if prompt_yn "Install core tools (vim, jq, yq, fzf, git, bash-completion, go, tfenv+terraform 1.5.7, terraform-ls, bat, node, awscli, kubectl, kubectx, helm, k9s, argocd, kargo)?"; then
+    if prompt_yn "Install core tools (vim, jq, yq, fzf, git, bash-completion, go, tfenv+terraform 1.5.7, terraform-ls, bat, node+agtop, awscli, kubectl, kubectx, helm, k9s, argocd, kargo)?"; then
         install_core_tools
     fi
 

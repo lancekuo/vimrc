@@ -40,9 +40,6 @@
 [submodule "pack/sys/start/vim-scriptease"]
 	path = pack/plugins/start/vim-scriptease
 	url = https://github.com/tpope/vim-scriptease.git
-[submodule "pack/theme/start/copilot.vim"]
-	path = pack/plugins/start/copilot.vim
-	url = https://github.com/github/copilot.vim.git
 [submodule "pack/theme/start/molokai"]
 	path = pack/plugins/start/molokai
 	url = https://github.com/tomasr/molokai.git
