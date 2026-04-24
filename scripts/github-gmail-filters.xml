@@ -43,7 +43,8 @@
     <apps:property name='from' value='notifications@github.com'/>
     <apps:property name='hasTheWord' value='cc:assign@noreply.github.com'/>
     <apps:property name='label' value='gh-assignments'/>
-    <apps:property name='shouldArchive' value='true'/>
+    <apps:property name='shouldStar' value='true'/>
+    <apps:property name='shouldAlwaysMarkAsImportant' value='true'/>
   </entry>
 
   <!-- Mentions -->
@@ -52,7 +53,8 @@
     <apps:property name='from' value='notifications@github.com'/>
     <apps:property name='hasTheWord' value='cc:mention@noreply.github.com'/>
     <apps:property name='label' value='gh-mentions'/>
-    <apps:property name='shouldArchive' value='true'/>
+    <apps:property name='shouldStar' value='true'/>
+    <apps:property name='shouldAlwaysMarkAsImportant' value='true'/>
   </entry>
 
   <!-- Review Requested -->
@@ -61,7 +63,8 @@
     <apps:property name='from' value='notifications@github.com'/>
     <apps:property name='hasTheWord' value='cc:review_requested@noreply.github.com &quot;requested your review on&quot;'/>
     <apps:property name='label' value='gh-review-requested'/>
-    <apps:property name='shouldArchive' value='true'/>
+    <apps:property name='shouldStar' value='true'/>
+    <apps:property name='shouldAlwaysMarkAsImportant' value='true'/>
   </entry>
 
   <!-- Closed (approximate) -->
