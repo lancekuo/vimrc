@@ -57,11 +57,21 @@
     <apps:property name='shouldAlwaysMarkAsImportant' value='true'/>
   </entry>
 
-  <!-- Review Requested -->
+  <!-- Review Requested (bot SHA bumps → archive) -->
+  <entry>
+    <category term='filter'></category>
+    <apps:property name='from' value='notifications@github.com'/>
+    <apps:property name='hasTheWord' value='cc:review_requested@noreply.github.com &quot;requested your review on&quot; subject:&quot;Update&quot; subject:&quot;image SHA for&quot;'/>
+    <apps:property name='label' value='gh-review-requested'/>
+    <apps:property name='shouldArchive' value='true'/>
+  </entry>
+
+  <!-- Review Requested (human → inbox) -->
   <entry>
     <category term='filter'></category>
     <apps:property name='from' value='notifications@github.com'/>
     <apps:property name='hasTheWord' value='cc:review_requested@noreply.github.com &quot;requested your review on&quot;'/>
+    <apps:property name='doesNotHaveTheWord' value='subject:&quot;image SHA for&quot;'/>
     <apps:property name='label' value='gh-review-requested'/>
     <apps:property name='shouldStar' value='true'/>
     <apps:property name='shouldAlwaysMarkAsImportant' value='true'/>
