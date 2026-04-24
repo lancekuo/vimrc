@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns='http://www.w3.org/2005/Atom' xmlns:apps='http://schemas.google.com/apps/2006'>
+  <title>GitHub Email Filters</title>
+
+  <!-- Pull Requests -->
+  <entry>
+    <category term='filter'></category>
+    <apps:property name='from' value='notifications@github.com'/>
+    <apps:property name='subject' value='PR #'/>
+    <apps:property name='label' value='gh-pull-request'/>
+    <apps:property name='shouldArchive' value='true'/>
+  </entry>
+
+  <!-- GitHub Actions -->
+  <entry>
+    <category term='filter'></category>
+    <apps:property name='from' value='ci_activity@github.com'/>
+    <apps:property name='label' value='gha'/>
+    <apps:property name='shouldArchive' value='true'/>
+  </entry>
+
+  <!-- Discussions -->
+  <entry>
+    <category term='filter'></category>
+    <apps:property name='from' value='notifications@github.com'/>
+    <apps:property name='subject' value='(Discussion #'/>
+    <apps:property name='label' value='gh-discussion'/>
+    <apps:property name='shouldArchive' value='true'/>
+  </entry>
+
+  <!-- Releases -->
+  <entry>
+    <category term='filter'></category>
+    <apps:property name='from' value='notifications@github.com'/>
+    <apps:property name='hasTheWord' value='&quot;Visit the release page to download them.&quot;'/>
+    <apps:property name='label' value='gh-releases'/>
+    <apps:property name='shouldArchive' value='true'/>
+  </entry>
+
+  <!-- Assignments -->
+  <entry>
+    <category term='filter'></category>
+    <apps:property name='from' value='notifications@github.com'/>
+    <apps:property name='hasTheWord' value='cc:assign@noreply.github.com'/>
+    <apps:property name='label' value='gh-assignments'/>
+    <apps:property name='shouldArchive' value='true'/>
+  </entry>
+
+  <!-- Mentions -->
+  <entry>
+    <category term='filter'></category>
+    <apps:property name='from' value='notifications@github.com'/>
+    <apps:property name='hasTheWord' value='cc:mention@noreply.github.com'/>
+    <apps:property name='label' value='gh-mentions'/>
+    <apps:property name='shouldArchive' value='true'/>
+  </entry>
+
+  <!-- Review Requested -->
+  <entry>
+    <category term='filter'></category>
+    <apps:property name='from' value='notifications@github.com'/>
+    <apps:property name='hasTheWord' value='cc:review_requested@noreply.github.com &quot;requested your review on&quot;'/>
+    <apps:property name='label' value='gh-review-requested'/>
+    <apps:property name='shouldArchive' value='true'/>
+  </entry>
+
+  <!-- Closed (approximate) -->
+  <entry>
+    <category term='filter'></category>
+    <apps:property name='from' value='notifications@github.com'/>
+    <apps:property name='hasTheWord' value='&quot;Closed #&quot;'/>
+    <apps:property name='label' value='gh-closed'/>
+    <apps:property name='shouldArchive' value='true'/>
+  </entry>
+
+  <!-- Merged (approximate) -->
+  <entry>
+    <category term='filter'></category>
+    <apps:property name='from' value='notifications@github.com'/>
+    <apps:property name='hasTheWord' value='&quot;Merged #&quot;'/>
+    <apps:property name='label' value='gh-merged'/>
+    <apps:property name='shouldArchive' value='true'/>
+  </entry>
+
+  <!-- Issues (approximate) -->
+  <entry>
+    <category term='filter'></category>
+    <apps:property name='from' value='notifications@github.com'/>
+    <apps:property name='subject' value='Issue #'/>
+    <apps:property name='doesNotHaveTheWord' value='subject:&quot;PR #&quot;'/>
+    <apps:property name='label' value='gh-issue'/>
+    <apps:property name='shouldArchive' value='true'/>
+  </entry>
+
+</feed>
+
