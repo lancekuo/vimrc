@@ -143,6 +143,34 @@ def fix_table_grid(match):
 
 content = re.sub(r'<w:tbl>.*?</w:tbl>', fix_table_grid, content, flags=re.DOTALL)
 
+# --- Scale images to full page width (preserve aspect ratio) ---
+PAGE_TEXT_WIDTH_EMU = PAGE_TEXT_WIDTH * 635  # twips to EMU (1 twip = 635 EMU) = 6858000
+
+def scale_drawing(match):
+    drawing_xml = match.group(0)
+    # Find the wp:extent (controls displayed size)
+    ext_match = re.search(r'<wp:extent cx="(\d+)" cy="(\d+)"', drawing_xml)
+    if not ext_match:
+        return drawing_xml
+    old_cx = int(ext_match.group(1))
+    old_cy = int(ext_match.group(2))
+    if old_cx == 0 or old_cx >= PAGE_TEXT_WIDTH_EMU:
+        return drawing_xml
+    scale = PAGE_TEXT_WIDTH_EMU / old_cx
+    new_cx = PAGE_TEXT_WIDTH_EMU
+    new_cy = int(old_cy * scale)
+    # Update wp:extent
+    drawing_xml = drawing_xml.replace(
+        f'<wp:extent cx="{old_cx}" cy="{old_cy}"',
+        f'<wp:extent cx="{new_cx}" cy="{new_cy}"', 1)
+    # Update a:ext inside wp:inline (must match wp:extent)
+    drawing_xml = drawing_xml.replace(
+        f'<a:ext cx="{old_cx}" cy="{old_cy}"',
+        f'<a:ext cx="{new_cx}" cy="{new_cy}"')
+    return drawing_xml
+
+content = re.sub(r'<w:drawing>.*?</w:drawing>', scale_drawing, content, flags=re.DOTALL)
+
 with open(sys.argv[1], 'w') as f:
     f.write(content)
 PYEOF
