@@ -16,7 +16,7 @@ tmux send-keys -t "$SESSION:0" 'aws sso login && k9s' Enter
 
 # Window 1: claude — resume session
 tmux new-window -t "$SESSION" -n claude
-tmux send-keys -t "$SESSION:1" 'cd ~/project && claude --resume' Enter
+tmux send-keys -t "$SESSION:1" 'cd ~/project && claude' Enter
 
 # Window 2: eks-ts — claude for EKS troubleshooting
 tmux new-window -t "$SESSION" -n eks-ts

@@ -1,0 +1,70 @@
+{
+  "apiKeyHelper": "source ~/.claude/.env && echo $ANTHROPIC_API_KEY",
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "permissions": {
+    "allow": [
+      "Bash(aws logs describe-log-groups *)",
+      "Bash(aws logs describe-log-streams *)",
+      "Bash(aws logs filter-log-events *)",
+      "Bash(aws logs get-log-events *)",
+      "Bash(aws logs start-query *)",
+      "Bash(aws logs get-query-results *)",
+      "Bash(aws logs tail *)",
+      "Bash(kubectl --context altera-prod * logs *)",
+      "Bash(kubectl --context altera-prod * get *)",
+      "Bash(kubectl --context altera-prod * describe *)",
+      "Bash(kubectl --context=altera-prod -n cognichip logs *)"
+    ],
+    "defaultMode": "auto"
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "SF=$(jq -r '.transcript_path // empty' 2>/dev/null); node \"$HOME/.claude/plugins/cache/caveman/caveman/754795ada42d/src/hooks/caveman-stats.js\" ${SF:+--session-file \"$SF\"} >/dev/null 2>&1 || true",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash \"$HOME/.claude/statusline.sh\""
+  },
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true,
+    "atlassian@claude-plugins-official": true,
+    "superwhisper@superwhisper": false,
+    "caveman@caveman": true,
+    "slack@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "superwhisper": {
+      "source": {
+        "source": "github",
+        "repo": "superultrainc/superwhisper-claude-code"
+      },
+      "autoUpdate": false
+    },
+    "caveman": {
+      "source": {
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
+      }
+    }
+  },
+  "effortLevel": "xhigh",
+  "advisorModel": "opus",
+  "theme": "dark-ansi",
+  "teammateMode": "tmux",
+  "skipAutoPermissionPrompt": true
+}

@@ -162,6 +162,10 @@ install_core_tools() {
     # GitOps tools
     brew install argocd kargo
 
+    # Session search (Claude Code history) — search-sessions + ripgrep for fast deep search
+    brew install ripgrep
+    brew install sinzin91/tap/search-sessions
+
     # Install fzf key bindings and fuzzy completion
     if ! "$(brew --prefix)/opt/fzf/install" --no-zsh --no-fish --no-update-rc --key-bindings --completion 2>/dev/null; then
         echo "Note: fzf shell integration skipped (fzf still available via brew)"
@@ -228,11 +232,12 @@ setup_symlinks() {
     safe_symlink "$HOME/.vim/terraformrc" "$HOME/.terraformrc"
     # Plugin cache dir referenced by terraformrc ╬ô├ç├╢ must exist or terraform warns
     mkdir -p "$HOME/.terraform.d/plugin-cache"
-    safe_symlink "$SCRIPT_DIR/claude-skills" "$HOME/.claude/skills"
+    safe_symlink "$SCRIPT_DIR/claude/skills" "$HOME/.claude/skills"
     safe_symlink "$SCRIPT_DIR/scripts/workspace.sh" "$HOME/.local/bin/workspace"
     safe_symlink "$SCRIPT_DIR/scripts/md2docx.sh" "$HOME/.local/bin/md2docx"
     safe_symlink "$SCRIPT_DIR/scripts/md2docx-reference" "$HOME/.local/bin/md2docx-reference"
     safe_symlink "$SCRIPT_DIR/scripts/md2gdoc.sh" "$HOME/.local/bin/md2gdoc"
+    safe_symlink "$SCRIPT_DIR/claude/commands" "$HOME/.claude/commands"
 }
 
 setup_local_bin_path() {

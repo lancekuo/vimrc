@@ -23,12 +23,23 @@ function parse_git_branch {
 }
 
 function parse_git_dirty {
-    git status 2 > /dev/null 2>&1 || return;
-    if [[ -z $(git status --porcelain) ]]
+    git status > /dev/null 2>&1 || return;
+    # Red when tracked files have uncommitted changes (staged/modified/deleted),
+    # green when the working tree has no tracked changes.
+    if [[ -z $(git status --porcelain --untracked-files=no) ]]
     then
-        printf $GREEN_NO_ESC
+        printf "$GREEN_NO_ESC"
     else
-        printf $RED_NO_ESC
+        printf "$RED_NO_ESC"
+    fi
+}
+
+# Yellow '?' marker when untracked files are present.
+function parse_git_untracked {
+    git status > /dev/null 2>&1 || return;
+    if git status --porcelain --untracked-files=normal 2>/dev/null | grep -q '^??'
+    then
+        printf "?"
     fi
 }
 function parse_terraform_workspace {
@@ -36,7 +47,7 @@ function parse_terraform_workspace {
     ref=$(cat .terraform/environment)
     printf "[${ref}]"
 }
-PS1="\[\$(parse_git_dirty)\]\$(parse_git_branch)${CYAN}\$(parse_terraform_workspace) ${IBLACK}\w ${PS_CLEAR}\$ ";
+PS1="\[\$(parse_git_dirty)\]\$(parse_git_branch)${BYELLOW}\$(parse_git_untracked)${CYAN}\$(parse_terraform_workspace) ${IBLACK}\w ${PS_CLEAR}\$ ";
 
 if [ `uname -a|awk '{ print $1}'` == 'Darwin' ] ; then
 # Ref: http://blog.lyhdev.com/2015/03/mac-os-x-command-hacks-markdown-rtf.html
