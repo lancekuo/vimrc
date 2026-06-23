@@ -84,13 +84,3 @@ export DISABLE_AUTO_TITLE=true # fixed mess up window title in terminal with tmu
 #export DOCKER_DEFAULT_PLATFORM=linux/amd64
 export PYTHONDONTWRITEBYTECODE=true
 export GPG_TTY=$(tty)
-
-# AWS MFA script alias
-# $ mfa code
-setToken() {
-    ~/.vim/opt/bin/mfa.sh $1 $2
-    source ~/.token_file
-    echo "Your creds have been set in your env."
-}
-alias mfa=setToken
-if [ -f "$HOME/.token_file" ]; then . "$HOME/.token_file"; fi

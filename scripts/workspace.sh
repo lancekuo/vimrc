@@ -19,8 +19,8 @@ tmux new-window -t "$SESSION" -n claude
 tmux send-keys -t "$SESSION:1" 'cd ~/project && claude' Enter
 
 # Window 2: eks-ts — claude for EKS troubleshooting
-tmux new-window -t "$SESSION" -n eks-ts
-tmux send-keys -t "$SESSION:2" 'cd ~/project && claude "we are going to troubleshoot our eks issue, get ready to use kubectl"' Enter
+tmux new-window -t "$SESSION" -n troubleshoot
+tmux send-keys -t "$SESSION:2" 'cd ~/project' Enter
 
 # Window 3: chore — general purpose
 tmux new-window -t "$SESSION" -n chore
