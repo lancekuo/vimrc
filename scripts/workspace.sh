@@ -20,7 +20,7 @@ tmux send-keys -t "$SESSION:1" 'cd ~/project && claude' Enter
 
 # Window 2: eks-ts — claude for EKS troubleshooting
 tmux new-window -t "$SESSION" -n troubleshoot
-tmux send-keys -t "$SESSION:2" 'cd ~/project' Enter
+tmux send-keys -t "$SESSION:2" 'cd ~/project && CLAUDE_CODE_SKIP_PROMPT_HISTORY=1 claude' Enter
 
 # Window 3: chore — general purpose
 tmux new-window -t "$SESSION" -n chore
