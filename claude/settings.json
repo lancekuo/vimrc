@@ -64,7 +64,7 @@
     }
   },
   "effortLevel": "xhigh",
-  "advisorModel": "opus",
+  "advisorModel": "fable",
   "theme": "dark-ansi",
   "teammateMode": "tmux",
   "skipAutoPermissionPrompt": true
