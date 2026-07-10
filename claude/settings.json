@@ -43,7 +43,6 @@
   },
   "enabledPlugins": {
     "superpowers@claude-plugins-official": true,
-    "atlassian@claude-plugins-official": true,
     "superwhisper@superwhisper": false,
     "caveman@caveman": true,
     "slack@claude-plugins-official": true
