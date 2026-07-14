@@ -15,7 +15,35 @@ DIR=$(echo "$input" | jq -r '.workspace.current_dir')
 PCT=$(echo "$input" | jq -r '.context_window.used_percentage // 0' | cut -d. -f1)
 SESSION_ID=$(echo "$input" | jq -r '.session_id')
 
-CYAN='\033[36m'; GREEN='\033[32m'; YELLOW='\033[33m'; RED='\033[31m'; RESET='\033[0m'
+CYAN='\033[36m'; GREEN='\033[32m'; YELLOW='\033[33m'; RED='\033[31m'; TRUE_RESET='\033[0m'
+
+# --- GPG signing-key cache status -> statusline background ---
+GPG_CACHE_FILE="/tmp/statusline-gpg-cache-$SESSION_ID"
+GPG_CACHE_MAX_AGE=5  # seconds
+
+gpg_cache_is_stale() {
+    [ ! -f "$GPG_CACHE_FILE" ] || \
+    [ $(($(date +%s) - $(stat -f %m "$GPG_CACHE_FILE" 2>/dev/null || stat -c %Y "$GPG_CACHE_FILE" 2>/dev/null || echo 0))) -gt $GPG_CACHE_MAX_AGE ]
+}
+
+if gpg_cache_is_stale; then
+    GIT_EMAIL=$(git config --global user.email 2>/dev/null)
+    KEYGRIP=$(gpg --with-keygrip --list-secret-keys "$GIT_EMAIL" 2>/dev/null | awk '/Keygrip/{print $3; exit}')
+    if [ -n "$KEYGRIP" ]; then
+        CACHED_FLAG=$(gpg-connect-agent 'keyinfo --list' /bye 2>/dev/null | awk -v kg="$KEYGRIP" '$3 == kg {print $7}')
+        [ "$CACHED_FLAG" = "1" ] && echo "CACHED" > "$GPG_CACHE_FILE" || echo "EXPIRED" > "$GPG_CACHE_FILE"
+    else
+        echo "NONE" > "$GPG_CACHE_FILE"
+    fi
+fi
+GPG_STATE=$(cat "$GPG_CACHE_FILE" 2>/dev/null)
+
+BG_BLACK='\033[40m'; BG_YELLOW='\033[43m'
+[ "$GPG_STATE" = "CACHED" ] && { GPG_BG="$BG_BLACK"; GPG_ICON=""; } || { GPG_BG="$BG_YELLOW"; GPG_ICON="🔑 "; }
+
+# any inline "reset" clears attrs then re-asserts the chosen background,
+# so fg colors below don't blow away the outer bg chip
+RESET="${TRUE_RESET}${GPG_BG}"
 
 GIT_STATUS=""
 CACHE_FILE="/tmp/statusline-git-cache-$SESSION_ID"
@@ -44,9 +72,9 @@ if [ -n "$BRANCH" ]; then
     GIT_STATUS="🌿 $BRANCH ${GREEN}+$STAGED${YELLOW}~$MODIFIED${RESET}"
 fi
 
-LINE=""
+LINE="${GPG_BG}${GPG_ICON}"
 [ -n "$CAVEMAN" ] && LINE+="${CAVEMAN}${RESET} | "
-LINE+="${PCT}% | ${DIR}"
+LINE+="${PCT}% | ${MODEL} | ${DIR} "
 [ -n "$GIT_STATUS" ] && LINE+=" ${GIT_STATUS}"
-printf '%b\n' "$LINE"
+printf '%b\n' "${LINE}${TRUE_RESET}"
 

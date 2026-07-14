@@ -23,7 +23,7 @@
     ],
     "defaultMode": "auto"
   },
-  "model": "claude-fable-5[1m]",
+  "model": "sonnet",
   "hooks": {
     "Stop": [
       {
@@ -63,7 +63,7 @@
     }
   },
   "effortLevel": "xhigh",
-  "advisorModel": "fable",
+  "advisorModel": "opus",
   "theme": "dark-ansi",
   "teammateMode": "tmux",
   "skipAutoPermissionPrompt": true
