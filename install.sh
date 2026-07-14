@@ -233,6 +233,8 @@ setup_symlinks() {
     # Plugin cache dir referenced by terraformrc ╬ô├ç├╢ must exist or terraform warns
     mkdir -p "$HOME/.terraform.d/plugin-cache"
     safe_symlink "$SCRIPT_DIR/claude/skills" "$HOME/.claude/skills"
+    safe_symlink "$SCRIPT_DIR/claude/statusline.sh" "$HOME/.claude/statusline.sh"
+    safe_symlink "$SCRIPT_DIR/claude/settings.json" "$HOME/.claude/settings.json"
     safe_symlink "$SCRIPT_DIR/scripts/workspace.sh" "$HOME/.local/bin/workspace"
     safe_symlink "$SCRIPT_DIR/scripts/md2docx.sh" "$HOME/.local/bin/md2docx"
     safe_symlink "$SCRIPT_DIR/scripts/md2docx-reference" "$HOME/.local/bin/md2docx-reference"
