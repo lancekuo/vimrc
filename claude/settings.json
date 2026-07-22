@@ -23,7 +23,6 @@
     ],
     "defaultMode": "auto"
   },
-  "model": "sonnet",
   "hooks": {
     "Stop": [
       {
@@ -63,7 +62,6 @@
     }
   },
   "effortLevel": "xhigh",
-  "advisorModel": "opus",
   "theme": "dark-ansi",
   "teammateMode": "tmux",
   "skipAutoPermissionPrompt": true

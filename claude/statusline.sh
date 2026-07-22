@@ -39,7 +39,9 @@ fi
 GPG_STATE=$(cat "$GPG_CACHE_FILE" 2>/dev/null)
 
 BG_BLACK='\033[40m'; BG_YELLOW='\033[43m'
-[ "$GPG_STATE" = "CACHED" ] && { GPG_BG="$BG_BLACK"; GPG_ICON=""; } || { GPG_BG="$BG_YELLOW"; GPG_ICON="🔑 "; }
+# sign cmd primes gpg-agent cache (forces pinentry) so git commit won't hang
+GPG_SIGN_CMD='echo x | gpg --clearsign'
+[ "$GPG_STATE" = "CACHED" ] && { GPG_BG="$BG_BLACK"; GPG_ICON=""; } || { GPG_BG="$BG_YELLOW"; GPG_ICON="🔑 ${GPG_SIGN_CMD} "; }
 
 # any inline "reset" clears attrs then re-asserts the chosen background,
 # so fg colors below don't blow away the outer bg chip
