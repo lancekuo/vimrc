@@ -7,6 +7,18 @@ set -u
 
 input=$(cat)
 
+# mtime in epoch seconds; GNU stat first (-c), BSD/macOS fallback (-f).
+# Order matters: GNU `stat -f` takes no format arg, so it would swallow "%m"
+# as a filename and emit filesystem info instead of a number.
+file_mtime() {
+    local m
+    m=$(stat -c %Y "$1" 2>/dev/null || stat -f %m "$1" 2>/dev/null)
+    case "$m" in
+        ''|*[!0-9]*) echo 0 ;;
+        *) echo "$m" ;;
+    esac
+}
+
 CAVEMAN_HOOK=$(ls -t "$HOME/.claude/plugins/cache/caveman/caveman/"*/src/hooks/caveman-statusline.sh 2>/dev/null | head -n 1)
 CAVEMAN=$([ -n "$CAVEMAN_HOOK" ] && bash "$CAVEMAN_HOOK" 2>/dev/null || true)
 
@@ -23,7 +35,7 @@ GPG_CACHE_MAX_AGE=5  # seconds
 
 gpg_cache_is_stale() {
     [ ! -f "$GPG_CACHE_FILE" ] || \
-    [ $(($(date +%s) - $(stat -f %m "$GPG_CACHE_FILE" 2>/dev/null || stat -c %Y "$GPG_CACHE_FILE" 2>/dev/null || echo 0))) -gt $GPG_CACHE_MAX_AGE ]
+    [ $(($(date +%s) - $(file_mtime "$GPG_CACHE_FILE"))) -gt $GPG_CACHE_MAX_AGE ]
 }
 
 if gpg_cache_is_stale; then
@@ -53,8 +65,7 @@ CACHE_MAX_AGE=5  # seconds
 
 cache_is_stale() {
     [ ! -f "$CACHE_FILE" ] || \
-    # stat -f %m is macOS, stat -c %Y is Linux
-    [ $(($(date +%s) - $(stat -f %m "$CACHE_FILE" 2>/dev/null || stat -c %Y "$CACHE_FILE" 2>/dev/null || echo 0))) -gt $CACHE_MAX_AGE ]
+    [ $(($(date +%s) - $(file_mtime "$CACHE_FILE"))) -gt $CACHE_MAX_AGE ]
 }
 
 if cache_is_stale; then
