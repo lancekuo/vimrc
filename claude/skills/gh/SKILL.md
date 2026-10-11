@@ -1,6 +1,6 @@
 ---
-name: gh-cli
-description: Work with GitHub from the command line using the GitHub CLI (gh). Use when managing repositories, pull requests, issues, releases, GitHub Actions, or any GitHub operations. Keywords: github, gh, pull request, PR, issue, release, workflow, actions, repository, fork, clone, merge
+name: gh
+description: "Work with GitHub from the command line using the GitHub CLI (gh). Use when managing repositories, pull requests, issues, releases, GitHub Actions, or any GitHub operations. Keywords: github, gh, pull request, PR, issue, release, workflow, actions, repository, fork, clone, merge"
 ---
 
 # GitHub CLI (gh)

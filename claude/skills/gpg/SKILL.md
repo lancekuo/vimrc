@@ -1,6 +1,6 @@
 ---
 name: gpg
-description: Use this skill when the user asks about GPG key cache status, GPG signing issues, git commit hanging or failing due to GPG, passphrase expiry, or gpg-agent troubleshooting. Keywords: gpg, gpg-agent, signing key, passphrase, cached, expired, keygrip, git commit hang.
+description: "Use this skill when the user asks about GPG key cache status, GPG signing issues, git commit hanging or failing due to GPG, passphrase expiry, or gpg-agent troubleshooting. Keywords: gpg, gpg-agent, signing key, passphrase, cached, expired, keygrip, git commit hang."
 ---
 
 # GPG Signing Key Management

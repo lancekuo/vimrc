@@ -1,6 +1,6 @@
 ---
 name: argocd-kargo
-description: Use this skill when the user asks about ArgoCD or Kargo operations, application syncs, rollbacks, freight promotion, stage management, or pipeline promotion workflows. Keywords: argocd, kargo, promote, freight, stage, sync, rollback, pipeline promotion, app sync, warehouse.
+description: "Use this skill when the user asks about ArgoCD or Kargo operations, application syncs, rollbacks, freight promotion, stage management, or pipeline promotion workflows. Keywords: argocd, kargo, promote, freight, stage, sync, rollback, pipeline promotion, app sync, warehouse."
 ---
 
 # ArgoCD / Kargo

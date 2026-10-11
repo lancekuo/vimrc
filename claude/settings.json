@@ -62,7 +62,7 @@
     }
   },
   "effortLevel": "xhigh",
-  "theme": "dark-ansi",
+  "theme": "dark",
   "teammateMode": "tmux",
   "skipAutoPermissionPrompt": true
 }

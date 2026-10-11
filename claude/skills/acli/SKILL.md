@@ -1,6 +1,6 @@
 ---
 name: acli
-description: Use when working with Jira Cloud from the terminal or scripts via acli (Atlassian CLI) — JQL searches, reading tickets or custom fields, posting formatted comments (headings, tables, ADF), bulk operations, or when Jira MCP tools are unavailable or overflow context.
+description: "Use when working with Jira Cloud from the terminal or scripts via acli (Atlassian CLI) — JQL searches, reading tickets or custom fields, posting formatted comments or ticket descriptions (headings, tables, ADF), bulk operations, an `InvalidPayloadException: INVALID_INPUT` / \"can't be edited\" failure, or when Jira MCP tools are unavailable or overflow context."
 ---
 
 # acli — Atlassian CLI (Jira Cloud)
@@ -60,6 +60,31 @@ Write ADF JSON to a file, pass via `--body-file` (create) or `--body-adf` (updat
 ```
 
 Rules: table cells and list items always wrap text in a `paragraph`; header row uses `tableHeader`, data rows `tableCell`; inline marks (`strong`, `em`, `code`) survive the round-trip. Descriptions on `workitem create/edit` use the same ADF format.
+
+## Posting rule — write to a file, check the rules, then post (mandatory)
+
+Any malformed ADF makes acli fail with an opaque, permission-looking error:
+
+```
+✗ Failure: KEY-1 can't be edited: io.atlassian.micros.clibackend.exceptions.InvalidPayloadException: INVALID_INPUT, INVALID_INPUT
+```
+
+It is **not** a permission problem and nothing gets posted, so a retry after fixing is safe. Never pass ADF inline via `--body '<json>'` or `$(cat …)` — shell quoting mangles it. Always:
+
+1. Build the ADF with a script (Python `json.dump`, not hand-typed JSON) into `$CLAUDE_JOB_DIR/tmp/<KEY>-comment.json` (or a `mktemp` file outside a job).
+2. Before posting, check the file against every rule in the table below.
+3. Post with `--body-file <file>` (`comment create`, `workitem create/edit` description) or `--body-adf <file>` (`comment update`).
+4. Verify server-side (section below).
+
+Causes seen live (each produced the error above):
+
+| Cause | Fix |
+|---|---|
+| `text` value is a dict, not a string — Python helper `p((t("x")))`: single-element parentheses are not a tuple, so a node got nested inside `text` | Pass lists/`*args` explicitly; every `text` value must be a non-empty string |
+| Raw string inside a `content` array (e.g. paragraph content `["foo"]`) | Every `content` entry must be a node object `{"type":…}` |
+| Empty text node `{"type":"text","text":""}` (e.g. blank table cell) | Omit the text node: an empty cell is `{"type":"paragraph"}` with no content |
+| `code` mark combined with `strong`/`em` | `code` may only pair with `link`; drop the other mark |
+| Bare `text` directly under `listItem` / `tableCell` | Wrap in a `paragraph` |
 
 ## Verify a posted comment server-side
 
