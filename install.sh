@@ -240,6 +240,7 @@ setup_symlinks() {
     safe_symlink "$SCRIPT_DIR/scripts/md2docx-reference" "$HOME/.local/bin/md2docx-reference"
     safe_symlink "$SCRIPT_DIR/scripts/md2gdoc.sh" "$HOME/.local/bin/md2gdoc"
     safe_symlink "$SCRIPT_DIR/claude/commands" "$HOME/.claude/commands"
+    safe_symlink "$SCRIPT_DIR/claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
 }
 
 setup_local_bin_path() {
