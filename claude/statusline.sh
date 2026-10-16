@@ -19,7 +19,7 @@ file_mtime() {
     esac
 }
 
-CAVEMAN_HOOK=$(ls -t "$HOME/.claude/plugins/cache/caveman/caveman/"*/src/hooks/caveman-statusline.sh 2>/dev/null | head -n 1)
+CAVEMAN_HOOK="$HOME/.claude/plugins/marketplaces/caveman/src/hooks/caveman-statusline.sh"
 CAVEMAN=$([ -n "$CAVEMAN_HOOK" ] && bash "$CAVEMAN_HOOK" 2>/dev/null || true)
 
 MODEL=$(echo "$input" | jq -r '.model.display_name')

@@ -1,5 +1,6 @@
 {
   "apiKeyHelper": "source ~/.claude/.env && echo $ANTHROPIC_API_KEY",
+  "cleanupPeriodDays": 365,
   "env": {
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   },
@@ -29,7 +30,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "SF=$(jq -r '.transcript_path // empty' 2>/dev/null); node \"$HOME/.claude/plugins/cache/caveman/caveman/754795ada42d/src/hooks/caveman-stats.js\" ${SF:+--session-file \"$SF\"} >/dev/null 2>&1 || true",
+            "command": "SF=$(jq -r '.transcript_path // empty' 2>/dev/null); node \"$HOME/.claude/plugins/marketplaces/caveman/src/hooks/caveman-stats.js\" ${SF:+--session-file \"$SF\"} >/dev/null 2>&1 || true",
             "timeout": 10
           }
         ]
